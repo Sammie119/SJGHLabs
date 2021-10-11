@@ -53,8 +53,10 @@ class EnterTestController extends Controller
 
     public function getResults($id)
     {
-      $id = $id;
-      return view('print-results', compact('id'));
+      $haema = VWHaematologyLab::where('lab_info_id', $id)->with('dropdown')->first();
+      $micro = VWMicroBiologyLab::where('lab_info_id', $id)->first();
+      $chem = VWChemistriesLab::where('lab_info_id', $id)->first();
+      return view('print-results', compact('haema', 'micro', 'chem'));
       //return response()->json($id);
     }
 
