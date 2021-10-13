@@ -2448,14 +2448,14 @@ $time_mins = [0, 0, 0, 0];
 
 		{{-- Microbiology --}}
 
-		@if ($micro->vaginal_epith != '' )
+		@if ($micro->vaginal_epith != '' || $micro->pleural_appear != '' || $micro->peritoneal_appear != '' || $micro->csf_appear != '' || $micro->bacter_specimen != '')
 			<table class="tb_fbc">
 				<tr><th style="text-align: center; font-size: 22px;">MICROBIOLOGY</th></tr>
 			</table>
 		@endif
 
 		{{-- High Vaginal Swab test --}}
-		@if ($micro->vaginal_epith != '' )
+		@if ($micro->vaginal_epith != '')
 			<table class="tb_fbc">
 				<tr><th colspan="4" style="text-align: center; font-size: 20px;">HIGH VAGINAL SWAB R/E REPORT</th></tr>
 				<tr>
@@ -2495,7 +2495,363 @@ $time_mins = [0, 0, 0, 0];
 
 		{{-- End High Vaginal Swab test --}}
 
+		{{-- Pleural Fluid test --}}
+
+		@if ($micro->pleural_appear != '')
+			<table class="tb_fbc">
+				<tr><th colspan="3" style="text-align: center; font-size: 20px;">PLEURAL FLUID REPORT</th></tr>
+				<tr>
+					<td><b><i>MACROSCOPY</i></b></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>Appearance</b></td>
+					<td>{{ $micro->pleural_appear }}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>Colour</b></td>
+					<td>{{ $micro->pleural_color }}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>pH</b></td>
+					<td>{{ $micro->pleural_ph }}</td>
+					<td><b>(7.4 - 7.6)</b></td>
+				</tr>
+				<tr>
+					<td><b>Specific Gravity</b></td>
+					<td>{{ $micro->pleural_spec }}</td>
+					<td><b>(< 1.016)</b></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b><i>BIOCHEMISTRY</i></b></td>
+					<td></td>
+					<td><b><i>NORMAL RANGE</i></b></td>
+				</tr>
+				<tr>
+					<td><b>Protein</b></td>
+					<td>{{ $micro->pleural_protein }} g/l</td>
+					<td><b>(< 30g/l)</b></td>
+				</tr>
+				<tr>
+					<td><b>Glucose</b></td>
+					<td>{{ $micro->pleural_glucose }} mmol/L</td>
+					<td><b>(1.7 - 2.8mmol/L)</b></td>
+				</tr>
+				<tr>
+					<td><b>Total Cholesterol</b></td>
+					<td>{{ $micro->pleural_total }} mmol/L</td>
+					<td><b>(2.5 - 3.3mmol/L)</b></td>
+				</tr>
+				<tr>
+					<td><b><i>MICROSCOPY</i></b></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>Cell Count</b></td>
+					<td>{{ $micro->pleural_count }} Cells/L</td>
+					<td><b>Cell Type:</b> &nbsp {{ $micro->pleural_type }}</td>
+				</tr>
+				<tr>
+					<td><b>Gram Reaction</b></td>
+					<td>{{ $micro->pleural_gram }}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>Culture</b></td>
+					<td>{{ $micro->pleural_culture }}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>COMMENT</td>
+					<td colspan="2">{{ $micro->pleural_comment }}</td>
+				</tr>
+			</table>
+		@endif
+
+		{{-- End Pleural Fluid test --}}
+
+		{{-- Peritoneal Fluid test --}}
+		
+		@if ($micro->peritoneal_appear != '')
+			<table class="tb_fbc">
+				<tr><th colspan="3" style="text-align: center; font-size: 20px;">PERITONEAL FLUID REPORT</th></tr>
+				<tr>
+					<td><b><i>MACROSCOPY</i></b></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>Appearance</b></td>
+					<td>{{ $micro->peritoneal_appear }}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>Colour</b></td>
+					<td>{{ $micro->peritoneal_color }}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>Specific Gravity</b></td>
+					<td>{{ $micro->peritoneal_spec }}</td>
+					<td><b>(< 1.016)</b></td>
+				</tr>
+				<tr>
+					<td><b><i>BIOCHEMISTRY</i></b></td>
+					<td></td>
+					<td><b><i>NORMAL RANGE</i></b></td>
+				</tr>
+				<tr>
+					<td><b>Protein</b></td>
+					<td>{{ $micro->peritoneal_protein }} g/dl</td>
+					<td><b>(1 - 2g/dl)</b></td>
+				</tr>
+				<tr>
+					<td><b>Albumin</b></td>
+					<td>{{ $micro->peritoneal_albumin }} g/l</td>
+					<td><b>(1.0 - 2.1g/l)</b></td>
+				</tr>
+				<tr>
+					<td><b>Glucose</b></td>
+					<td>{{ $micro->peritoneal_glucose }} mmol/L</td>
+					<td><b>(1.7 - 2.8mmol/L)</b></td>
+				</tr>
+				<tr>
+					<td><b>Alkaline Phosphatase</b></td>
+					<td>{{ $micro->peritoneal_alkaline }} U/L</td>
+					<td><b>U/L</b></td>
+				</tr>
+				<tr>
+					<td><b>Amylase</b></td>
+					<td>{{ $micro->peritoneal_amylase }} U/L</td>
+					<td><b>U/L</b></td>
+				</tr>
+				<tr>
+					<td><b><i>MICROSCOPY</i></b></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>Cell Count:</b></td>
+					<td>{{ $micro->peritoneal_count }} Cells/L</td>
+					<td><b>Cell Type:</b> &nbsp {{ $micro->peritoneal_type }}</td>
+				</tr>
+				<tr>
+					<td><b>Gram Reaction</b></td>
+					<td>{{ $micro->peritoneal_gram }}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>COMMENT</td>
+					<td colspan="2">{{ $micro->peritoneal_comment }}</td>
+				</tr>
+			</table>
+		@endif
+
+		{{-- End Peritoneal Fluid test --}}
+
+		{{-- Cerebrospinal Fluid test --}}
+
+		@if ($micro->csf_appear != '')
+			<table class="tb_fbc">
+				<tr><th colspan="3" style="text-align: center; font-size: 20px;">CEREBROSPINAL (CSF) FLUID REPORT</th></tr>
+				<tr>
+					<td><b><i>MACROSCOPY</i></b></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>Appearance</b></td>
+					<td>{{ $micro->csf_appear }}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>Colour</b></td>
+					<td>{{ $micro->csf_color }}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b><i>BIOCHEMISTRY</i></b></td>
+					<td></td>
+					<td><b><i>NORMAL RANGE</i></b></td>
+				</tr>
+				<tr>
+					<td><b>Protein:</b></td>
+					<td>{{ $micro->csf_protein }} g/dl</td>
+					<td><b>(0.15 - 0.4g/L) (&#8804; 1.0g/L for neonates)</b></td>
+				</tr>
+				<tr>
+					<td><b>Glucose:</b></td>
+					<td>{{ $micro->csf_glucose }} mmol/L</td>
+					<td><b>(2.5 - 4.0mmol/L)</b></td>
+				</tr>
+				<tr>
+					<td><b>Globulin:</b></td>
+					<td>{{ $micro->csf_globulin }} U/L</td>
+					<td><b>(Positive or Negative by Pandy's Test)</b></td>
+				</tr>
+				<tr>
+					<td><b><i>MICROSCOPY</i></b></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><b>Cell Count:</b></td>
+					<td>{{ $micro->csf_count }} Cells/L</td>
+					<td><b>Cell Type:</b> &nbsp {{ $micro->csf_type }}</td>
+				</tr>
+				<tr>
+					<td><b>Gram Reaction:</b></td>
+					<td>{{ $micro->csf_gram }}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>COMMENT</td>
+					<td colspan="2">{{ $micro->csf_comment }}</td>
+				</tr>
+			</table>
+		@endif
+
+		{{-- End Cerebrospinal Fluid test --}}
+
+		{{-- Bacteriology test --}}
+		
+		@if ($micro->bacter_specimen != '')
+			<table class="tb_fbc">
+				<tr><th colspan="3" style="text-align: center; font-size: 20px;">BACTERIOLOGY RESULTS</th></tr>
+				<tr>
+					<td><b>TYPE OF SPECIMEN</b></td>
+					<td colspan="2" style="text-transform: uppercase;">{{ $micro->bacter_specimen }}</td>
+				</tr>
+				<tr>
+					<td style="text-transform: uppercase;"><b>{{ $micro->bacter_growth }}</b></td>
+					<td colspan="2" style="padding-bottom: 15px;">{{ $micro->bacter_type1 }} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{{ $micro->bacter_type2 }}</td>
+				</tr>
+				<tr>
+					<th colspan="3" style="text-align: center;"><i>SENSITIVITY</i></th>
+				</tr>
+				<tr>
+					<td><b>ANTIBIOTICS</b></td>
+					<td><b>REACTION</b></td>
+					<td><b>ZONE OF INHIBITION</b></td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti1 }}</td>
+					<td>{{ $micro->bacter_react1 }}</td>
+					<td>{{ $micro->bacter_zone1 }}</td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti2 }}</td>
+					<td>{{ $micro->bacter_react2 }}</td>
+					<td>{{ $micro->bacter_zone2 }}</td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti3 }}</td>
+					<td>{{ $micro->bacter_react3 }}</td>
+					<td>{{ $micro->bacter_zone3 }}</td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti4 }}</td>
+					<td>{{ $micro->bacter_react4 }}</td>
+					<td>{{ $micro->bacter_zone4 }}</td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti5 }}</td>
+					<td>{{ $micro->bacter_react5 }}</td>
+					<td>{{ $micro->bacter_zone5 }}</td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti6 }}</td>
+					<td>{{ $micro->bacter_react6 }}</td>
+					<td>{{ $micro->bacter_zone6 }}</td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti7 }}</td>
+					<td>{{ $micro->bacter_react7 }}</td>
+					<td>{{ $micro->bacter_zone7 }}</td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti8 }}</td>
+					<td>{{ $micro->bacter_react8 }}</td>
+					<td>{{ $micro->bacter_zone8 }}</td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti9 }}</td>
+					<td>{{ $micro->bacter_react9 }}</td>
+					<td>{{ $micro->bacter_zone9 }}</td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti10 }}</td>
+					<td>{{ $micro->bacter_react10 }}</td>
+					<td>{{ $micro->bacter_zone10 }}</td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti11 }}</td>
+					<td>{{ $micro->bacter_react11 }}</td>
+					<td>{{ $micro->bacter_zone11 }}</td>
+				</tr>
+				<tr style="text-transform: uppercase;">
+					<td>{{ $micro->bacter_anti12 }}</td>
+					<td>{{ $micro->bacter_react12 }}</td>
+					<td>{{ $micro->bacter_zone12 }}</td>
+				</tr>
+				<tr>
+					<td>COMMENT</td>
+					<td colspan="2">{{ $micro->becter_comment }}</td>
+				</tr>
+			</table>
+		@endif
+
+		{{-- End Bacteriology test --}}
+
 		{{-- End Microbiology --}}
+
+		{{-- PSA --}}
+
+		@if ($haema->psa != '')
+			<table class="tb_fbc">
+				<tr><th colspan="3" style="text-align: center; font-size: 20px;">PROSTATE SPECIFIC ANTIGEN (PSA)<br>SEMI-QUANTITATIVE REPORT</th></tr>
+				<tr>
+					<td><b>{{ $haema->psa }}</b></td>
+					<td>
+						@if ($haema->psa == 'Positive')
+							{{ $haema->psa_positive }}
+						@elseif ($haema->psa == 'Negative')
+							{{ $haema->psa_negative; }}
+						@endif
+					</td>
+				</tr>
+				<tr>
+					<td>COMMENT</td>
+					<td>{{ $haema->psa_comment }}</td>
+				</tr>
+			</table>
+		@endif
+
+		{{-- End PSA --}}
+
+		{{-- H-pylori Qualitative Test --}}
+
+		@if ($haema->pylori_qual != '')
+			<table class="tb_fbc">
+				<tr><th colspan="3" style="text-align: center; font-size: 20px; text-transform: uppercase;">H-pylori Qualitative Test Report</th></tr>
+				<tr>
+					<td><b>H-pylori Qualitative</b></td>
+					<td>{{ $haema->pylori_qual }}</td>
+				</tr>
+				<tr>
+					<td>COMMENT</td>
+					<td>{{ $haema->pylori_comment }}</td>
+				</tr>
+			</table>
+		@endif
+
+		{{-- End H-pylori Qualitative Test --}}
 
 	</div>
 
