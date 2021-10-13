@@ -105,4 +105,11 @@ class PatientsController extends Controller
             return back()->with('register', 'Patient deleted Successfully!!');
         }
     }
+
+    static function ageDependecy($id)
+    {
+        $patient = Patient::select('date_of_birth')->where('opd_number', $id)->first();
+
+        return $patient->date_of_birth;
+    }
 }

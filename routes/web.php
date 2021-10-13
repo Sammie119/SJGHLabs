@@ -70,3 +70,6 @@ Route::post('/getisolate', [GetdataController::class, 'getIsolate']);
 Route::get('/antibiotic', [GetdataController::class, 'getAntibiotics']);
 Route::post('/getlab-number-check', [GetdataController::class, 'getLabNumberCheck']);
 Route::post('/get-patient-info', [GetdataController::class, 'getPatientInfo']);
+
+
+Route::view('age', 'layouts.age-dependency');
