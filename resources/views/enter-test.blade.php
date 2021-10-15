@@ -107,7 +107,7 @@
                             </ul>
                         </div>
                     @endif
-            <form action="{{ route('store-labs') }}" method="POST" id="test_form">
+            <form action="{{ route('store-labs') }}" method="POST" id="test_form" name="myform" onsubmit = "return validateForm()">
                 @csrf
               <div class="card-body">
                   <div class="tab">

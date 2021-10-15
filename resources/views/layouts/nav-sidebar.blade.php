@@ -302,7 +302,6 @@ body::-webkit-scrollbar-thumb:hover {
                     <li><a href="{{ route('patients-list') }}">Patient List</a></li>
 
                     @if (Session::get('user')['user_level'] === 'Admin')
-                        <li><a href="antibiotics.php">Add Antibiotics</a></li>
                         <li><a href="report.php">Report</a></li>
                     @endif
                 </ul>
@@ -354,9 +353,17 @@ body::-webkit-scrollbar-thumb:hover {
         </ul>
     @endif    
     @if((Session::get('user')['user_level'] === 'Doctor') || (Session::get('user')['user_level'] === 'Nurse'))
+        <ul id="accordion" class="accordion" style="margin-bottom: 0px">
+            <li>
+                <div class="link"><i class="fa fa-user"></i> {{ Session::get('user')['username'] }}<i class="fa fa-chevron-down"></i></div>
+                <ul class="submenu">
+                    <li><a href="{{ route('user-profile') }}" style="text-decoration: none;">Profile</a></li>
+                </ul>
+            </li>
+        </ul>
+        
         <ul style="margin-bottom: 0px">
-            <li><a href="{{ route('user-profile') }}" style="text-decoration: none;"><i class="fa fa-user"></i>Profile</a></li>
-            <li><a href="{{ route('results') }}" style="text-decoration: none;"><i class="fa fa-database"></i>Lab Results</a></li>
+            <li><a href="{{ route('doc-get-labs') }}" style="text-decoration: none;"><i class="fa fa-database"></i>Lab Results</a></li>
         </ul>
     @endif
 

@@ -44,6 +44,8 @@ Route::middleware(['protectedPages'])->group(function () {
     Route::get('edit-test/{id}', [EnterTestController::class, 'edit']);
     Route::post('update-labs', [EnterTestController::class, 'update'])->name('update-labs');
     Route::get('delete-labs/{id}', [EnterTestController::class, 'destroy']);
+    Route::get('doc-get-labs', [EnterTestController::class, 'docGetLabResults'])->name('doc-get-labs');
+    Route::post('doc-view-labs', [EnterTestController::class, 'docViewResults'])->name('doc-view-labs');
 
     //Custom Type Routes
     Route::get('custom-types', [CustomTypeController::class, 'index'])->name('custom-types');
@@ -70,6 +72,3 @@ Route::post('/getisolate', [GetdataController::class, 'getIsolate']);
 Route::get('/antibiotic', [GetdataController::class, 'getAntibiotics']);
 Route::post('/getlab-number-check', [GetdataController::class, 'getLabNumberCheck']);
 Route::post('/get-patient-info', [GetdataController::class, 'getPatientInfo']);
-
-
-Route::view('age', 'layouts.age-dependency');

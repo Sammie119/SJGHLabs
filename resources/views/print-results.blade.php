@@ -2892,7 +2892,7 @@ $time_mins = [0, 0, 0, 0];
 			text: 'Oral Glucose Tolerance Curve'
 		},
 		subtitle: {
-			text: 'Source: SJGH Lab'
+			text: 'Source: SJGH Laboratory'
 		},
 		xAxis: {
 			title: {

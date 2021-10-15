@@ -91,9 +91,9 @@ $("input[type='text'].mov-1").bind('input', function() {
 
     $('#test_form').on('submit', function() {
 
-        if ((document.myform.fbs_rbs.value != "")&&(document.myform.fbs_rbs_2.value == "")) {
-        alert("Please Select FBS or RBS");
-        document.myform.fbs_rbs_2.focus();
+        if ((document.myform.fbs_rbs.value == "")&&(document.myform.fbs_rbs_2.value == "FBS:" || document.myform.fbs_rbs_2.value == "RBS:")) {
+        alert("Please Enter value of FBS or RBS");
+        document.myform.fbs_rbs.focus();
         return false;
             }
 
@@ -187,26 +187,10 @@ $("input[type='text'].mov-1").bind('input', function() {
                 return false;
             }
 
-        var general = document.getElementById('general_test');
-        var urinal = document.getElementById('urinal_test');
-        var art = document.getElementById('art_test');
-        var hb = document.getElementById('hb_test');
-        var fbc = document.getElementById('fbc_test');
-        var per = document.getElementById('per_test');
-        var semen = document.getElementById('semen_test');
-        var oral = document.getElementById('oral_test');
-        var microb = document.getElementById('microb_test');
-        var chem = document.getElementById('chem_test');
-        var pylori = document.getElementById('pylori_test');
-        var psa = document.getElementById('psa_test');
-        /*if((general.checked == false) && (urinal.checked == false) && (art.checked == false)){
-        //  alert("No No NO NO NO NO");
-        //  return false;
-        } */
-
-        if(((general.checked == true || urinal.checked == true)||(art.checked == true || hb.checked == true || fbc.checked == true)) || ((per.checked == true || semen.checked == true)||(microb.checked == true || chem.checked == true || oral.checked == true)||(pylori.checked==true || psa.checked==true))){
+    //Checking All fields----------------------------------------------------
+        if(document.getElementById('lab_no').value != "" && document.getElementById('opd_no').value != ""){
             
-            if(fbc.checked == true){
+            //FBC-----------------------------------------------
                 if(((document.myform.wbc.value != "") || (document.myform.lym.value != "")) || ((document.myform.fbc_hgb.value != "") || (document.myform.rbc.value != ""))){
                     //$('#wbc, #lym, #mid, #neut, #rbc, #fbc_hgb, #hct, #mcv, #rdw_cv, #plt, #mpv').prop('required', true);
                     if((document.myform.wbc.value == "") || (document.myform.lym.value == "")){
@@ -234,463 +218,309 @@ $("input[type='text'].mov-1").bind('input', function() {
                         document.getElementById('wbc').focus();
                         return false;
                     }
-                    else {
-                       // return confirm('This Result(s) will be Saved into a Database?');
-                    }
-                }
-                else {
-                        document.myform.wbc.value = "0.1";
-                        document.myform.lym.value = "0.1";
-                        //return confirm('This Result(s) will be Saved into a Database?');    
-                }
-            }
-
-            if(general.checked == true){
-                if ((document.myform.anti_tpha.value == "")&&(document.myform.hbs_ag.value == "")) {
-
-                    if ((document.myform.hcv.value == "")&&(document.myform.fbs_rbs.value == "")) {
-
-                        if ((document.myform.blood.value == "")&&(document.myform.g6pd.value == "")) {
-                            
-                            if ((document.myform.urine_hcg.value == "")&&(document.myform.bf.value == "")) {
-                            
-                                if ((document.myform.esr.value == "")&&(document.myform.sickling.value == "")) {
-                            
-                                    if ((document.myform.widal_o.value == "")&&(document.myform.comment.value == "")) {
-                                        if(document.myform.rdt_pf.value == ""){
-                                            alert("GENERAL LABS is Empty!!!!!");
-                                            document.myform.anti_tpha.focus();
-                                            return false;
-                                        }
-                                        else{
-                                            //return confirm('This Result(s) will be Saved into a Database?');
-                                        }
-                                        
-                                    }
-                                    else{
-                                         //return confirm('This Result(s) will be Saved into a Database?');
-                                        }
-                                }
-                                else{
-                                    // return confirm('This Result(s) will be Saved into a Database?');
-                                    }   
-                            }
-                            else{
-                             //return confirm('This Result(s) will be Saved into a Database?');
-                            }
                     
-                        }
-                        else{
-                         //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-                    
-                    }
-                    else{
-                    // return confirm('This Result(s) will be Saved into a Database?');
-                    }
+                }
+
+            //STOOL----------------------------------------
+                if((document.getElementById('macro').value == "") && (document.getElementById('micro').value != "")){
+                    alert('All Test are Required under STOOL');
+                    document.getElementById('macro').focus();
+                    return false;
+                }
+
+                if((document.getElementById('macro').value != "") && (document.getElementById('micro').value == "")){
+                    alert('All Test are Required under STOOL');
+                    document.getElementById('micro').focus();
+                    return false;
+                }
                 
-                }
-                else{
-                     //return confirm('This Result(s) will be Saved into a Database?');
+                // URINALYSIS--------------------------------------------
+                if((document.myform.appear.value != "") || (document.myform.urobiln.value !="") || (document.myform.leuco.value != "") || (document.myform.epi_cell.value != "")){
+                    if((document.myform.appear.value == "") || (document.myform.color.value == "")){
+                        alert('All Test are Required under URINALYSIS');
+                        document.getElementById('appear').focus();
+                        return false;
                     }
+    
+                    if((document.myform.uri_blood.value == "") || (document.myform.urobiln.value =="")){
+                        alert('All Test are Required under URINALYSIS');
+                        document.getElementById('uri_blood').focus();
+                        return false;
+                    }
+    
+                    if((document.myform.ph.value == "") || (document.myform.bilirubin.value =="")){
+                        alert('All Test are Required under URINALYSIS');
+                        document.getElementById('ph').focus();
+                        return false;
+                    }
+    
+                    if((document.myform.leuco.value == "") || (document.myform.spec_gra.value =="")){
+                        alert('All Test are Required under URINALYSIS');
+                        document.getElementById('leuco').focus();
+                        return false;
+                    }
+    
+                    if((document.myform.pus_cell.value == "") || (document.myform.epi_cell.value =="")){
+                        alert('All Test are Required under URINALYSIS');
+                        document.getElementById('pus_cell').focus();
+                        return false;
+                    }
+                }
+                
+            //HB Profile------------------------------------------
+            if((document.myform.hb_sag.value != "") || (document.myform.hb_cab.value != "") || (document.myform.hb_eag.value != "")){
+
+                if((document.myform.hb_sag.value == "") || (document.myform.hb_sab.value == "")){
+                    alert('All Tests are Required under Hepatitis B Profile Report!!!');
+                    document.myform.hb_sag.focus();
+                    return false;
+                }
+                else if((document.myform.hb_cab.value == "") || (document.myform.hb_eab.value == "")){
+                    alert('All Tests are Required under Hepatitis B Profile Report!!!');
+                    document.myform.hb_sag.focus();
+                    return false;
+                }
+                else if(document.myform.hb_eag.value == ""){
+                    alert('All Tests are Required under Hepatitis B Profile Report!!!');
+                    document.myform.hb_sag.focus();
+                    return false;
+                }
             }
 
-            if(urinal.checked == true){
-                if((document.getElementById('macro').value == "")  && (document.getElementById('micro').value == "")){
-                        //$('#appear, #color, #uri_blood, #urobiln, #glucose, #nitrite, #ph, #bilirubin, #ketone, #protein, #leuco, #spec_gra, #pus_cell, #red_cell, #epi_cell').prop('required', true);
+            //Peripheral Film----------------------------------------
 
-                        if((document.myform.appear.value == "") || (document.myform.color.value == "")){
-                            alert('All Test are Required under URINALYSIS');
-                            document.getElementById('appear').focus();
-                            return false;
-                        }
+            if((document.myform.per_rbc.value != "") || (document.myform.per_plt.value != "")){
+                    
+                if(((document.myform.per_rbc.value == "") || (document.myform.per_wbc.value == "")) || (document.myform.per_plt.value == "") || (document.myform.per_imp.value == "")){
+                    alert('All Tests are Required under Peripheral Film Comment Report!!!');
+                    document.myform.per_rbc.focus();
+                    return false;
+                }
+            }
 
-                        if((document.myform.uri_blood.value == "") || (document.myform.urobiln.value =="")){
-                            alert('All Test are Required under URINALYSIS');
-                            document.getElementById('uri_blood').focus();
-                            return false;
-                        }
+            //Semen Analysis-----------------------------------------------
+            if((document.myform.semen_date.value != "") || (document.myform.semen_mode.value != "") || (document.myform.semen_liquefaction.value != "") || (document.myform.semen_normal.value != "") || (document.myform.semen_count.value != "")){
+                
+                if(((document.myform.semen_date.value == "")||(document.myform.semen_diff.value == "")) || ((document.myform.semen_mode.value == "")||(document.myform.semen_vol.value == ""))){
+                    alert('All Tests are Required under Semen Analysis Report!!!!!!');
+                    document.myform.semen_date.focus();
+                    return false;
+                }
+                else if(((document.myform.semen_liquefaction.value == "")||(document.myform.semen_ph.value == "")) || ((document.myform.semen_none.value == "")||(document.myform.semen_vital.value == ""))){
+                    alert('All Tests are Required under Semen Analysis Report!!!!!!');
+                    document.myform.semen_date.focus();
+                    return false;
+                }
+                else if(((document.myform.semen_count.value == "") || (document.myform.semen_normal.value == "")) || ((document.myform.semen_head.value == "") || (document.myform.semen_tail.value == ""))){
+                    alert('All Tests are Required under Semen Analysis Report!!!!!!');
+                    document.myform.semen_date.focus();
+                    return false;
+                }
+            }
 
-                        if((document.myform.ph.value == "") || (document.myform.bilirubin.value =="")){
-                            alert('All Test are Required under URINALYSIS');
-                            document.getElementById('ph').focus();
-                            return false;
-                        }
+            //OGTT---------------------------------------------
+            if((document.myform.oral_glucose.value != "") || (document.myform.oral_post.value != "") || (document.myform.fst_min.value != "") || (document.myform.oral_glu.value != "") || (document.myform.oral_ninpro.value != "")){
+                
+                if((document.myform.oral_glucose.value == "") || (document.myform.oral_post.value == "") || (document.myform.oral_1hpost.value == "") || (document.myform.oral_glu.value == "") || (document.myform.fst_min.value == "") || (document.myform.thd_min.value == "") || (document.myform.for_min.value == "") || (document.myform.oral_pro.value == "") || (document.myform.oral_ninpro.value == "") ){
+                    alert('All Tests are Required under Oral Glucose Tolerance Test (OGTT)!!!');
+                    document.myform.oral_glucose.focus();
+                    return false;
+                }
 
-                        if((document.myform.leuco.value == "") || (document.myform.spec_gra.value =="")){
-                            alert('All Test are Required under URINALYSIS');
-                            document.getElementById('leuco').focus();
-                            return false;
-                        }
+                if ((document.myform.oral_glu.value == "Positive") && (document.myform.oglu_f.value == "")){
+                    alert("Plus Factor of Fasting Urine Glucose cannot be Empty");
+                    document.getElementById("oglu_f").focus();
+                    return false;
+                }
 
-                        if((document.myform.pus_cell.value == "") || (document.myform.epi_cell.value =="")){
-                            alert('All Test are Required under URINALYSIS');
-                            document.getElementById('pus_cell').focus();
-                            return false;
-                        }
+                if ((document.myform.oral_pro.value == "Positive") && (document.myform.opro_f.value == "")){
+                    alert("Plus Factor of 60mins Postprandial Glucose cannot be Empty");
+                    document.getElementById("opro_f").focus();
+                    return false;
+                }
+
+                if ((document.myform.oral_ninpro.value == "Positive") && (document.myform.opro_ninf.value == "")){
+                    alert("Plus Factor of 120mins Postprandial Glucose cannot be Empty");
+                    document.getElementById("opro_ninf").focus();
+                    return false;
+                }                        
+            }
+
+            //LFT----------------------------------------
+            if((document.myform.liver_protein.value != "") || (document.myform.liver_globulin.value != "") || (document.myform.liver_alanine.value != "")){
+                if(((document.myform.liver_protein.value == "" || document.myform.liver_albumin.value == "") || (document.myform.liver_globulin.value == "" || document.myform.liver_alkaline.value == "")) || ((document.myform.liver_alanine.value == "" || document.myform.liver_aspartate.value == "") || (document.myform.liver_total.value == "" || document.myform.liver_indirect.value == ""))){
+                    alert('All Tests are Required under Liver Function Test (LFT)!!!');
+                    document.myform.liver_protein.focus();
+                    return false;
+                }
+            }
+
+            //RFT-------------------------------------------
+            if((document.myform.renal_urea.value != "")){
+                if((document.myform.renal_urea.value == "") || (document.myform.renal_creatinine.value == "")){
+                    alert('All Tests are Required under Renal Function Test (RFT)!!!');
+                    document.myform.renal_urea.focus();
+                    return false;
+                }
+            }
+
+            //Lipid-----------------------------------
+            if(document.myform.lipid_total.value != "" || (document.myform.lipid_trigly.value != "")){
+                if((document.myform.lipid_total.value == "" || document.myform.lipid_hdl.value == "") || (document.myform.lipid_trigly.value == "" || document.myform.lipid_ldl.value == "")){
+                    alert('All Tests are Required under Lipid Profile (LP)!!!');
+                    document.myform.lipid_total.focus();
+                    return false;
+                }
+            }
+
+            //Electrolyte----------------------------------------------
+            if((document.myform.electro_potas.value != "") || (document.myform.electro_chloride.value != "") || (document.myform.electro_ica.value != "")){
+                if(((document.myform.electro_potas.value == "" || document.myform.electro_sodium.value == "") || (document.myform.electro_chloride.value == "" || document.myform.electro_cca.value == "")) || ((document.myform.electro_ica.value == "" || document.myform.electro_tca.value == "") || (document.myform.electro_ph.value == ""))){
+                    alert('All Tests are Required under Electrolytes!!!');
+                    document.myform.electro_potas.focus();
+                    return false;
+                }
+            }
+
+            //SERUM BILIRUBIN---------------------------
+            if((document.myform.serum_total.value != "") || (document.myform.serum_indirect.value != "")){
+                if((document.myform.serum_total.value == "") || (document.myform.serum_direct.value == "") || (document.myform.serum_indirect.value == "")){
+                    alert('All fields in SERUM BILIRUBIN Report must be filled!!!');
+                    document.myform.serum_total.focus();
+                    return false;
+                }
+            }   
+
+            //High Vaginal---------------------------------------
+            if((document.myform.vaginal_epith.value != "") || (document.myform.vaginal_red.value != "") || (document.myform.vaginal_koh.value != "")){
+                if(((document.myform.vaginal_epith.value == "" || document.myform.vaginal_pus.value == "") || (document.myform.vaginal_red.value == "" || document.myform.vaginal_clue.value == "")) || ((document.myform.vaginal_whiff.value == "" || document.myform.vaginal_koh.value == "") || (document.myform.vaginal_tricho.value == "" || document.myform.vaginal_gram.value == ""))){
+                    alert('All Tests are Required under High Vaginal Swab R/E Report!!!');
+                    document.myform.vaginal_epith.focus();
+                    return false;
+                }
+            }
+
+            //Pleural Fluid-------------------------
+            if((document.myform.pleural_appear.value != "") || (document.myform.pleural_spec.value != "")){
+                if(((document.myform.pleural_appear.value == "" || document.myform.pleural_color.value == "") || (document.myform.pleural_ph.value == "" || document.myform.pleural_spec.value == "")) || ((document.myform.pleural_protein.value == "" || document.myform.pleural_glucose.value == "") || (document.myform.pleural_total.value == "" || document.myform.pleural_count.value == "") || (document.myform.pleural_type.value == "" || document.myform.pleural_culture.value == ""))){
+                    alert('All Tests are Required under Pleural Fluid Report!!!');
+                    document.myform.pleural_appear.focus();
+                    return false;
+                }
+            }
+
+            // Peritoneal Fluid------------------------
+            if((document.myform.peritoneal_appear.value != "") || (document.myform.peritoneal_albumin.value != "")){
+                if(((document.myform.peritoneal_appear.value == "" || document.myform.peritoneal_color.value == "") || (document.myform.peritoneal_spec.value == "" || document.myform.peritoneal_protein.value == "")) || ((document.myform.peritoneal_albumin.value == "" || document.myform.peritoneal_glucose.value == "") || (document.myform.peritoneal_alkaline.value == "" || document.myform.peritoneal_amylase.value == "") || (document.myform.peritoneal_count.value == "" || document.myform.peritoneal_gram.value == ""))){
+                    alert('All Tests are Required under Peritoneal Fluid Report!!!');
+                    document.myform.peritoneal_appear.focus();
+                    return false;
+                }
+            }
+
+            //CSF----------------------------
+            if((document.myform.csf_appear.value != "") || (document.myform.csf_globulin.value != "")){
+                if(((document.myform.csf_appear.value == "" || document.myform.csf_color.value == "") || (document.myform.csf_protein.value == "" || document.myform.csf_glucose.value == "")) || ((document.myform.csf_globulin.value == "" || document.myform.csf_count.value == "") || (document.myform.csf_type.value == "" || document.myform.csf_gram.value == ""))){
+                    alert('All Tests are Required under Cerebrospinal (CSF) Fluid Report!!!');
+                    document.myform.csf_appear.focus();
+                    return false;
+                }
+            }
+
+            //Bacteriology--------------------------------------
+            if((document.myform.bacter_specimen.value != "") || (document.myform.bacter_type1.value != "")){
+                if(((document.myform.bacter_specimen.value == "" || document.myform.bacter_growth.value == "") || (document.myform.bacter_type1.value == ""))){
+                    alert('Some Tests are Required under Bacteriology Results!!!');
+                    document.myform.bacter_specimen.focus();
+                    return false;
+                }
+                else{
+                    //return confirm('This Result(s) will be Saved into a Database?');
+                }
+
+                if ((document.myform.bacter_anti1.value != "") && ((document.myform.bacter_react1.value == "" && document.myform.bacter_zone1.value == ""))) {
+                    alert("Please One Response on Row One is Empty!!!!");
+                    document.myform.bacter_anti1.focus();
+                    return false;
+                    }
+
+                if ((document.myform.bacter_anti2.value != "") && ((document.myform.bacter_react2.value == "" && document.myform.bacter_zone2.value == ""))) {
+                    alert("Please One Response on Row Two is Empty!!!!");
+                    document.myform.bacter_anti2.focus();
+                    return false;
+                    }
+
+                if ((document.myform.bacter_anti3.value != "") && ((document.myform.bacter_react3.value == "" && document.myform.bacter_zone3.value == ""))) {
+                    alert("Please One Response on Row Three is Empty!!!!");
+                    document.myform.bacter_anti3.focus();
+                    return false;
+                    }
+
+                if ((document.myform.bacter_anti4.value != "") && ((document.myform.bacter_react4.value == "" && document.myform.bacter_zone4.value == ""))) {
+                    alert("Please One Response on Row Four is Empty!!!!");
+                    document.myform.bacter_anti4.focus();
+                    return false;
+                    }
+
+                if ((document.myform.bacter_anti5.value != "") && ((document.myform.bacter_react5.value == "" && document.myform.bacter_zone5.value == ""))) {
+                    alert("Please One Response on Row Five is Empty!!!!");
+                    document.myform.bacter_anti5.focus();
+                    return false;
+                    }
+
+                if ((document.myform.bacter_anti6.value != "") && ((document.myform.bacter_react6.value == "" && document.myform.bacter_zone6.value == ""))) {
+                    alert("Please One Response on Row Six is Empty!!!!");
+                    document.myform.bacter_anti6.focus();
+                    return false;
+                    }
+
+                if ((document.myform.bacter_anti7.value != "") && ((document.myform.bacter_react7.value == "" && document.myform.bacter_zone7.value == ""))) {
+                    alert("Please One Response on Row Seven is Empty!!!!");
+                    document.myform.bacter_anti7.focus();
+                    return false;
+                    }
+
+                if ((document.myform.bacter_anti8.value != "") && ((document.myform.bacter_react8.value == "" && document.myform.bacter_zone8.value == ""))) {
+                    alert("Please One Response on Row Eight is Empty!!!!");
+                    document.myform.bacter_anti8.focus();
+                    return false;
+                    }
+
+                if ((document.myform.bacter_anti9.value != "") && ((document.myform.bacter_react9.value == "" && document.myform.bacter_zone9.value == ""))) {
+                    alert("Please One Response on Row Nine is Empty!!!!");
+                    document.myform.bacter_anti9.focus();
+                    return false;
+                    }
+
+                if ((document.myform.bacter_anti10.value != "") && ((document.myform.bacter_react10.value == "" && document.myform.bacter_zone10.value == ""))) {
+                    alert("Please One Response on Row Ten is Empty!!!!");
+                    document.myform.bacter_anti10.focus();
+                    return false;
+                    }
+
+                if ((document.myform.bacter_anti11.value != "") && ((document.myform.bacter_react11.value == "" && document.myform.bacter_zone11.value == ""))) {
+                    alert("Please One Response on Row Eleven is Empty!!!!");
+                    document.myform.bacter_anti11.focus();
+                    return false;
+                    }
+
+                if ((document.myform.bacter_anti12.value != "") && ((document.myform.bacter_react12.value == "" && document.myform.bacter_zone12.value == ""))) {
+                    alert("Please One Response on Row Twelve is Empty!!!!");
+                    document.myform.bacter_anti12.focus();
+                    return false;
+                    }
+
+                if((document.myform.bacter_growth.value == "Isolates") && ((document.myform.bacter_anti1.value == "" || document.myform.bacter_anti2.value == "" || document.myform.bacter_anti3.value == "" || document.myform.bacter_anti4.value == "" || document.myform.bacter_anti5.value == "" || document.myform.bacter_anti6.value == "") || (document.myform.bacter_anti7.value == "" || document.myform.bacter_anti8.value == "" || document.myform.bacter_anti9.value == "" || document.myform.bacter_anti10.value == "" || document.myform.bacter_anti11.value == "" || document.myform.bacter_anti12.value == ""))){
+
+                    alert("No Antibiotics Response Should be Empty!!!!");
+                    document.myform.bacter_anti1.focus();
+                    return false;
+                }
                         
-                    }
-                     else {
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                       }
             }
 
-            if(art.checked == true){
-                    if((document.myform.type_one.value == "") && (document.myform.type_two.value == "")){
-                        if((document.myform.indirect.value == "") && (document.myform.direct.value == "")){
-                            alert('ART and COOMB’S Test Empty!!!!!!!');
-                            document.myform.type_one.focus();
-                            return false;
-                        }
-                        else{
-                               // return confirm('This Result(s) will be Saved into a Database?');
-                            }
-
-                    }
-                    else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-
-            }
-
-            if(hb.checked == true){
-                    //$('#hb_sag, #hb_sab, #hb_eag, #hb_eab, #hb_cab').prop('required', true);
-
-                    if((document.myform.hb_sag.value == "") || (document.myform.hb_sab.value == "")){
-                        alert('All Tests are Required under Hepatitis B Profile Report!!!');
-                        document.myform.hb_sag.focus();
-                        return false;
-                    }
-                    else if((document.myform.hb_cab.value == "") || (document.myform.hb_eab.value == "")){
-                        alert('All Tests are Required under Hepatitis B Profile Report!!!');
-                        document.myform.hb_sag.focus();
-                        return false;
-                    }
-                    else if(document.myform.hb_eag.value == ""){
-                        alert('All Tests are Required under Hepatitis B Profile Report!!!');
-                        document.myform.hb_sag.focus();
-                        return false;
-                    }
-                    else{
-                        //return confirm('This Result(s) will be Saved into a Database?');
-                    }
-            }
-
-            if(per.checked == true){
-                    //$('#per_rbc, #per_wbc, #per_plt, #per_imp').prop('required', true);
-                    if(((document.myform.per_rbc.value == "") || (document.myform.per_wbc.value == "")) || (document.myform.per_plt.value == "") || (document.myform.per_imp.value == "")){
-                        alert('All Tests are Required under Peripheral Film Comment Report!!!');
-                        document.myform.per_rbc.focus();
-                        return false;
-                    }
-                    else{
-                        //return confirm('This Result(s) will be Saved into a Database?');
-                    }
-            }
-
-            if(semen.checked == true){
-                    //$('#semen_date, #semen_dura, #semen_diff, #semen_all, #semen_mode, #semen_inter, #semen_vol, #semen_appear, #semen_liquefaction, #semen_viscosity, #semen_ph, #semen_rapid, #semen_none, #semen_imm, #semen_vital, #semen_wbc, #semen_count, #semen_totalc, #semen_normal, #semen_abn, #semen_head, #semen_mid, #semen_tail, #semen_comment').prop('required', true);
-                    if(((document.myform.semen_date.value == "")||(document.myform.semen_diff.value == "")) || ((document.myform.semen_mode.value == "")||(document.myform.semen_vol.value == ""))){
-                        alert('All Tests are Required under Semen Analysis Report!!!!!!');
-                        document.myform.semen_date.focus();
-                        return false;
-                    }
-                    else if(((document.myform.semen_liquefaction.value == "")||(document.myform.semen_ph.value == "")) || ((document.myform.semen_none.value == "")||(document.myform.semen_vital.value == ""))){
-                        alert('All Tests are Required under Semen Analysis Report!!!!!!');
-                        document.myform.semen_date.focus();
-                        return false;
-                    }
-                    else if(((document.myform.semen_count.value == "") || (document.myform.semen_normal.value == "")) || ((document.myform.semen_head.value == "") || (document.myform.semen_tail.value == ""))){
-                        alert('All Tests are Required under Semen Analysis Report!!!!!!');
-                        document.myform.semen_date.focus();
-                        return false;
-                    }
-                    else{
-                        //return confirm('This Result(s) will be Saved into a Database?');
-                    }
-            }
-
-            if(oral.checked == true){
-                    //$('#oral_glucose, #oral_post').prop('required', true);
-                    if((document.myform.oral_glucose.value == "") || (document.myform.oral_post.value == "") || (document.myform.oral_1hpost.value == "") || (document.myform.oral_glu.value == "") || (document.myform.fst_min.value == "") || (document.myform.thd_min.value == "") || (document.myform.for_min.value == "") || (document.myform.oral_pro.value == "") || (document.myform.oral_ninpro.value == "") ){
-                        alert('All Tests are Required under Oral Glucose Tolerance Test (OGTT)!!!');
-                        document.myform.oral_glucose.focus();
-                        return false;
-                    }
-                    else{
-                        //return confirm('This Result(s) will be Saved into a Database?');
-                    }
-
-                    if ((document.myform.oral_glu.value == "Positive") && (document.myform.oglu_f.value == "")){
-                        alert("Plus Factor of Fasting Urine Glucose cannot be Empty");
-                        document.getElementById("oglu_f").focus();
-                        return false;
-                    }
-
-                    if ((document.myform.oral_pro.value == "Positive") && (document.myform.opro_f.value == "")){
-                        alert("Plus Factor of 60mins Postprandial Glucose cannot be Empty");
-                        document.getElementById("opro_f").focus();
-                        return false;
-                    }
-
-                    if ((document.myform.oral_ninpro.value == "Positive") && (document.myform.opro_ninf.value == "")){
-                        alert("Plus Factor of 120mins Postprandial Glucose cannot be Empty");
-                        document.getElementById("opro_ninf").focus();
-                        return false;
-                    }                        
-            }
-
-            if(chem.checked == true){
-                var liver = document.getElementById('liver_test');
-                var renal = document.getElementById('renal_test');
-                var lipid = document.getElementById('lipid_test');
-                var electro = document.getElementById('electro_test');
-                var uric = document.getElementById('uric_test');
-                var glycated = document.getElementById('glycated_test');
-                var serum = document.getElementById('serum_test');
-
-                if((liver.checked == true || renal.checked == true) || (lipid.checked == true || electro.checked == true) || (uric.checked == true || glycated.checked == true) || (serum.checked == true)){
-
-                    if(liver.checked == true){
-                        if(((document.myform.liver_protein.value == "" || document.myform.liver_albumin.value == "") || (document.myform.liver_globulin.value == "" || document.myform.liver_alkaline.value == "")) || ((document.myform.liver_alanine.value == "" || document.myform.liver_aspartate.value == "") || (document.myform.liver_total.value == "" || document.myform.liver_indirect.value == ""))){
-                            alert('All Tests are Required under Liver Function Test (LFT)!!!');
-                            document.myform.liver_protein.focus();
-                            return false;
-                        }
-                        else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-                    }
-
-                    if(renal.checked == true){
-                        if((document.myform.renal_urea.value == "") || (document.myform.renal_creatinine.value == "")){
-                            alert('All Tests are Required under Renal Function Test (RFT)!!!');
-                            document.myform.renal_urea.focus();
-                            return false;
-                        }
-                        else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-                    }
-
-                    if(lipid.checked == true){
-                        if((document.myform.lipid_total.value == "" || document.myform.lipid_hdl.value == "") || (document.myform.lipid_trigly.value == "" || document.myform.lipid_ldl.value == "")){
-                            alert('All Tests are Required under Lipid Profile (LP)!!!');
-                            document.myform.lipid_total.focus();
-                            return false;
-                        }
-                        else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-                    }
-
-                    if(electro.checked == true){
-                        if(((document.myform.electro_potas.value == "" || document.myform.electro_sodium.value == "") || (document.myform.electro_chloride.value == "" || document.myform.electro_cca.value == "")) || ((document.myform.electro_ica.value == "" || document.myform.electro_tca.value == "") || (document.myform.electro_ph.value == ""))){
-                            alert('All Tests are Required under Electrolytes!!!');
-                            document.myform.electro_potas.focus();
-                            return false;
-                        }
-                        else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-                    }
-
-                    if(uric.checked == true){
-                        if(document.myform.uric_acid.value == "" ){
-                            alert('All Tests are Required under Uric Acid!!!');
-                            document.myform.uric_acid.focus();
-                            return false;
-                        }
-                        else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-                    }
-
-                    if(glycated.checked == true){
-                        if(document.myform.glycated_hba1c.value == "" ){
-                            alert('All Tests are Required under Glycated Hemoglobin (HbA1c) Report!!!');
-                            document.myform.glycated_hba1c.focus();
-                            return false;
-                        }
-                        else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-                    }
-
-                    if(serum.checked == true){
-                        if((document.myform.serum_total.value == "") || (document.myform.serum_direct.value == "") || (document.myform.serum_indirect.value == "")){
-                            alert('All fields in SERUM BILIRUBIN Report must be filled!!!');
-                            document.myform.serum_total.focus();
-                            return false;
-                        }
-                    }
-
-                }
-                else{
-                    alert('No Clinical Chemistries Test is Selected!! Please Select Test(s)!!!');
-                    return false;
-                }
-            }
-
-            if(microb.checked == true){
-                var hvsr = document.getElementById('hvsr_test');
-                var pleural = document.getElementById('pleural_test');
-                var peritoneal = document.getElementById('peritoneal_test');
-                var csf = document.getElementById('csf_test');
-                var bacter = document.getElementById('bacter_test');
-
-                if((hvsr.checked == true || pleural.checked == true) || (peritoneal.checked == true || csf.checked == true || bacter.checked == true)){
-
-                    if(hvsr.checked == true){
-                        if(((document.myform.vaginal_epith.value == "" || document.myform.vaginal_pus.value == "") || (document.myform.vaginal_red.value == "" || document.myform.vaginal_clue.value == "")) || ((document.myform.vaginal_whiff.value == "" || document.myform.vaginal_koh.value == "") || (document.myform.vaginal_tricho.value == "" || document.myform.vaginal_gram.value == ""))){
-                            alert('All Tests are Required under High Vaginal Swab R/E Report!!!');
-                            document.myform.vaginal_epith.focus();
-                            return false;
-                        }
-                        else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-                    }
-
-                    if(pleural.checked == true){
-                        if(((document.myform.pleural_appear.value == "" || document.myform.pleural_color.value == "") || (document.myform.pleural_ph.value == "" || document.myform.pleural_spec.value == "")) || ((document.myform.pleural_protein.value == "" || document.myform.pleural_glucose.value == "") || (document.myform.pleural_total.value == "" || document.myform.pleural_count.value == "") || (document.myform.pleural_type.value == "" || document.myform.pleural_culture.value == ""))){
-                            alert('All Tests are Required under Pleural Fluid Report!!!');
-                            document.myform.pleural_appear.focus();
-                            return false;
-                        }
-                        else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-                    }
-
-                    if(peritoneal.checked == true){
-                        if(((document.myform.peritoneal_appear.value == "" || document.myform.peritoneal_color.value == "") || (document.myform.peritoneal_spec.value == "" || document.myform.peritoneal_protein.value == "")) || ((document.myform.peritoneal_albumin.value == "" || document.myform.peritoneal_glucose.value == "") || (document.myform.peritoneal_alkaline.value == "" || document.myform.peritoneal_amylase.value == "") || (document.myform.peritoneal_count.value == "" || document.myform.peritoneal_gram.value == ""))){
-                            alert('All Tests are Required under Peritoneal Fluid Report!!!');
-                            document.myform.peritoneal_appear.focus();
-                            return false;
-                        }
-                        else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-                    }
-
-                    if(csf.checked == true){
-                        if(((document.myform.csf_appear.value == "" || document.myform.csf_color.value == "") || (document.myform.csf_protein.value == "" || document.myform.csf_glucose.value == "")) || ((document.myform.csf_globulin.value == "" || document.myform.csf_count.value == "") || (document.myform.csf_type.value == "" || document.myform.csf_gram.value == ""))){
-                            alert('All Tests are Required under Cerebrospinal (CSF) Fluid Report!!!');
-                            document.myform.csf_appear.focus();
-                            return false;
-                        }
-                        else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-                    }
-
-                    if(bacter.checked == true){
-                        if(((document.myform.bacter_specimen.value == "" || document.myform.bacter_growth.value == "") || (document.myform.bacter_type1.value == ""))){
-                            alert('Some Tests are Required under Bacteriology Results!!!');
-                            document.myform.bacter_specimen.focus();
-                            return false;
-                        }
-                        else{
-                            //return confirm('This Result(s) will be Saved into a Database?');
-                        }
-
-                        if ((document.myform.bacter_anti1.value != "") && ((document.myform.bacter_react1.value == "" && document.myform.bacter_zone1.value == ""))) {
-                            alert("Please One Response on Row One is Empty!!!!");
-                            document.myform.bacter_anti1.focus();
-                            return false;
-                            }
-
-                        if ((document.myform.bacter_anti2.value != "") && ((document.myform.bacter_react2.value == "" && document.myform.bacter_zone2.value == ""))) {
-                            alert("Please One Response on Row Two is Empty!!!!");
-                            document.myform.bacter_anti2.focus();
-                            return false;
-                            }
-
-                        if ((document.myform.bacter_anti3.value != "") && ((document.myform.bacter_react3.value == "" && document.myform.bacter_zone3.value == ""))) {
-                            alert("Please One Response on Row Three is Empty!!!!");
-                            document.myform.bacter_anti3.focus();
-                            return false;
-                            }
-
-                        if ((document.myform.bacter_anti4.value != "") && ((document.myform.bacter_react4.value == "" && document.myform.bacter_zone4.value == ""))) {
-                            alert("Please One Response on Row Four is Empty!!!!");
-                            document.myform.bacter_anti4.focus();
-                            return false;
-                            }
-
-                        if ((document.myform.bacter_anti5.value != "") && ((document.myform.bacter_react5.value == "" && document.myform.bacter_zone5.value == ""))) {
-                            alert("Please One Response on Row Five is Empty!!!!");
-                            document.myform.bacter_anti5.focus();
-                            return false;
-                            }
-
-                        if ((document.myform.bacter_anti6.value != "") && ((document.myform.bacter_react6.value == "" && document.myform.bacter_zone6.value == ""))) {
-                            alert("Please One Response on Row Six is Empty!!!!");
-                            document.myform.bacter_anti6.focus();
-                            return false;
-                            }
-
-                        if ((document.myform.bacter_anti7.value != "") && ((document.myform.bacter_react7.value == "" && document.myform.bacter_zone7.value == ""))) {
-                            alert("Please One Response on Row Seven is Empty!!!!");
-                            document.myform.bacter_anti7.focus();
-                            return false;
-                            }
-
-                        if ((document.myform.bacter_anti8.value != "") && ((document.myform.bacter_react8.value == "" && document.myform.bacter_zone8.value == ""))) {
-                            alert("Please One Response on Row Eight is Empty!!!!");
-                            document.myform.bacter_anti8.focus();
-                            return false;
-                            }
-
-                        if ((document.myform.bacter_anti9.value != "") && ((document.myform.bacter_react9.value == "" && document.myform.bacter_zone9.value == ""))) {
-                            alert("Please One Response on Row Nine is Empty!!!!");
-                            document.myform.bacter_anti9.focus();
-                            return false;
-                            }
-
-                        if ((document.myform.bacter_anti10.value != "") && ((document.myform.bacter_react10.value == "" && document.myform.bacter_zone10.value == ""))) {
-                            alert("Please One Response on Row Ten is Empty!!!!");
-                            document.myform.bacter_anti10.focus();
-                            return false;
-                            }
-
-                        if ((document.myform.bacter_anti11.value != "") && ((document.myform.bacter_react11.value == "" && document.myform.bacter_zone11.value == ""))) {
-                            alert("Please One Response on Row Eleven is Empty!!!!");
-                            document.myform.bacter_anti11.focus();
-                            return false;
-                            }
-
-                        if ((document.myform.bacter_anti12.value != "") && ((document.myform.bacter_react12.value == "" && document.myform.bacter_zone12.value == ""))) {
-                            alert("Please One Response on Row Twelve is Empty!!!!");
-                            document.myform.bacter_anti12.focus();
-                            return false;
-                            }
-
-                        if((document.myform.bacter_growth.value == "Isolates") && ((document.myform.bacter_anti1.value == "" || document.myform.bacter_anti2.value == "" || document.myform.bacter_anti3.value == "" || document.myform.bacter_anti4.value == "" || document.myform.bacter_anti5.value == "" || document.myform.bacter_anti6.value == "") || (document.myform.bacter_anti7.value == "" || document.myform.bacter_anti8.value == "" || document.myform.bacter_anti9.value == "" || document.myform.bacter_anti10.value == "" || document.myform.bacter_anti11.value == "" || document.myform.bacter_anti12.value == ""))){
-
-                            alert("No Antibiotics Response Should be Empty!!!!");
-                            document.myform.bacter_anti1.focus();
-                            return false;
-                        }
-                                
-                    }
-                }
-                else{
-                    alert('No Micro Biology Test is Selected!! Please Select Test(s)!!!');
-                    return false;
-                }
-            }
-
-            if(pylori.checked == true){
-                if(document.getElementById('pylori_qual').value == ''){
-                    alert('H-pylori Qualitative Test Report cannot be Empty!!!!');
-                    document.getElementById('pylori_qual').focus();
-                    return false;
-                }
-            }
-
-            if(psa.checked == true){
+            //PSA---------------------------------
+            if(document.getElementById('psa_positive').value != '' || document.getElementById('psa_negative').value != ''){
                var psa_posi = document.getElementById('psa_pos');
                var psa_nega = document.getElementById('psa_neg');
 
@@ -716,20 +546,34 @@ $("input[type='text'].mov-1").bind('input', function() {
                 }
             }
 
+            if((document.myform.wbc.value == "") && (document.getElementById('macro').value == "") && (document.myform.appear.value == "") && (document.myform.hb_sag.value == "") && (document.myform.per_rbc.value == "") && (document.myform.semen_date.value == "") && (document.myform.oral_glucose.value == "") && (document.myform.liver_protein.value == "") && (document.myform.renal_urea.value == "") && (document.myform.lipid_total.value == "") && (document.myform.electro_potas.value == "") && (document.myform.serum_total.value == "") && (document.myform.vaginal_epith.value == "") && (document.myform.pleural_appear.value == "") && (document.myform.peritoneal_appear.value == "") && (document.myform.csf_appear.value == "") && (document.myform.bacter_specimen.value == "") && (document.myform.first_resp.value == "") && (document.myform.ora_quick.value == "") && (document.myform.indirect.value == "") && (document.myform.direct.value == "") && (document.myform.pylori_qual.value == "") && (document.myform.uric_acid.value == "") && (document.myform.glycated_hba1c.value == "")){
+               if ((document.myform.anti_tpha.value == "")&&(document.myform.hbs_ag.value == "")) {
+
+                    if ((document.myform.hcv.value == "")&&(document.myform.fbs_rbs.value == "")) {
+
+                        if ((document.myform.blood.value == "")&&(document.myform.g6pd.value == "")) {
+                            
+                            if ((document.myform.urine_hcg.value == "")&&(document.myform.bf.value == "")) {
+                            
+                                if ((document.myform.esr.value == "")&&(document.myform.sickling.value == "")) {
+                            
+                                    if ((document.myform.widal_o.value == "")&&(document.myform.comment.value == "")) {
+                                        if(document.myform.rdt_pf.value == ""){
+                                            alert('No Test is Entered, Please Enter a test Result!!!!!');
+                                            return false;
+                                        }
+                                    }
+                                }  
+                            }
+                        }
+                    }
+                }
+            }
+
             return confirm('This Result(s) will be Saved into a Database?');
              
-           /* else{
-                 alert('No Test is Selected!! Please Select Test(s)!!!');
-                 return false;
-                } */ 
             }
-        else{
-           
-           alert('No Test is Selected!! Please Select Test(s)!!!');
-             return false;
-        }
 
-        
     });
             
 
@@ -760,7 +604,7 @@ $("input[type='text'].mov-1").bind('input', function() {
            });
 
 
-        $('#fbs, #ph, #wbc, #lym, #mid, #neut, #rbc, #fbc_hgb, #hct, #mcv, #rdw_cv, #mpv, #semen_vol, #semen_ph, #semen_rapid, #semen_none, #semen_imm, #semen_vital, #semen_wbc, #semen_count, #semen_totalc, #semen_normal, #semen_abn, #semen_head, #semen_mid, #semen_tail, #oral_glucose, #oral_1hpost, #oral_1_30post, #oral_post, #pleural_protein, #pleural_glucose, #pleural_total, #pleural_count, #peritoneal_protein, #peritoneal_albumin, #peritoneal_glucose, #peritoneal_alkaline, #peritoneal_amylase, #peritoneal_count, #csf_protein, #csf_glucose, #csf_count, #pleural_ph, #serum_total, #serum_direct, #serum_indirect').on("input", function(){
+        $('#fbs, #ph, #wbc, #lym, #mid, #neut, #rbc, #fbc_hgb, #hct, #mcv, #rdw_cv, #mpv, #semen_vol, #semen_ph, #semen_rapid, #semen_none, #semen_imm, #semen_vital, #semen_wbc, #semen_count, #semen_totalc, #semen_normal, #semen_abn, #semen_head, #semen_mid, #semen_tail, #oral_glucose, #oral_1hpost, #oral_1_30post, #oral_post, #pleural_protein, #pleural_glucose, #pleural_total, #pleural_count, #peritoneal_protein, #peritoneal_albumin, #peritoneal_glucose, #peritoneal_alkaline, #peritoneal_amylase, #peritoneal_count, #csf_protein, #csf_glucose, #csf_count, #pleural_ph, #serum_total, #serum_direct, #serum_indirect, #glycated_hba1c').on("input", function(){
             var regexp = /[^0-9.]/g;
 
             if ($(this).val().match(regexp)){
@@ -1010,7 +854,7 @@ $("input[type='text'].mov-1").bind('input', function() {
     $('#ora').bind('change',function(){
         if ((document.getElementById("type_one").value == "") && (document.getElementById("type_two").value == "")){
             
-            alert('First Response(Type 1) or First Response(Type 2) Can not be Empty!!!');
+            alert('First Response or Ora Quick Can not be Empty!!!');
             document.getElementById('type_one').focus();
             document.getElementById('ora').value = "";
         }
@@ -1244,56 +1088,6 @@ $("input[type='text'].mov-1").bind('input', function() {
             }
         }
 
-        
-        function myFunction() {
-          // Get the checkbox
-          var checkBox = document.getElementById("urinal_test");
-          // Get the output text
-          var text = document.getElementById("urinal");
-
-          // If the checkbox is checked, display the output text
-          if (checkBox.checked == true){
-            text.style.display = "block";
-          } else {
-            text.style.display = "none";
-          }
-        }
-
-        function myFunGeneral() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("general_test").checked == true){
-            document.getElementById("general").style.display = "block";
-          } else {
-            document.getElementById("general").style.display = "none";
-          }
-        }
-
-        function myFunArt() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("art_test").checked == true){
-            document.getElementById("art").style.display = "block";
-          } else {
-            document.getElementById("art").style.display = "none";
-          }
-        }
-        
-        function myFunHB() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("hb_test").checked == true){
-            document.getElementById("hb").style.display = "block";
-          } else {
-            document.getElementById("hb").style.display = "none";
-          }
-        }
-
-        function myFunFbc() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("fbc_test").checked == true){
-            document.getElementById("fbc").style.display = "block";
-          } else {
-            document.getElementById("fbc").style.display = "none";
-          }
-        }
 
         function myFunFbc_radio() {
            // If the checkbox is checked, display the output text
@@ -1314,168 +1108,7 @@ $("input[type='text'].mov-1").bind('input', function() {
             document.getElementById("fbc_hid4").style.display = "none";               
           }
         }
-
-        function myFunPer() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("per_test").checked == true){
-            document.getElementById("per").style.display = "block";
-          } else {
-            document.getElementById("per").style.display = "none";
-          }
-        }
-
-        function myFunSemen() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("semen_test").checked == true){
-            document.getElementById("semen").style.display = "block";
-          } else {
-            document.getElementById("semen").style.display = "none";
-          }
-        }
-
-        function myFunOral() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("oral_test").checked == true){
-            document.getElementById("oral").style.display = "block";
-          } else {
-            document.getElementById("oral").style.display = "none";
-          }
-        }
-
-        function myFunChem() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("chem_test").checked == true){
-            document.getElementById("chem").style.display = "block";
-          } else {
-            document.getElementById("chem").style.display = "none";
-          }
-        }
-
-        function myFunMicrob() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("microb_test").checked == true){
-            document.getElementById("microb").style.display = "block";
-          } else {
-            document.getElementById("microb").style.display = "none";
-          }
-        }
-
-        function myFunLiver() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("liver_test").checked == true){
-            document.getElementById("liver").style.display = "block";
-          } else {
-            document.getElementById("liver").style.display = "none";
-          }
-        }
-
-        function myFunRenal() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("renal_test").checked == true){
-            document.getElementById("renal").style.display = "block";
-          } else {
-            document.getElementById("renal").style.display = "none";
-          }
-        }
-
-        function myFunLipid() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("lipid_test").checked == true){
-            document.getElementById("lipid").style.display = "block";
-          } else {
-            document.getElementById("lipid").style.display = "none";
-          }
-        }
-        
-        function myFunElectro() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("electro_test").checked == true){
-            document.getElementById("electro").style.display = "block";
-          } else {
-            document.getElementById("electro").style.display = "none";
-          }
-        }
-        
-        function myFunUric() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("uric_test").checked == true){
-            document.getElementById("uric").style.display = "block";
-          } else {
-            document.getElementById("uric").style.display = "none";
-          }
-        }
-
-        function myFunGlycated() { 
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("glycated_test").checked == true){
-            document.getElementById("glycated").style.display = "block";
-          } else {
-            document.getElementById("glycated").style.display = "none";
-          }
-        }
-        
-        function myFunHvsr() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("hvsr_test").checked == true){
-            document.getElementById("hvsr").style.display = "block";
-          } else {
-            document.getElementById("hvsr").style.display = "none";
-          }
-        }
-        
-        function myFunPleural() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("pleural_test").checked == true){
-            document.getElementById("pleural").style.display = "block";
-          } else {
-            document.getElementById("pleural").style.display = "none";
-          }
-        }
-        
-        function myFunPeritoneal() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("peritoneal_test").checked == true){
-            document.getElementById("peritoneal").style.display = "block";
-          } else {
-            document.getElementById("peritoneal").style.display = "none";
-          }
-        }
-      
-        function myFunCSF() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("csf_test").checked == true){
-            document.getElementById("csf").style.display = "block";
-          } else {
-            document.getElementById("csf").style.display = "none";
-          }
-        }
-
-        function myFunBacter() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("bacter_test").checked == true){
-            document.getElementById("bacter").style.display = "block";
-          } else {
-            document.getElementById("bacter").style.display = "none";
-          }
-        }
-
-        function myFunPSA() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("psa_test").checked == true){
-            document.getElementById("psa").style.display = "block";
-          } else {
-            document.getElementById("psa").style.display = "none";
-          }
-        }
-
-        function myFunPylori() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("pylori_test").checked == true){
-            document.getElementById("pylori").style.display = "block";
-          } else {
-            document.getElementById("pylori").style.display = "none";
-          }
-        }
+     
 
         function myFunPSApositive() {
            // If the checkbox is checked, display the output text
@@ -1493,14 +1126,6 @@ $("input[type='text'].mov-1").bind('input', function() {
           }
         }
 
-        function myFunSerum() {
-           // If the checkbox is checked, display the output text
-          if (document.getElementById("serum_test").checked == true){
-            document.getElementById("serum").style.display = "block";
-          } else {
-            document.getElementById("serum").style.display = "none";
-          }
-        }
 
 //Validation................................................................//
 function validateForm() {

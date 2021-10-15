@@ -39,6 +39,14 @@
                             </thead>
                             <tbody id="employee_table">
                                 @foreach ($results as $result)
+                                <?php 
+                                    $setdate = $result->updated_at->format('Y-m-d');
+                                    $bday = new DateTime($setdate); // Your date of birth
+                                    $today = new Datetime(date('m.d.y'));
+                                    $diff = $today->diff($bday);
+                                    $days = $diff->format('%d');
+
+                                ?>
                                     <tr>
                                         <td>{{ $result->lab_number }}</td>
                                         <td>{{ $result->opd_number }}</td>
@@ -46,17 +54,19 @@
                                         <td>{{ $result->name }}</td>
                                         <td>{{ $result->gender }}</td>
                                         <td>{{ $result->age }}</td>
-                                        <td>{{ $result->created_at }}</td>
+                                        <td>{{ $result->updated_at }}</td>
                                         <td>{{ $result->user->username }}</td>
                                         <td>
                                         <div class="btn-group">
-                                            {{-- @if ((Session::get('user')['user_level'] === 'Doctor') || (Session::get('user')['user_level'] === 'Nurse')) --}}
-                                                <a class="btn btn-primary" href="javascript:void(0)" onclick="getPrint({{ $result->lab_info_id }})" title="Print"><i class="fa fa-print"></i></a>  
-                                            {{-- @else --}}
-                                                <a href="#" class="btn btn-primary" onclick="window.open('print-results/{{ $result->lab_info_id }}','', 'left=0,top=0,width=1000,height=600,toolbar=0,scrollbars=0,status=0')"><i class="fa fa-print"></i></a>
+                                            
+                                            <a href="#" class="btn btn-primary" onclick="window.open('print-results/{{ $result->lab_info_id }}','', 'left=0,top=0,width=1000,height=600,toolbar=0,scrollbars=0,status=0')"><i class="fa fa-print"></i></a>
+                                            
+                                            @if ((Session::get('user')['user_level'] === 'User') && $days <= 1)
+                                                <a class="btn btn-success" href="edit-test/{{ $result->lab_info_id }}" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
+                                            @elseif ((Session::get('user')['user_level'] === 'Admin'))
                                                 <a class="btn btn-success" href="edit-test/{{ $result->lab_info_id }}" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
                                                 <a class="btn btn-danger" onclick="return confirm('This {{ $result->lab_number }} Lab Number will be deleted permanently!!!')" href="delete-labs/{{ $result->lab_info_id }}" title="Delete"><i class="fa fa-trash-o"></i></a>
-                                            {{-- @endif --}}
+                                            @endif
                                         </div>
                                         </td>
                                     </tr>
@@ -68,45 +78,6 @@
             </div>
         </div>        
     </div>
-    
-    <!-- Large modal -->
-{{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#print">Large modal</button> --}}
-
-<div class="modal fade" tabindex="-1" role="dialog" id="print" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title float-left"> View Lab Results</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
-        <div class="modal-body">
-                        
-        
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-    </div>
-  </div>
-</div>
-
-    <script>
-        // $(function getPrint(id) {
-        //     $(".printModal").click(function() {
-        //         var myID = $(this).data('id');
-        //         $(".modal-body #myID").val(myID);
-        //     })  
-        // });
-
-        function getPrint(id) {
-            $.get('print-results/'+id, function(result) {
-                //$("#myID").val(result);
-                $(".modal-body").html(result);
-                $("#print").modal('toggle');
-            })
-        }
-        
-    </script>
 
     @include('layouts.tableFilter')
     

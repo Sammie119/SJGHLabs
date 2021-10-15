@@ -8,7 +8,7 @@
     <div class="container" style="margin-top: -2%;">
         <div class="card">
             <div class="card-header">
-                <h2><b style="color: #191970;">Add New User</b></h2>
+                <h2><b style="color: #191970;">User Profile</b></h2>
             </div>
             <div class="card-body">
                 <form action="{{ route('edit-profile') }}" method="POST" onsubmit="return validateForm()">

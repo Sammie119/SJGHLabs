@@ -35,6 +35,8 @@ use App\Models\VWDropdown;
 use App\Models\VWHaematologyLab;
 use App\Models\VWMicroBiologyLab;
 use Illuminate\Support\Facades\Session;
+use PhpParser\Builder\Function_;
+use PhpParser\Node\Expr\FuncCall;
 
 class EnterTestController extends Controller
 {
@@ -44,6 +46,69 @@ class EnterTestController extends Controller
                 ->where(DB::raw("deleted_at <> ''"))->with('user')->get();
       
       return view('results', compact('results'));
+    }
+
+    public function docGetLabResults()
+    {
+      return view('doc-get-labs');
+    }
+
+    static public function docViewResults(Request $request)
+    {
+      $patient = Patient::where('opd_number', $request->opd_no)->first();
+      $labs = VWHaematologyLab::where('opd_number', $request->opd_no)->first();
+      if(!$patient){
+        $error = "OPD Number does not Exist!!";
+        return view('doc-get-labs', compact('error'));
+      }
+      elseif(!$labs){
+        $error = "No Labs Record Found";
+        return view('doc-get-labs', compact('error'));
+      }
+      else{
+        $results = VWHaematologyLab::where('opd_number', $request->opd_no)->orderBy('lab_info_id', 'DESC')
+                ->where(DB::raw("deleted_at <> ''"))->with('user')->get();
+        
+        $opd_no = $request->opd_no;
+        $query = DB::select("SELECT (SELECT CONCAT(blood, ' (',blood_rh,')') FROM v_w_haematology_labs 
+        WHERE blood <> '' AND opd_number = '$opd_no' LIMIT 1) AS blood_group, 
+        (SELECT g6pd FROM v_w_haematology_labs WHERE g6pd <> '' AND opd_number = '$opd_no' LIMIT 1) AS g6pd, 
+        (SELECT sickling FROM v_w_haematology_labs WHERE sickling <> '' AND opd_number = '$opd_no' LIMIT 1) AS sickling, 
+        (SELECT sickling_hb FROM v_w_haematology_labs WHERE sickling_hb <> '' AND opd_number = '$opd_no' LIMIT 1) AS sickling_hb
+        ");
+        if(empty($query[0]->blood_group)){
+            $blood_group =  'NULL';
+        }else{
+            $blood_group = $query[0]->blood_group;
+        }
+
+        if(empty($query[0]->g6pd)){
+            $g6pd =  'NULL';
+        }else{
+            $g6pd = $query[0]->g6pd;
+        }
+
+        if(empty($query[0]->sickling)){
+            $sickling =  'NULL';
+        }else{
+            $sickling = $query[0]->sickling;
+        }
+
+        if(empty($query[0]->sickling_hb)){
+            $sickling_hb =  'NULL';
+        }else{
+            $sickling_hb = $query[0]->sickling_hb;
+        }
+
+        $static_info = [
+          'blood_group' => $blood_group,
+          'g6pd' => $g6pd,
+          'sickling' => $sickling,
+          'sickling_hb' => $sickling_hb
+        ];
+
+        return view('doc-get-labs', compact('results', 'static_info'));
+      }
     }
 
     public function create()
