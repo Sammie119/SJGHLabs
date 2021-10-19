@@ -302,18 +302,18 @@ body::-webkit-scrollbar-thumb:hover {
                     <li><a href="{{ route('patients-list') }}">Patient List</a></li>
 
                     @if (Session::get('user')['user_level'] === 'Admin')
-                        <li><a href="report.php">Report</a></li>
+                        <li><a href="{{ route('report') }}">Report</a></li>
                     @endif
                 </ul>
             </li>
             <li>
                 <div class="link"><i class="fa fa-university"></i>Blood Bank<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
-                    <li><a href="bloodBank_donor.php">Reg. Donor</a></li>
+                    <li><a href="{{ route('create-donor') }}">Reg. Donor</a></li>
                     <li><a href="bloodBank_stock.php">Stock In</a></li>
                     <li><a href="bloodBank_stock_in.php">Check Out</a></li>
                     <li><a href="blood_transfusion.php">Blood Transfusions</a></li>
-                    <li><a href="blood_donors_list.php">Donors List</a></li>
+                    <li><a href="{{ route('donors-list') }}">Donors List</a></li>
                     <li><a href="bloodBank_labs_results.php">Lab Results</a></li>
                 </ul>
             </li>

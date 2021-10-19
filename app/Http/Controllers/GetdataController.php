@@ -139,10 +139,10 @@ class GetdataController extends Controller
     {
         $opd_no = $request['opd_no'];
         $query = DB::select("SELECT (SELECT CONCAT(blood, ' (',blood_rh,')') FROM v_w_haematology_labs 
-        WHERE blood <> '' AND opd_number = '$opd_no' LIMIT 1) AS blood_group, 
-        (SELECT g6pd FROM v_w_haematology_labs WHERE g6pd <> '' AND opd_number = '$opd_no' LIMIT 1) AS g6pd, 
-        (SELECT sickling FROM v_w_haematology_labs WHERE sickling <> '' AND opd_number = '$opd_no' LIMIT 1) AS sickling, 
-        (SELECT sickling_hb FROM v_w_haematology_labs WHERE sickling_hb <> '' AND opd_number = '$opd_no' LIMIT 1) AS sickling_hb
+        WHERE blood IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS blood_group, 
+        (SELECT g6pd FROM v_w_haematology_labs WHERE g6pd IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS g6pd, 
+        (SELECT sickling FROM v_w_haematology_labs WHERE sickling IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS sickling, 
+        (SELECT sickling_hb FROM v_w_haematology_labs WHERE sickling_hb IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS sickling_hb
         ");
         if(empty($query[0]->blood_group)){
             $blood_group =  'NULL';

@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\BloodBankController;
 use App\Http\Controllers\CustomTypeController;
 use App\Http\Controllers\EnterTestController;
 use App\Http\Controllers\GetdataController;
 use App\Http\Controllers\PatientsController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +66,19 @@ Route::middleware(['protectedPages'])->group(function () {
     Route::get('edit-patient/{id}', [PatientsController::class, 'edit']);
     Route::post('update-patient', [PatientsController::class, 'update'])->name('update-patient');
     Route::get('delete-patient/{id}', [PatientsController::class, 'destroy']);
+
+    //Report Routes
+    Route::get('report', [ReportController::class, 'index'])->name('report');
+    Route::post('print-report', [ReportController::class, 'getReport'])->name('print-report');
+
+    // Blood Bank Routes
+    Route::get('donors-list', [BloodBankController::class, 'index'])->name('donors-list');
+    Route::get('create-donor', [BloodBankController::class, 'createDonor'])->name('create-donor');
+    Route::post('register-donor', [BloodBankController::class, 'registerDonor'])->name('register-donor');
+    Route::get('edit-donor/{id}', [BloodBankController::class, 'edit']);
+    Route::post('update-donor', [BloodBankController::class, 'update'])->name('update-donor');
+    Route::get('delete-donor/{id}', [BloodBankController::class, 'deleteDonor']);
+    Route::get('donor-labs', [BloodBankController::class, 'donorLabs'])->name('donor-labs');
 });
 
 //Get Data Routes

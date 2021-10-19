@@ -35,6 +35,7 @@ class CreateVWChemistriesLabsTable extends Migration
             AND lab_results_infos.lab_info_id = lab_results_uric_acids.lab_info_id
             AND lab_results_infos.lab_info_id = lab_results_glycated_hemos.lab_info_id
             AND lab_results_infos.lab_info_id = lab_results_serum_labs.lab_info_id
+            AND lab_results_infos.deleted_at IS NULL;
             ');
     }
 

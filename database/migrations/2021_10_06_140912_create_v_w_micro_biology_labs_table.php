@@ -40,7 +40,8 @@ class CreateVWMicroBiologyLabsTable extends Migration
             AND lab_results_infos.lab_info_id = lab_results_cerebro_fluids.lab_info_id
             AND lab_results_infos.lab_info_id = lab_results_high_vaginals.lab_info_id
             AND lab_results_infos.lab_info_id = lab_results_pleural_fluids.lab_info_id
-            AND lab_results_infos.lab_info_id = lab_results_peritoneal_fluids.lab_info_id;
+            AND lab_results_infos.lab_info_id = lab_results_peritoneal_fluids.lab_info_id
+            AND lab_results_infos.deleted_at IS NULL;
             ');
     }
 

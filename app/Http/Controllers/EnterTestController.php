@@ -42,8 +42,7 @@ class EnterTestController extends Controller
 {
     public function index()
     {
-      $results = VWHaematologyLab::orderBy('lab_info_id', 'DESC')
-                ->where(DB::raw("deleted_at <> ''"))->with('user')->get();
+      $results = VWHaematologyLab::orderBy('lab_info_id', 'DESC')->with('user')->get();
       
       return view('results', compact('results'));
     }
@@ -67,14 +66,14 @@ class EnterTestController extends Controller
       }
       else{
         $results = VWHaematologyLab::where('opd_number', $request->opd_no)->orderBy('lab_info_id', 'DESC')
-                ->where(DB::raw("deleted_at <> ''"))->with('user')->get();
+                ->where(DB::raw("deleted_at IS NOT NULL"))->with('user')->get();
         
         $opd_no = $request->opd_no;
         $query = DB::select("SELECT (SELECT CONCAT(blood, ' (',blood_rh,')') FROM v_w_haematology_labs 
-        WHERE blood <> '' AND opd_number = '$opd_no' LIMIT 1) AS blood_group, 
-        (SELECT g6pd FROM v_w_haematology_labs WHERE g6pd <> '' AND opd_number = '$opd_no' LIMIT 1) AS g6pd, 
-        (SELECT sickling FROM v_w_haematology_labs WHERE sickling <> '' AND opd_number = '$opd_no' LIMIT 1) AS sickling, 
-        (SELECT sickling_hb FROM v_w_haematology_labs WHERE sickling_hb <> '' AND opd_number = '$opd_no' LIMIT 1) AS sickling_hb
+        WHERE blood IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS blood_group, 
+        (SELECT g6pd FROM v_w_haematology_labs WHERE g6pd IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS g6pd, 
+        (SELECT sickling FROM v_w_haematology_labs WHERE sickling IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS sickling, 
+        (SELECT sickling_hb FROM v_w_haematology_labs WHERE sickling_hb IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS sickling_hb
         ");
         if(empty($query[0]->blood_group)){
             $blood_group =  'NULL';
@@ -545,7 +544,7 @@ class EnterTestController extends Controller
 
         return "<script>
           window.open('print-results/$lab_info->lab_info_id','','left=0,top=0,width=1000,height=600,toolbar=0,scrollbars=0,status=0');
-          window.location = 'results';
+          window.location = 'enter-test';
           </script>";
 
 

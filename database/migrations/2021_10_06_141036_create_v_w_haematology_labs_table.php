@@ -49,6 +49,7 @@ class CreateVWHaematologyLabsTable extends Migration
             AND lab_results_infos.lab_info_id = lab_results_ogtt_labs.lab_info_id
             AND lab_results_infos.lab_info_id = lab_results_psa_labs.lab_info_id
             AND lab_results_infos.lab_info_id = lab_results_hpyloris.lab_info_id
+            AND lab_results_infos.deleted_at IS NULL;
             ');
     }
 
