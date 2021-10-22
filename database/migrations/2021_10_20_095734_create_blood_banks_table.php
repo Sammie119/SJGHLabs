@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBloodDonorsTable extends Migration
+class CreateBloodBanksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateBloodDonorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blood_donors', function (Blueprint $table) {
-            $table->id('donor_id');
-            $table->string('name');
-            $table->string('gender', 6);
-            $table->date('date_of_birth')->nullable();
-            $table->string('blood_group', 20)->nullable();
-            $table->string('marita_status', 20)->nullable();
-            $table->string('profession', 30)->nullable();
-            $table->string('address')->nullable();
-            $table->string('mobile', 20)->nullable();
+        Schema::create('blood_banks', function (Blueprint $table) {
+            $table->id('bloodbank_id');
+            $table->tinyInteger('blood_number');
+            $table->mediumInteger('donor_id')->references('donor_id')->on('blood_donors')->onDelete('cascade');
+            $table->date('taken_date')->nullable();
+            $table->date('exp_date')->nullable();
+            $table->string('patient_name')->nullable();
+            $table->tinyInteger('volume')->nullable();
             $table->tinyInteger('created_by')->references('user_id')->on('users')->onDelete('cascade');
             $table->tinyInteger('updated_by')->references('user_id')->on('users')->onDelete('cascade');
+            $table->string('status', 5)->default('No');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -37,6 +36,6 @@ class CreateBloodDonorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blood_donors');
+        Schema::dropIfExists('blood_banks');
     }
 }

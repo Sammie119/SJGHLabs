@@ -24,6 +24,11 @@
                             </ul>
                         </div>
                     @endif
+                    @if (Session::has('register'))
+                        <div class="alert alert-success" role="alert">
+                            <h4>{{ Session::get('register') }}</h4>
+                        </div>
+                    @endif
                     <div class="row justify-content-center">
                         <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
                             <div class="form-group"> <label for="name">Donor's Name</label> 

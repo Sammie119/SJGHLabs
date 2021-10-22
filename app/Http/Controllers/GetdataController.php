@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use App\Models\VWDropdown;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use App\Models\VWBloodBankLabs;
+use App\Models\VWBloodBank;
 
 class GetdataController extends Controller
 {
@@ -78,11 +80,20 @@ class GetdataController extends Controller
     public function getPatientName(Request $request)
     {
         $patient = Patient::select('name', 'date_of_birth')->where('opd_number', $request['opd_no'])->first();
-        $age = Carbon::parse($patient->date_of_birth)->diff(Carbon::now())->y;
-        $results = [
-            'name' => $patient->name,
-            'age' => $age
-        ];
+        
+        if($patient){
+            $age = Carbon::parse($patient->date_of_birth)->diff(Carbon::now())->y;
+            $results = [
+                'name' => $patient->name,
+                'age' => $age
+            ];
+        }
+        else {
+            $results = [
+                'name' => '',
+                'age' => ''
+            ];
+        }
 
         return response()->json($results);
     }
@@ -186,5 +197,61 @@ class GetdataController extends Controller
                 <td>'.$sickling_hb.'</td>
             </tr>
         </tbody>';   
+    }
+
+    public function getBloodNumberCheck(Request $request)
+    {
+        $curryear = date("Y");
+
+        $bld = VWBloodBankLabs::select('blood_number')->where('blood_number', $request->bld_no)->where(DB::raw('EXTRACT(YEAR FROM created_at)'), $curryear)->first();
+        
+        if($bld){
+        echo '<script type="text/javascript">
+                alert("Entered Blood Number ('.$request->bld_no.') Already Exist");
+                document.getElementById("bld").value = "";
+                document.getElementById("bld").focus();
+
+            </script>'; 
+        }
+            
+    }
+
+    public function getDonorName(Request $request)
+    {
+        $donor = VWBloodBankLabs::where('blood_number', $request['bld_no'])->first();
+
+        if($donor){
+            $results = [
+                'name' => $donor->name,
+                'blood' => $donor->blood
+            ];
+        } 
+        else {
+            $results = [
+                'name' => '',
+                'blood' => ''
+            ];
+        }
+
+        return response()->json($results);
+    }
+
+    public function getBloodNumberCheck2(Request $request)
+    {
+        $curryear = date("Y");
+
+        $bld = VWBloodBank::select('blood_number')->where('blood_number', $request->bld_no)->where(DB::raw('EXTRACT(YEAR FROM created_at)'), $curryear)->first();
+        
+        if($bld){
+        echo '<script type="text/javascript">
+                alert("Entered Blood Number ('.$request->bld_no.') has been stocked Already!!");
+                document.getElementById("bld").value = "";
+                document.getElementById("name").value = "";
+                document.getElementById("blood_group").value = "";
+                document.getElementById("bld").focus();
+
+            </script>'; 
+        }
+            
     }
 }

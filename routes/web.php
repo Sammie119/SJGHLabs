@@ -8,6 +8,7 @@ use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BloodTransfussionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,9 +77,29 @@ Route::middleware(['protectedPages'])->group(function () {
     Route::get('create-donor', [BloodBankController::class, 'createDonor'])->name('create-donor');
     Route::post('register-donor', [BloodBankController::class, 'registerDonor'])->name('register-donor');
     Route::get('edit-donor/{id}', [BloodBankController::class, 'edit']);
+    Route::get('edit-blood-labs/{id}', [BloodBankController::class, 'editBloodLabs']);
     Route::post('update-donor', [BloodBankController::class, 'update'])->name('update-donor');
+    Route::post('update-blood-labs', [BloodBankController::class, 'updatedBloodLabs'])->name('update-blood-labs');
     Route::get('delete-donor/{id}', [BloodBankController::class, 'deleteDonor']);
-    Route::get('donor-labs', [BloodBankController::class, 'donorLabs'])->name('donor-labs');
+    Route::post('donor-labs', [BloodBankController::class, 'donorLabs'])->name('donor-labs');
+    Route::get('results-blood-labs', [BloodBankController::class, 'bloodBankLabs'])->name('results-blood-labs');
+    Route::get('delete-labs/{id}', [BloodBankController::class, 'deleteLabs']);
+
+    Route::get('stock-blood', [BloodBankController::class, 'stockBlood'])->name('stock-blood');
+    Route::post('stock-blood-bank', [BloodBankController::class, 'stockBloodBank'])->name('stock-blood-bank');
+    Route::get('blood-in-stock', [BloodBankController::class, 'bloodInStock'])->name('blood-in-stock');
+    Route::get('edit-blood-in-stock/{id}', [BloodBankController::class, 'editBloodInStock']);
+    Route::post('update-blood-in-stock', [BloodBankController::class, 'updateBloodInStock'])->name('update-blood-in-stock');
+    Route::get('delete-blood/{id}', [BloodBankController::class, 'deleteBlood']);
+
+    // Blood Transfussions Routes
+    Route::get('checkout-blood/{id}', [BloodTransfussionsController::class, 'checkoutBlood']);
+    Route::get('blood-transfussions', [BloodTransfussionsController::class, 'index'])->name('blood-transfussions');
+    Route::post('store-transfussion', [BloodTransfussionsController::class, 'storeTransfussion'])->name('store-transfussion');
+    Route::get('edit-checkout-blood/{id}', [BloodTransfussionsController::class, 'editCheckout']);
+    Route::post('update-checkout-blood', [BloodTransfussionsController::class, 'updateCheckout'])->name('update-checkout-blood');
+    Route::get('delete-checkout-blood/{id}', [BloodTransfussionsController::class, 'deleteCheckout']);
+
 });
 
 //Get Data Routes
@@ -87,3 +108,6 @@ Route::post('/getisolate', [GetdataController::class, 'getIsolate']);
 Route::get('/antibiotic', [GetdataController::class, 'getAntibiotics']);
 Route::post('/getlab-number-check', [GetdataController::class, 'getLabNumberCheck']);
 Route::post('/get-patient-info', [GetdataController::class, 'getPatientInfo']);
+Route::post('/getblood-number-check', [GetdataController::class, 'getBloodNumberCheck']);
+Route::post('/get-donor', [GetdataController::class, 'getDonorName']);
+Route::post('/getblood-number', [GetdataController::class, 'getBloodNumberCheck2']);

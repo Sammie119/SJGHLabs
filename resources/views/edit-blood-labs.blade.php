@@ -6,7 +6,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'SJGH-LRMS | Donor Labs')
+@section('title', 'SJGH-LRMS | Edit Donor Labs')
 
 <link rel="stylesheet" href="{{ asset('public/css/sjgh.main.css') }}">
 
@@ -14,7 +14,7 @@
     <div class="container" style="margin-top: -2%;">
         <div class="card">
             <div class="card-header">
-                <h2><b style="color: #191970;">Enter Donor Labs</b>
+                <h2><b style="color: #191970;">Edit Donor Labs</b>
                     {{-- <a href="{{ route('donors-list') }}" class="btn btn-info float-right">Donors List</a> --}}
                 </h2>
             </div>
@@ -24,7 +24,7 @@
                 </div>
             @endif
             <div class="card-body">
-                <form action="{{ route('donor-labs') }}" method="POST" onsubmit="return validateForm()">
+                <form action="{{ route('update-blood-labs') }}" method="POST" onsubmit="return validateForm()">
                     @csrf
                     @if($errors->any())
                         <div class="alert alert-danger" role="alert">
@@ -35,11 +35,11 @@
                             </ul>
                         </div>
                     @endif
-                    <input type="hidden" name="id" value="{{ $donor->donor_id }}">
+                    <input type="hidden" name="id" value="{{ $donor->lab_info_id }}">
                     <div class="row justify-content-center">
                         <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
                             <div class="form-group"> <label for="lab_no">Lab Number</label> 
-                                <input type="text" name="lab_no" id="lab_no" class = "form-control" maxlength="9" required style="width: 66.5%;"></div>
+                                <input type="text" name="lab_no" value="{{ $donor->lab_number }}" id="lab_no" class = "form-control" maxlength="9" readonly style="width: 66.5%;"></div>
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="hb_sag">ANTI TPHA/VDRL</label> 
                                 <select name="anti_tpha" class="form-control" required style="height: 35px;">
-                                    <option></option>
+                                    <option>{{ $donor->anti_tpha }}</option>
                                     @foreach ($query['response'] as $response)
                                         <option>{{ $response['dropdown'] }}</option>
                                     @endforeach
@@ -56,7 +56,7 @@
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="hb_sab">HBsAg</label> 
                                 <select name="hbs_ag" class="form-control" required style="height: 35px;">
-                                    <option value=""></option>
+                                    <option>{{ $donor->hbs_ag }}</option>
                                     @foreach ($query['response'] as $response)
                                         <option>{{ $response['dropdown'] }}</option>
                                     @endforeach
@@ -65,7 +65,7 @@
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="hb_eag">HCV</label> 
                                 <select name="hcv" class="form-control" required style="height: 35px;">
-                                    <option value=""></option>
+                                    <option>{{ $donor->hcv }}</option>
                                     @foreach ($query['response'] as $response)
                                         <option>{{ $response['dropdown'] }}</option>
                                     @endforeach
@@ -74,7 +74,7 @@
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="hb_eab">BF</label> 
                                 <select name="bf" id="bf" class="form-control" required style="height: 35px;">
-                                    <option value=""></option>
+                                    <option>{{ $donor->bf }}</option>
                                     @foreach ($query['response'] as $response)
                                         <option>{{ $response['dropdown'] }}</option>
                                     @endforeach
@@ -82,12 +82,12 @@
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="hb_cab">BLOOD GROUP</label> 
-                                <input type="text" id="blood" name="blood" value="{{ $donor->blood_group }}" class="form-control" style="background: white" readonly> </div>
+                                <input type="text" id="blood" name="blood" value="{{ $donor->blood }}" class="form-control" style="background: white" readonly> </div>
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="hb_cab">Retro</label> 
                                 <select name="retro" class="form-control" required style="height: 35px;">
-                                    <option value=""></option>
+                                    <option>{{ $donor->retro }}</option>
                                     @foreach ($query['ora'] as $ora)
                                         <option>{{ $ora['dropdown'] }}</option>
                                     @endforeach
@@ -95,23 +95,26 @@
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="hb_cab">Mass (Kg)</label> 
-                                <input type="text" id="mass" name="mass" maxlength="4" class="form-control" required> </div>
+                                <input type="text" id="mass" name="mass" value="{{ $donor->mass }}" maxlength="4" class="form-control" required> </div>
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="hb_cab">BP (mmHg)</label> 
-                                <input type="text" id="bp" name="bp" maxlength="7" class="form-control" required> </div>
+                                <input type="text" id="bp" name="bp" value="{{ $donor->bp }}" maxlength="7" class="form-control" required> </div>
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="hb_cab">Status</label> 
                                 <select id="status" name="status" class="form-control" style="height: 35px" required>
-                                    <option></option>
+                                    <option>{{ $donor->status }}</option>
                                     <option>Passed</option>
                                     <option>Failed</option>
                                 </select> </div>
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            <div class="form-group" id="blood_no" style="display: none;"> <label for="hb_cab">Blood Number</label> 
-                                <input type="text" name="blood_no" id="bld" maxlength="7" class="form-control"></div>
+                            @if ($donor->blood_number == '')
+                                <div class="form-group" id="blood_no"> <label for="hb_cab">Blood Number</label> 
+                                    <input type="text" name="blood_no" value="{{ $donor->blood_number }}" id="bld" maxlength="7" class="form-control"></div>
+                            @endif
+                            
                         </div>
                     </div>
                     <div class="row justify-content-center">

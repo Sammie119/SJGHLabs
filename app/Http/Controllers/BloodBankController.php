@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\VWDropdown;
 use Illuminate\Support\Facades\DB;
+use App\Models\LabResultsInfo;
+use App\Models\BloodBankLabs;
+use App\Models\VWBloodBankLabs;
+use App\Models\BloodBank;
+use App\Models\VWBloodBank;
 
 class BloodBankController extends Controller
 {
@@ -15,6 +20,12 @@ class BloodBankController extends Controller
         $donors = DB::table('vw_blood_donors')->orderBy('donor_id', 'DESC')->get(); 
         
         return view('donors-list', compact('donors'));
+    }
+
+    public function bloodBankLabs()
+    {
+        $labs = VWBloodBankLabs::orderBy('lab_info_id', 'DESC')->with('user')->get();
+        return view('results-blood-labs', compact('labs'));
     }
 
     public function createDonor()
@@ -44,13 +55,14 @@ class BloodBankController extends Controller
 
         // return $request->input();
 
-        $find = BloodDonor::where('mobile', $request['contact'])->first();
+        $donor = BloodDonor::where('mobile', $request['contact'])->first();
 
-        if(!empty($request['contact']) && $find){
+        if(!empty($request['contact']) && $donor){
 
-            $request->session()->flash('register', 'Blood Donor, '.$find->name.' registered Successfully!!');
+            $request->session()->flash('register', 'Blood Donor, '.$donor->name.' registered Successfully!!');
 
-            return redirect('donors-list');
+            // return redirect('donors-list');
+            return view('donor-labs', compact('donor'));
         }
         else {       
             $donor = new BloodDonor;
@@ -69,7 +81,8 @@ class BloodBankController extends Controller
 
             $request->session()->flash('register', 'Blood Donor, '.$donor->name.' registered Successfully!!');
 
-            return redirect('donors-list');
+            // return redirect('donors-list');
+            return view('donor-labs', compact('donor'));
         }
     }
 
@@ -111,7 +124,6 @@ class BloodBankController extends Controller
         $donor->profession = $request['profession'];
         $donor->mobile = $request['contact'];
         $donor->address = $request['address'];
-        $donor->created_by = Session::get('user')['user_id'];
         $donor->updated_by = Session::get('user')['user_id'];
         $donor->update();
 
@@ -120,9 +132,153 @@ class BloodBankController extends Controller
         return redirect('donors-list');
     }
 
-    public function donorLabs()
+    public function donorLabs(Request $request)
     {
-        return view('donor-labs');
+        $request->validate([
+            'lab_no' => 'required|max:10'
+
+        ],
+        [
+            'lab_no.required' => 'Lab Number is required',
+            'lab_no.max' => 'Lab Number must not be more than 10 Characters'
+        ]);
+
+    //Lab Results Info.......................................    
+
+        if(Session::get('user')['department'] == 'Main Lab'){
+            $lab_no = 'M'.$request->lab_no;
+          }else{
+            $lab_no = 'R'.$request->lab_no;
+          }
+
+        $donor = DB::table('vw_blood_donors')->where('donor_id', $request['id'])->first();
+
+        $lab_info = new LabResultsInfo;
+        $lab_info->patient_id = $request['id'];
+        $lab_info->department_id = 0;
+        $lab_info->lab_number = $lab_no;
+        $lab_info->age = $donor->age;
+        $lab_info->created_by = Session::get('user')['user_id'];
+        $lab_info->updated_by = Session::get('user')['user_id'];
+        $lab_info->save();
+
+    //Blod Bank Lab Results..........................................
+
+        $donorLab = new BloodBankLabs;
+        $donorLab->lab_info_id = $lab_info->lab_info_id;
+        $donorLab->anti_tpha = $request['anti_tpha'];
+        $donorLab->hbs_ag = $request['hbs_ag'];
+        $donorLab->hcv = $request['hcv'];
+        $donorLab->bf = $request['bf'];
+        $donorLab->blood = $request['blood'];
+        $donorLab->retro = $request['retro'];
+        $donorLab->mass = $request['mass'];
+        $donorLab->bp = $request['bp'];
+        $donorLab->status = $request['status'];
+        $donorLab->blood_number = $request['blood_no'];
+        $donorLab->save();
+
+        $request->session()->flash('register', 'Blood donor Labs for '.$donor->name.' saved Successfully!!');
+        return redirect('create-donor');
+    }
+
+    public function editBloodLabs($id)
+    {
+        $donor = VWBloodBankLabs::where('lab_info_id',$id)->first();
+        
+        return view('edit-blood-labs', compact('donor'));
+    }
+
+    public function updatedBloodLabs(Request $request)
+    {
+        $request->validate([
+            'lab_no' => 'required|max:10'
+
+        ],
+        [
+            'lab_no.required' => 'Lab Number is required',
+            'lab_no.max' => 'Lab Number must not be more than 10 Characters'
+        ]);
+
+    //Lab Results Info.......................................    
+
+        $lab_info = LabResultsInfo::where('lab_info_id',$request->id)->first();
+
+        $lab_info->updated_by = Session::get('user')['user_id'];
+        $lab_info->update();
+
+    //Blod Bank Lab Results..........................................
+
+        $donorLab = BloodBankLabs::where('lab_info_id',$request->id)->first();
+        $donorLab->anti_tpha = $request['anti_tpha'];
+        $donorLab->hbs_ag = $request['hbs_ag'];
+        $donorLab->hcv = $request['hcv'];
+        $donorLab->bf = $request['bf'];
+        $donorLab->blood = $request['blood'];
+        $donorLab->retro = $request['retro'];
+        $donorLab->mass = $request['mass'];
+        $donorLab->bp = $request['bp'];
+        $donorLab->status = $request['status'];
+        $donorLab->blood_number = $request['blood_no'];
+        $donorLab->update();
+
+        $request->session()->flash('success', 'Blood donor Labs for updated Successfully!!');
+        return redirect('results-blood-labs');
+    }
+
+    public function stockBlood()
+    {
+        return view('stock-blood');
+    }
+
+    public function stockBloodBank(Request $request)
+    {
+        $bld_no = VWBloodBankLabs::where('blood_number', $request->blood_number)->first();
+
+        $blood = new BloodBank;
+        $blood->blood_number = $request['blood_number'];
+        $blood->donor_id = $bld_no->donor_id;
+        $blood->taken_date = $request['date_taken'];
+        $blood->exp_date = $request['exp_date'];
+        $blood->patient_name = $request['patient_name'];
+        $blood->volume = $request['volume'];
+        $blood->created_by = Session::get('user')['user_id'];
+        $blood->updated_by = Session::get('user')['user_id']; 
+        $blood->save(); 
+        
+        return back()->with('register', 'Blood Bank Successfully Stocked!!');
+    }
+
+    public function bloodInStock()
+    {
+        $blood = VWBloodBank::where('status', 'No')->orderBy('bloodbank_id', 'DESC')->get();
+
+        return view('blood-in-stock', compact('blood'));
+    }
+
+    public function editBloodInStock($id)
+    {
+        $blood = VWBloodBank::where('bloodbank_id',$id)->first();
+        return view('edit-blood-in-stock', compact('blood'));
+    }
+
+    public function updateBloodInStock(Request $request)
+    {
+        $bld_no = VWBloodBankLabs::where('blood_number', $request->blood_number)->first();
+
+        $blood = BloodBank::find($request->id);
+        $blood->blood_number = $request['blood_number'];
+        $blood->donor_id = $bld_no->donor_id;
+        $blood->taken_date = $request['date_taken'];
+        $blood->exp_date = $request['exp_date'];
+        $blood->patient_name = $request['patient_name'];
+        $blood->volume = $request['volume'];
+        $blood->updated_by = Session::get('user')['user_id']; 
+        $blood->update();
+        
+        $request->session()->flash('success', 'Blood In Stock Updated Successfully!!!');
+        
+        return redirect('blood-in-stock');
     }
 
     public function deleteDonor($id)
@@ -134,5 +290,25 @@ class BloodBankController extends Controller
             return back()->with('register', 'Blood Donor, '.$donor->name.' deleted Successfully!!');
         }
 
+    }
+
+    public function deleteLabs($id)
+    {
+        $labs = LabResultsInfo::find($id);
+        if($labs){
+            $labs->delete();
+
+            return back()->with('success', 'Blood Labs, '.$labs->lab_number.' deleted Successfully!!');
+        }
+    }
+
+    public function deleteBlood($id)
+    {
+        $blood = BloodBank::find($id);
+        if($blood){
+            $blood->delete();
+
+            return back()->with('register', 'Blood Deleted Successfully!!');
+        }
     }
 }

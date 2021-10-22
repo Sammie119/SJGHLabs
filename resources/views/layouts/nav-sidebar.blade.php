@@ -310,11 +310,11 @@ body::-webkit-scrollbar-thumb:hover {
                 <div class="link"><i class="fa fa-university"></i>Blood Bank<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
                     <li><a href="{{ route('create-donor') }}">Reg. Donor</a></li>
-                    <li><a href="bloodBank_stock.php">Stock In</a></li>
-                    <li><a href="bloodBank_stock_in.php">Check Out</a></li>
-                    <li><a href="blood_transfusion.php">Blood Transfusions</a></li>
+                    <li><a href="{{ route('stock-blood') }}">Stock Blood Bank</a></li>
+                    <li><a href="{{ route('blood-in-stock') }}">Blood In Stock</a></li>
+                    <li><a href="{{ route('blood-transfussions') }}">Blood Transfusions</a></li>
                     <li><a href="{{ route('donors-list') }}">Donors List</a></li>
-                    <li><a href="bloodBank_labs_results.php">Lab Results</a></li>
+                    <li><a href="{{ route('results-blood-labs') }}">Blood Lab Results</a></li>
                 </ul>
             </li>
                 @if (Session::get('user')['user_level'] === 'Admin')
