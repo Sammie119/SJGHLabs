@@ -219,7 +219,13 @@ class BloodBankController extends Controller
         $donorLab->mass = $request['mass'];
         $donorLab->bp = $request['bp'];
         $donorLab->status = $request['status'];
-        $donorLab->blood_number = $request['blood_no'];
+
+        if($request['status'] == 'Failed'){
+            $donorLab->blood_number = NULL;
+        }else{
+            $donorLab->blood_number = $request['blood_no'];
+        }
+        
         $donorLab->update();
 
         $request->session()->flash('success', 'Blood donor Labs for updated Successfully!!');
@@ -285,6 +291,11 @@ class BloodBankController extends Controller
     {
         $donor = BloodDonor::find($id);
         if($donor){
+            $result = LabResultsInfo::where('patient_id', $donor->donor_id)->first();
+            if($result){
+                DB::select("update lab_results_infos set deleted_at = Now() where patient_id = '$donor->donor_id' and department_id = 0");
+            }
+
             $donor->delete();
 
             return back()->with('register', 'Blood Donor, '.$donor->name.' deleted Successfully!!');

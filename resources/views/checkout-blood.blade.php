@@ -102,9 +102,11 @@
                                 <div class="form-group"> <label for="epi_cell">Department</label> 
                                 <select name="department" id="depart" class="form-control" required style="height: 35px;">
                                     <option></option>
-                                    @foreach ($department as $depart)
-                                        <option value="{{ $depart->dropdown }}">{{ $depart->dropdown }}</option>
-                                    @endforeach
+                                    <option>Childrens Ward</option>
+                                    <option>Emergency</option>
+                                    <option>General Ward</option>
+                                    <option>Maternity Ward</option>
+                                    <option>Orthopaedic Ward</option>
                                 </select> </div>
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">

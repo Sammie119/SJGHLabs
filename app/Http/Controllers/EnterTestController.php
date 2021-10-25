@@ -42,9 +42,21 @@ class EnterTestController extends Controller
 {
     public function index()
     {
-      $results = VWHaematologyLab::orderBy('lab_info_id', 'DESC')->with('user')->get();
+      if(Session::get('user')['department'] == 'Main Lab'){
+        $lab_no = 'M%';
+      }else{
+        $lab_no = 'R%';
+      }
+
+      $results = VWHaematologyLab::where('lab_number', 'LIKE', $lab_no)->orderBy('lab_info_id', 'DESC')->where(DB::raw("date_part('day', now()::timestamp - updated_at::timestamp)"), '<', 30)->with('user')->get();
       
       return view('results', compact('results'));
+    }
+
+    public function archiveLabsResults()
+    {
+      $results = VWHaematologyLab::orderBy('lab_info_id', 'DESC')->where(DB::raw("date_part('day', now()::timestamp - updated_at::timestamp)"), '>=', 30)->with('user')->get();
+      return view('archive-labs', compact('results'));
     }
 
     public function docGetLabResults()
@@ -65,8 +77,8 @@ class EnterTestController extends Controller
         return view('doc-get-labs', compact('error'));
       }
       else{
-        $results = VWHaematologyLab::where('opd_number', $request->opd_no)->orderBy('lab_info_id', 'DESC')
-                ->where(DB::raw("deleted_at IS NOT NULL"))->with('user')->get();
+        $results = VWHaematologyLab::where('opd_number', $request->opd_no)
+                  ->orderBy('lab_info_id', 'DESC')->with('user')->get();
         
         $opd_no = $request->opd_no;
         $query = DB::select("SELECT (SELECT CONCAT(blood, ' (',blood_rh,')') FROM v_w_haematology_labs 

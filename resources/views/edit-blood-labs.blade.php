@@ -110,9 +110,14 @@
                                 </select> </div>
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            @if ($donor->blood_number == '')
+                            @if ($donor->blood_number != '')
                                 <div class="form-group" id="blood_no"> <label for="hb_cab">Blood Number</label> 
-                                    <input type="text" name="blood_no" value="{{ $donor->blood_number }}" id="bld" maxlength="7" class="form-control"></div>
+                                    <input type="text" name="blood_no" value="{{ $donor->blood_number }}" id="bld" maxlength="7" class="form-control">
+                                </div>
+                            @else
+                                <div class="form-group" id="blood_no" style="display: none"> <label for="hb_cab">Blood Number</label> 
+                                    <input type="text" name="blood_no" id="bld" maxlength="7" class="form-control">
+                                </div>
                             @endif
                             
                         </div>
@@ -207,13 +212,13 @@
              
 
         $('#status').bind('change',function(){
-        if (document.getElementById("status").value == "Passed"){
-            
-            document.getElementById('blood_no').style.display='block';
-        }
-        else {
-            document.getElementById('blood_no').style.display='none';
-        }
+            if (document.getElementById("status").value == "Passed"){
+                
+                document.getElementById('blood_no').style.display='block';
+            }
+            else {
+                document.getElementById('blood_no').style.display='none';
+            }
         }); 
 
 

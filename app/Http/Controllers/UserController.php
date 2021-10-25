@@ -108,7 +108,8 @@ class UserController extends Controller
     public function editUser($id)
     {
         $user = User::findOrFail($id);
-        return view('edit-user', compact('user'));
+        $department = VWDropdown::where('category_name', 'Department')->get();
+        return view('edit-user', compact('user', 'department'));
     }
 
     public function updateUser(Request $request)

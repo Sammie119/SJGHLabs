@@ -2912,7 +2912,8 @@ $time_mins = [0, 0, 0, 0];
 		},
 		plotOptions: {
 			series: {
-				allowPointSelect:true
+				allowPointSelect:true,
+				cursor: 'pointer'
 			}
 		},
 		series: [{

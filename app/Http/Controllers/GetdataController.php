@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BloodBank;
 use App\Models\LabResultsGeneralLab;
 use App\Models\LabResultsInfo;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\VWBloodBankLabs;
 use App\Models\VWBloodBank;
+use App\Models\User;
+use App\Models\VWHaematologyLab;
 
 class GetdataController extends Controller
 {
@@ -241,10 +244,22 @@ class GetdataController extends Controller
         $curryear = date("Y");
 
         $bld = VWBloodBank::select('blood_number')->where('blood_number', $request->bld_no)->where(DB::raw('EXTRACT(YEAR FROM created_at)'), $curryear)->first();
+
+        $bldlab = VWBloodBankLabs::select('status')->where('blood_number', $request->bld_no)->where(DB::raw('EXTRACT(YEAR FROM created_at)'), $curryear)->first();
         
         if($bld){
-        echo '<script type="text/javascript">
+            echo '<script type="text/javascript">
                 alert("Entered Blood Number ('.$request->bld_no.') has been stocked Already!!");
+                document.getElementById("bld").value = "";
+                document.getElementById("name").value = "";
+                document.getElementById("blood_group").value = "";
+                document.getElementById("bld").focus();
+
+            </script>'; 
+        }
+        elseif($bldlab->status == 'Failed'){
+            echo '<script type="text/javascript">
+                alert("Entered Blood Number ('.$request->bld_no.') did not pass lab Test!!!");
                 document.getElementById("bld").value = "";
                 document.getElementById("name").value = "";
                 document.getElementById("blood_group").value = "";
@@ -254,4 +269,29 @@ class GetdataController extends Controller
         }
             
     }
+
+    static function population(){
+
+        $patient = Patient::count();
+
+        $labs = LabResultsInfo::count();
+
+        $users = User::count();
+
+        $userlabs = LabResultsInfo::where('updated_by', Session::get('user')['user_id'])->count();
+
+        $datagraph = VWHaematologyLab::select(DB::raw('gender, count(opd_number) AS y'))->groupBy('gender')->get();
+
+        $labsResults = DB::select("SELECT (SELECT count(lab_info_id) FROM lab_results_infos WHERE lab_number LIKE 'M%' AND deleted_at IS NULL) AS main,
+        (SELECT count(lab_info_id) FROM lab_results_infos WHERE lab_number LIKE 'R%' AND deleted_at IS NULL) AS rch");
+        return [
+            'patient' => $patient,
+            'labs' => $labs,
+            'userlabs' => $userlabs,
+            'users' => $users,
+            'datagraph' => $datagraph,
+            'labsResults' => $labsResults[0]
+        ];
+    }
+
 }

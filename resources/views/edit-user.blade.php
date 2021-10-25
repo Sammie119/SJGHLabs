@@ -64,6 +64,9 @@
                                     <option>{{ $user->department }}</option>
                                     <option value="Main Lab">Main Lab</option>
                                     <option value="RCH Mini-Lab">RCH Lab</option>
+                                    @foreach ($department as $depart)
+                                        <option value="{{ $depart->dropdown }}">{{ $depart->dropdown }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LabResultsInfo;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class PatientsController extends Controller
 {
@@ -101,6 +103,10 @@ class PatientsController extends Controller
         $patient = Patient::findOrFail($id);
 
         if($patient){
+            $result = LabResultsInfo::where('patient_id', $patient->patient_id)->first();
+            if($result){
+                DB::select("update lab_results_infos set deleted_at = Now() where patient_id = '$patient->patient_id' and department_id <> 0");
+            }
             $patient->delete();
             return back()->with('register', 'Patient deleted Successfully!!');
         }
