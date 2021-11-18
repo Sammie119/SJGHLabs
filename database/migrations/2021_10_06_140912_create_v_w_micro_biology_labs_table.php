@@ -16,7 +16,7 @@ class CreateVWMicroBiologyLabsTable extends Migration
     {
         DB::unprepared('CREATE OR REPLACE VIEW v_w_micro_biology_labs as 
             SELECT lab_results_infos.lab_info_id AS lab_info_id, lab_results_infos.patient_id AS patient_id, 
-            lab_number, opd_number, name, gender, age, department_id, dropdown, bacter_specimen, bacter_growth, bacter_type1, bacter_type2, bacter_anti1, 
+            lab_number, opd_number, INITCAP(name) AS name, INITCAP(gender) AS gender, age, department_id, dropdown, bacter_specimen, bacter_growth, bacter_type1, bacter_type2, bacter_anti1, 
             bacter_react1, bacter_zone1, bacter_anti2, bacter_react2, bacter_zone2, bacter_anti3, 
             bacter_react3, bacter_zone3, bacter_anti4, bacter_react4, bacter_zone4, bacter_anti5, 
             bacter_react5, bacter_zone5, bacter_anti6, bacter_react6, bacter_zone6, bacter_anti7, 

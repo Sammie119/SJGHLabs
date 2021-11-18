@@ -16,7 +16,7 @@ class CreateVWChemistriesLabsTable extends Migration
     {
         DB::unprepared('CREATE OR REPLACE VIEW v_w_chemistries_labs as 
             SELECT lab_results_infos.lab_info_id AS lab_info_id, lab_results_infos.patient_id AS patient_id, 
-            lab_number, opd_number, name, gender, age, department_id, dropdown, liver_protein, liver_albumin, 
+            lab_number, opd_number, INITCAP(name) AS name, INITCAP(gender) AS gender, age, department_id, dropdown, liver_protein, liver_albumin, 
             liver_globulin, liver_alkaline, liver_alanine, liver_aspartate, liver_gamma, liver_total, 
             liver_direct, liver_indirect, liver_comment, renal_urea, renal_creatinine, renal_comment, 
             lipid_total, lipid_trigly, lipid_hdl, lipid_ldl, lipid_comment, electro_potas, electro_sodium, 

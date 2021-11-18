@@ -101,7 +101,7 @@ class UserController extends Controller
 
     public function userList()
     {
-        $users = User::all();
+        $users = User::where('user_id', '!=', 1)->orderBy('user_id')->get();
         return view('user-list', compact('users'));
     }
 

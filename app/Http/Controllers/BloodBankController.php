@@ -17,14 +17,14 @@ class BloodBankController extends Controller
 {
     public function index()
     {
-        $donors = DB::table('vw_blood_donors')->orderBy('donor_id', 'DESC')->get(); 
+        $donors = DB::table('vw_blood_donors')->orderBy('donor_id', 'DESC')->limit(1000)->get(); 
         
         return view('donors-list', compact('donors'));
     }
 
     public function bloodBankLabs()
     {
-        $labs = VWBloodBankLabs::orderBy('lab_info_id', 'DESC')->with('user')->get();
+        $labs = VWBloodBankLabs::orderBy('lab_info_id', 'DESC')->with('user')->limit(1000)->get();
         return view('results-blood-labs', compact('labs'));
     }
 
@@ -257,7 +257,7 @@ class BloodBankController extends Controller
 
     public function bloodInStock()
     {
-        $blood = VWBloodBank::where('status', 'No')->orderBy('bloodbank_id', 'DESC')->get();
+        $blood = VWBloodBank::where('status', 'No')->orderBy('bloodbank_id', 'DESC')->limit(1000)->get();
 
         return view('blood-in-stock', compact('blood'));
     }

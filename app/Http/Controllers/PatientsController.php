@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LabResultsInfo;
 use App\Models\Patient;
+use App\Models\VWPatients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,7 @@ class PatientsController extends Controller
 {
     public function index()
     {
-        $patients = Patient::select('*')->orderBy('patient_id', 'DESC')->get();//paginate(7);
+        $patients = VWPatients::limit(500)->get();//paginate(7);
 
         return view('patients-list', compact('patients'));
     }

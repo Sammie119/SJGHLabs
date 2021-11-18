@@ -15,13 +15,13 @@ class BloodTransfussionsController extends Controller
 {
     public function index()
     {
-        $trans = VWBloodTransfussionEpisode::orderBy('updated_at', 'DESC')->where(DB::raw("date_part('day', now()::timestamp - updated_at::timestamp)"), '<', 30)->with('user')->get();
+        $trans = VWBloodTransfussionEpisode::orderBy('updated_at', 'DESC')->where(DB::raw("date_part('day', now()::timestamp - updated_at::timestamp)"), '<', 30)->with('user')->limit(1000)->get();
         return view('blood-transfussions', compact('trans'));
     }
 
     public function archiveBloodTransfusion()
     {
-        $trans = VWBloodTransfussionEpisode::orderBy('updated_at', 'DESC')->where(DB::raw("date_part('day', now()::timestamp - updated_at::timestamp)"), '>=', 30)->with('user')->get();
+        $trans = VWBloodTransfussionEpisode::orderBy('updated_at', 'DESC')->where(DB::raw("date_part('day', now()::timestamp - updated_at::timestamp)"), '>=', 30)->with('user')->limit(2000)->get();
         return view('archive-blood-transfusion', compact('trans'));
     }
 

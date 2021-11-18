@@ -113,3 +113,5 @@ Route::post('/get-patient-info', [GetdataController::class, 'getPatientInfo']);
 Route::post('/getblood-number-check', [GetdataController::class, 'getBloodNumberCheck']);
 Route::post('/get-donor', [GetdataController::class, 'getDonorName']);
 Route::post('/getblood-number', [GetdataController::class, 'getBloodNumberCheck2']);
+Route::post('/getPatients', [GetdataController::class, 'getPatientSearch']);
+Route::post('/getResults', [GetdataController::class, 'getLabResultsSearch']);

@@ -15,6 +15,8 @@ use App\Models\VWBloodBankLabs;
 use App\Models\VWBloodBank;
 use App\Models\User;
 use App\Models\VWHaematologyLab;
+use App\Models\VWPatients;
+use DateTime;
 
 class GetdataController extends Controller
 {
@@ -82,13 +84,13 @@ class GetdataController extends Controller
     
     public function getPatientName(Request $request)
     {
-        $patient = Patient::select('name', 'date_of_birth')->where('opd_number', $request['opd_no'])->first();
+        $patient = VWPatients::select('name', 'age')->where('opd_number', $request['opd_no'])->first();
         
         if($patient){
-            $age = Carbon::parse($patient->date_of_birth)->diff(Carbon::now())->y;
+            // $age = Carbon::parse($patient->date_of_birth)->diff(Carbon::now())->y;
             $results = [
                 'name' => $patient->name,
-                'age' => $age
+                'age' => $patient->age
             ];
         }
         else {
@@ -292,6 +294,108 @@ class GetdataController extends Controller
             'datagraph' => $datagraph,
             'labsResults' => $labsResults[0]
         ];
+    }
+
+    public function getPatientSearch(Request $request)
+    {
+        if(is_numeric($request['search'])){
+            $patients = VWPatients::where('opd_number', 'LIKE', '%'.$request['search'].'%')->orWhere('age', $request['search'])->get();
+        }
+        else{
+            $patients = VWPatients::where('opd_number', 'LIKE', '%'.$request['search'].'%')->orWhere('name', 'LIKE', '%'.$request['search'].'%')->orWhere('gender', 'LIKE', '%'.$request['search'].'%')->get();
+        }
+        
+        if($patients){
+            $i = 1;
+            // echo $patients;
+            foreach ($patients as $patient) {
+                echo '
+                <tr>
+                    <td>'.$i++.'</td>
+                    <td>'.$patient->opd_number.'</td>
+                    <td>'.$patient->name.'</td>
+                    <td>'.$patient->date_of_birth.'</td>
+                    <td>'.$patient->age.'</td>
+                    <td>'.$patient->gender.'</td>
+                    <td>
+                    <div class="btn-group">
+                        <a class="btn btn-success" href="edit-patient/'.$patient->patient_id.'" title="Edit Patient"><i class="fa fa-pencil-square-o"></i></a>
+                        <a class="btn btn-danger" onclick="return confirm(\''.$patient->name.'  will be deleted permanently!!!\')" href="delete-patient/'.$patient->patient_id.'" title="Delete Patient"><i class="fa fa-trash-o"></i></a>
+                    </div>
+                    </td>
+                </tr>
+                ';
+                }
+
+        }
+        else {
+            $results = [
+                'data' => ''
+            ];
+
+            return response()->json($results);
+        }
+
+        
+    }
+
+    public function getLabResultsSearch(Request $request)
+    {
+       
+        $results = VWHaematologyLab::where('lab_number', 'LIKE', '%'.$request['search'].'%')
+                                    ->orWhere('opd_number', 'LIKE', '%'.$request['search'].'%')
+                                    ->orWhere('name', 'LIKE', '%'.$request['search'].'%')
+                                    ->orWhere('gender', 'LIKE', '%'.$request['search'].'%')
+                                    ->orWhere('dropdown', 'LIKE', '%'.$request['search'].'%')
+                                    ->get();
+        
+        if($results){
+            
+            foreach ($results as $result) {
+                $setdate = $result->updated_at->format('Y-m-d');
+                $bday = new DateTime($setdate); // Your date of birth
+                $today = new Datetime(date('m.d.y'));
+                $diff = $today->diff($bday);
+                $days = $diff->format('%d');
+                echo '
+                <tr>
+                    <td>'.$result->lab_number.'</td>
+                    <td>'.$result->opd_number.'</td>
+                    <td>'.$result->dropdown.'</td>
+                    <td>'.$result->name.'</td>
+                    <td>'.$result->gender.'</td>
+                    <td>'.$result->age.'</td>
+                    <td>'.$result->updated_at.'</td>
+                    <td>'.$result->user->username.'</td>
+                    <td>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-primary" onclick="window.open(\'print-results/'.$result->lab_info_id.'\',\'\', \'left=0,top=0,width=1000,height=600,toolbar=0,scrollbars=0,status=0\')"><i class="fa fa-print"></i></a>';
+                
+                        if ((Session::get('user')['user_level'] === 'User') && $days <= 1){
+                           echo '<a class="btn btn-success" href="edit-test/'.$result->lab_info_id.'" title="Edit"><i class="fa fa-pencil-square-o"></i></a>';
+                        }
+                        elseif ((Session::get('user')['user_level'] === 'Admin')){
+                           echo '<a class="btn btn-success" href="edit-test/'.$result->lab_info_id.'" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
+                                <a class="btn btn-danger" onclick="return confirm(\'This '.$result->lab_number.' Lab Number will be deleted permanently!!!\')" href="delete-labs/'.$result->lab_info_id.'" title="Delete"><i class="fa fa-trash-o"></i></a>';
+                        }
+                    echo'
+                    
+                    </div>
+                    </td>
+                </tr>
+                ';
+                }
+
+        }
+        else {
+            $results = [
+                'data' => ''
+            ];
+
+            return response()->json($results);
+        }
+
+        
     }
 
 }
