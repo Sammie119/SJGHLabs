@@ -289,9 +289,9 @@ body::-webkit-scrollbar-thumb:hover {
         </div>
     @if((Session::get('user')['user_level'] === 'Admin') || (Session::get('user')['user_level'] === 'User'))
         <ul style="margin-bottom: 0px"> 
-            <li><a href="{{ route('dashboard') }}" style="text-decoration: none;"><i class="fa fa-home"></i>Dashboard</a></li>
-            <li><a href="{{ route('enter-test') }}" style="text-decoration: none;"><i class="fa fa-database"></i>Enter Report</a></li>
-            <li><a href="{{ route('results') }}" style="text-decoration: none;"><i class="fa fa-list"></i>Results</a></li>
+            <li><a href="{{ route('dashboard') }}" style="text-decoration: none;"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+            <li><a href="{{ route('enter-test') }}" style="text-decoration: none;"><i class="fa fa-tasks"></i>Enter Report</a></li>
+            <li><a href="{{ route('results') }}" style="text-decoration: none;"><i class="fa fa-database"></i>Results</a></li>
         </ul>
 
         <ul id="accordion" class="accordion" style="margin-bottom: 0px">
@@ -302,28 +302,27 @@ body::-webkit-scrollbar-thumb:hover {
                     <li><a href="{{ route('patients-list') }}">Patient List</a></li>
 
                     @if (Session::get('user')['user_level'] === 'Admin')
-                        <li><a href="report.php">Report</a></li>
+                        <li><a href="{{ route('report') }}">Report</a></li>
                     @endif
                 </ul>
             </li>
             <li>
                 <div class="link"><i class="fa fa-university"></i>Blood Bank<i class="fa fa-chevron-down"></i></div>
                 <ul class="submenu">
-                    <li><a href="bloodBank_donor.php">Reg. Donor</a></li>
-                    <li><a href="bloodBank_stock.php">Stock In</a></li>
-                    <li><a href="bloodBank_stock_in.php">Check Out</a></li>
-                    <li><a href="blood_transfusion.php">Blood Transfusions</a></li>
-                    <li><a href="blood_donors_list.php">Donors List</a></li>
-                    <li><a href="bloodBank_labs_results.php">Lab Results</a></li>
+                    <li><a href="{{ route('create-donor') }}">Reg. Donor</a></li>
+                    <li><a href="{{ route('stock-blood') }}">Stock Blood Bank</a></li>
+                    <li><a href="{{ route('blood-in-stock') }}">Blood In Stock</a></li>
+                    <li><a href="{{ route('blood-transfussions') }}">Blood Transfusions</a></li>
+                    <li><a href="{{ route('donors-list') }}">Donors List</a></li>
+                    <li><a href="{{ route('results-blood-labs') }}">Blood Lab Results</a></li>
                 </ul>
             </li>
                 @if (Session::get('user')['user_level'] === 'Admin')
                     <li>
                         <div class="link"><i class="fa fa-archive"></i>Archive<i class="fa fa-chevron-down"></i></div>
                         <ul class="submenu">
-                            <li><a href="archive_labs.php">Labs Results</a></li>
-                            <li><a href="archive_edit_results.php">Edit Lab Results</a></li>
-                            <li><a href="archive_blood_transfusion.php">Blood Transfusions</a></li>
+                            <li><a href="{{ route('archive-labs') }}">Labs Results</a></li>
+                            <li><a href="{{ route('archive-blood-transfusion') }}">Blood Transfusions</a></li>
                         </ul>
                     </li>
                 @endif
@@ -343,9 +342,6 @@ body::-webkit-scrollbar-thumb:hover {
                     @if (Session::get('user')['user_level'] === 'Admin')
                         <li><a href="{{ route('add-user') }}">Add New User</a></li>
                         <li><a href="{{ route('user-list') }}">Users List</a></li>
-                        {{-- <li><a href="edit_report.php">Edit Report</a></li> --}}
-                    @else
-                        {{-- <li><a href="user_edit_report.php">Edit Report</a></li> --}}
                     @endif 
                     <li><a href="{{ route('user-profile') }}">Profile</a></li>
                 </ul>

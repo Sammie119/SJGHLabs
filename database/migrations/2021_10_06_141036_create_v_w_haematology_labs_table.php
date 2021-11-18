@@ -16,7 +16,7 @@ class CreateVWHaematologyLabsTable extends Migration
     {
         DB::unprepared('CREATE OR REPLACE VIEW v_w_haematology_labs as 
             SELECT lab_results_infos.lab_info_id AS lab_info_id, lab_results_infos.patient_id AS patient_id, 
-            lab_number, opd_number, name, gender, age, department_id, dropdown, anti_tpha, hbsag, hcv, 
+            lab_number, opd_number, INITCAP(name) AS name, INITCAP(gender) AS gender, age, department_id, dropdown, anti_tpha, hbsag, hcv, 
             sel_fbs_rbs, fbs, lab_results_general_labs.blood AS blood, blood_rh, g6pd, urine_hcg, bf, bf_parasite, esr, sickling, 
             sickling_hb, widal_o, widal_h, rdt_pf, comment, wbc, lym, mid, mono, eo, baso, 
             neut, rbc, fbc_hgb, hct, mcv, mch, rdw_cv, mpv, plt, appear, color, lab_results_urinalyses.blood AS uri_blood, blood_factor, 
@@ -49,6 +49,7 @@ class CreateVWHaematologyLabsTable extends Migration
             AND lab_results_infos.lab_info_id = lab_results_ogtt_labs.lab_info_id
             AND lab_results_infos.lab_info_id = lab_results_psa_labs.lab_info_id
             AND lab_results_infos.lab_info_id = lab_results_hpyloris.lab_info_id
+            AND lab_results_infos.deleted_at IS NULL;
             ');
     }
 
