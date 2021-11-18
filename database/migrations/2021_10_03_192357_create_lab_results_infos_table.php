@@ -17,7 +17,7 @@ class CreateLabResultsInfosTable extends Migration
             $table->bigIncrements('lab_info_id');
             $table->integer('patient_id')->references('patient_id')->on('patient')->onDelete('cascade');
             $table->mediumInteger('department_id')->references('dropdown_id')->on('dropdowns')->onDelete('cascade');
-            $table->string('lab_number', 10);
+            $table->string('lab_number', 20);
             $table->tinyInteger('age');
             $table->tinyInteger('created_by')->references('user_id')->on('users')->onDelete('cascade');
             $table->tinyInteger('updated_by')->references('user_id')->on('users')->onDelete('cascade');

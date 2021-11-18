@@ -18,8 +18,8 @@ class CreateLabResultsSemenLabsTable extends Migration
             $table->bigInteger('lab_info_id')->references('lab_info_id')->on('lab_results_infos')->onDelete('cascade');
             $table->date('semen_date')->nullable();
             $table->tinyInteger('semen_dura')->nullable();
-            $table->string('semen_diff', 10)->nullable();
-            $table->string('semen_all', 10)->nullable();
+            $table->string('semen_diff', 20)->nullable();
+            $table->string('semen_all', 20)->nullable();
             $table->string('semen_mode', 50)->nullable();
             $table->tinyInteger('semen_inter')->nullable();
             $table->decimal('semen_vol', 5,1)->nullable();
