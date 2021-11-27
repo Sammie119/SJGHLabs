@@ -23,7 +23,9 @@ use App\Http\Controllers\BloodTransfussionsController;
 
 Route::get('/', [UserController::class, 'index']);
 Route::post('login', [UserController::class, 'login']);
-    
+
+Route::view('forgot-password', 'forgot-password')->name('forgot-password');
+Route::post('forgot_password', [UserController::class, 'forgotPassword']);
 
 Route::middleware(['protectedPages'])->group(function () {
     

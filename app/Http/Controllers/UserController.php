@@ -240,6 +240,38 @@ class UserController extends Controller
         }
     }
 
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|exists:users,name',
+            'username' => 'required|exists:users,username',
+            'mobile' => 'required|exists:users,mobile',
+            'password' => 'required|string|min:6',
+        ],
+        [
+            'name.required' => 'Name field is required',
+            'name.exists' => 'Name provided does not exist',
+            'username.required' => 'Username is required',
+            'username.exists' => 'Userame provided does not exist',
+            'mobile.required' => 'Mobile number is required',
+            'mobile.exists' => 'Mobile number provided does not exist',
+            'password.required' => 'Password is required',
+            'password.min' => 'Password should not be lass than 6 charactors',
+            
+        ]);
+
+        $user = User::where('username', $request->username)->where('mobile', $request->mobile)->first();
+
+        if($user){
+            $user->password = Hash::make($request['password']);
+            $user->update();
+
+            $request->session()->flash('success', 'User '.$user->name.' password reseted Successfully!!');
+
+            return redirect('/');
+        }
+    }
+
     public function logout(){
         Session::forget('user');
         return redirect('/');

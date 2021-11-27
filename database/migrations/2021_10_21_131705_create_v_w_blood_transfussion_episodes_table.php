@@ -15,7 +15,7 @@ class CreateVWBloodTransfussionEpisodesTable extends Migration
     public function up()
     {
         DB::unprepared("CREATE OR REPLACE VIEW v_w_blood_transfussion_episodes as
-            SELECT bloodtrans_id,
+             SELECT blood_transfussion_episodes.bloodtrans_id,
                 blood_transfussion_episodes.bloodbank_id,
                 v_w_blood_banks.blood_number,
                 v_w_blood_banks.name AS donor_name,
@@ -29,12 +29,15 @@ class CreateVWBloodTransfussionEpisodesTable extends Migration
                 blood_transfussion_episodes.volume,
                 blood_transfussion_episodes.blood_product,
                 blood_transfussion_episodes.created_by,
+                get_username(blood_transfussion_episodes.created_by::bigint) AS created_user,
                 blood_transfussion_episodes.updated_by,
+                get_username(blood_transfussion_episodes.updated_by::bigint) AS updated_user,
                 blood_transfussion_episodes.created_at,
                 blood_transfussion_episodes.updated_at,
                 blood_transfussion_episodes.deleted_at
-            FROM blood_transfussion_episodes, v_w_blood_banks
-            WHERE blood_transfussion_episodes.bloodbank_id = v_w_blood_banks.bloodbank_id
+            FROM blood_transfussion_episodes,
+                v_w_blood_banks
+            WHERE blood_transfussion_episodes.bloodbank_id = v_w_blood_banks.bloodbank_id 
             AND blood_transfussion_episodes.deleted_at IS NULL;");
     }
 

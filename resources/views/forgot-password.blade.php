@@ -114,6 +114,7 @@
          align-items: center;
          padding: 15px;
          background: #DDDDDD;
+         margin-top: 2%;
      }
 
      .bb-login {
@@ -139,7 +140,8 @@
          font-size: 30px;
          color: #333333;
          line-height: 1;
-         text-align: center
+         text-align: center;
+         margin-bottom: 35px;
      }
 
      .bb-form-title i {
@@ -458,54 +460,54 @@
 
 </head>
 <body>
-    <div style="text-align: center; font-weight: bolder; color: #191970; font-family: Times new roman; margin-top: 20px; line-height: 200%;">
-            <b style="font-size: 50px;"> ST. JOHN OF GOD HOSPITAL</b><br>
-            <b style="font-size: 30px;"> Duayaw Nkwanta, Ahafo Region</b> <br>
-            <b style="font-size: 30px;"> Laboratory Report Management System</b>
-    </div>
-                
+                    
     <div class="login-container">
         <div class="bb-login" style="border-radius: 20px;">
-            @isset($data)
+            {{-- @isset($data)
                 <div class="alert alert-danger" role="alert">
                     <button type="button" class="close" data-dismiss="alert"><small>x</small></button>
                     {{  $data }}
                 </div>
-            @endisset
+            @endisset --}}
 
-            @if (Session::has('success'))
-                <div class="alert alert-success" role="alert">
-                    <button type="button" class="close" data-dismiss="alert"><small>x</small></button>
-                    {{  Session::get('success') }}
-                </div>
-            @endif
-
-            <form class="bb-form validate-form" name="login-form" action="login" method="post"> 
+            <form class="bb-form validate-form" name="login-form" action="forgot_password" method="post"> 
                 @csrf
-                <span class="bb-form-title p-b-26" style="font-weight: bolder;"> Welcome </span> <span class="bb-form-title p-b-48" style="font-size: 50px;"> <i class="fa fa-user"></i> </span>
+                <span class="bb-form-title p-b-26" style="font-weight: bolder;"> Forgot Password </span> 
 
                 <div class="wrap-input100 validate-input" style="margin-top: 0%;"> 
-                    <input class="input100" type="text" name="username" id="username" required> <span id="demo" class="bbb-input" data-placeholder="Enter Username"></span> 
+                    <input class="input100" type="text" name="username" value="{{ old('username') }}" id="username" required> <span id="demo" class="bbb-input" data-placeholder="Enter your username"></span> 
+                    @if ($errors->has('username'))
+                        <span class="error" style="color: red">{{ $errors->first('username') }}</span>
+                    @endif
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate="Enter password"> 
-                    <span class="btn-show-pass"> <i class="fa fa-eye-slash show_password"></i> </span> <input class="input100" type="password" name="password" id="password" required> <span id="demo2" class="bbb-input" data-placeholder="Password"></span> 
+                <div class="wrap-input100 validate-input" data-validate="Enter your name"> 
+                    <input class="input100" type="text" name="name" value="{{ old('name') }}" id="password" required> <span id="demo2" class="bbb-input" data-placeholder="Enter your name"></span> 
+                    @if ($errors->has('name'))
+                        <span class="error" style="color: red">{{ $errors->first('name') }}</span>
+                    @endif
                 </div>
 
-                {{-- <div class="wrap-input100 validate-input"> 
-                    <select style="border: none; padding-right: 20px" name="lab" required>
-                        <option value="" disabled selected>Please Select Lab</option>
-                        <option value="Main Lab">Main Lab</option>
-                        <option value="RCH Mini-Lab">RCH Lab</option>
-                    </select>
-                </div> --}}
+                <div class="wrap-input100 validate-input" data-validate="Enter your mobile number"> 
+                    <input class="input100" type="text" name="mobile" value="{{ old('mobile') }}" id="" required> <span id="demo3" class="bbb-input" data-placeholder="Enter your mobile number"></span> 
+                    @if ($errors->has('mobile'))
+                        <span class="error" style="color: red">{{ $errors->first('mobile') }}</span>
+                    @endif
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Enter new password"> 
+                    <span class="btn-show-pass"> <i class="fa fa-eye-slash show_password"></i> </span> <input class="input100" type="password" name="password" id="password" required> <span id="demo2" class="bbb-input" data-placeholder="Enter new password"></span> 
+                    @if ($errors->has('password'))
+                        <span class="error" style="color: red">{{ $errors->first('password') }}</span>
+                    @endif
+                </div>
 
                 <div class="login-container-form-btn">
                     <div class="bb-login-form-btn">
-                        <div class="bb-form-bgbtn"></div> <button type="submit" class="bb-form-btn"> Login </button>
+                        <div class="bb-form-bgbtn"></div> <button type="submit" class="bb-form-btn"> Reset Password </button>
                     </div>
                 </div>
-                <div class="text-center p-t-115" style="padding: 2%; margin: 0%;"> <span class="txt1"><a href="{{ route('forgot-password') }}">Forgot Password</a></span></div>
+                <div class="text-center p-t-115" style="padding: 2%; margin: 0%;"> <span class="txt1"><a href="{{ route('dashboard') }}">Back</a></span></div>
                 <div class="text-center p-t-115" style="padding: 2%; margin: 0%;"> <span class="txt1"><i><b>SAMMAV I.T</b> Consult (0248376160 / 0556226864)</i></span></div>
             </form>
         </div>

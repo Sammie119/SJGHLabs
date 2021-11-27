@@ -27,7 +27,7 @@
                     <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">OPD Number</label> 
-                                <input type="text" name="opd_no" id="opd_no" maxlength="10" class="form-control" style="height: 35px;" required>
+                                <input type="text" name="opd_no" value="{{ old('opd_no') }}" id="opd_no" maxlength="10" class="form-control" style="height: 35px;" required>
                                     </div>
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
@@ -37,21 +37,21 @@
                     <div class="row justify-content-center">
                         <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
                             <div class="form-group"> <label for="name">Name</label> 
-                                <input type="text" name="name" id="name" class="form-control" style="width: 66.5%;" required>
+                                <input type="text" name="name" value="{{ old('name') }}" id="name" class="form-control" style="width: 66.5%;" required>
                             </div>    
                         </div>
                     </div>
                     <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">Date of Birth</label> 
-                                <input type="date" name="dob" id="dob" max="<?php echo date('Y-m-d');?>" onchange="Javascript:myAgeValidation()" required style="height: 35px;">
+                                <input type="date" name="dob" value="{{ old('dob') }}" id="dob" max="<?php echo date('Y-m-d');?>" onchange="Javascript:myAgeValidation()" required style="height: 35px;">
                                 Age: <label id="aged">0</label>
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="red_cell">Gender</label> 
                                 <select class = "form-control" id="gender" name="gender" required>
-                                    <option></option>
+                                    <option>{{ old('gender') }}</option>
                                     <option>Male</option>
                                     <option>Female</option>
                                 </select></div>
@@ -90,16 +90,6 @@
                     $(this).val($(this).val().replace(regexp, ''));
                 }
                });
-
-            $('#opd_no').bind('change',function(){   
-                var opd_no = 'opd_no=' +$(this).val();
-                $.post('php/get_opd_no_check.php?func=name', opd_no, processResponseopd_no);
-            });
-
-            function processResponseopd_no(data) {
-                $("#opd_no").empty();
-                $("#opd_no").html(data);
-            };
             
         };
 

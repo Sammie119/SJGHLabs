@@ -25,7 +25,7 @@
                     <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">Reporting Month</label> 
-                                <select name="report_month" class="form-control" style="height: 35px;" required>
+                                <select name="report_month" id="report_month" class="form-control" style="height: 35px;" required>
                                     <option></option>
                                     <option>January</option>
                                     <option>February</option>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">Reporting Year</label> 
-                                <select name="report_year" class="form-control" style="height: 35px;" required>
+                                <select name="report_year" id="report_year" class="form-control" style="height: 35px;" required>
                                     <option></option>
                                     <?php 
                                        for($i = 2020 ; $i <= date('Y'); $i++){
@@ -58,12 +58,12 @@
                     <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> 
-                                <button type="submit" name="action" value="haematology" class="btn btn-primary btn-block"><small class="font-weight-bold"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> Haematology Report</small></button>
+                                <button type="submit" name="action" value="haematology" class="btn btn-primary btn-block load"><small class="font-weight-bold"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> Haematology Report</small></button>
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> 
-                                <button type="submit" name="action" value="micro" class="btn btn-primary btn-block"><small class="font-weight-bold"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> Microbiology Report</small></button>
+                                <button type="submit" name="action" value="micro" class="btn btn-primary btn-block load"><small class="font-weight-bold"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> Microbiology Report</small></button>
                             </div>
                         </div>
                     </div>
@@ -72,20 +72,40 @@
                         @if (Session::get('user')['user_id'] === 1 || Session::get('user')['user_id'] === 2 || Session::get('user')['user_id'] === 3)
                             <div class="col-lg-5 col-md-6 col-sm-12">
                                 <div class="form-group"> 
-                                    <button type="submit" name="action" value="hiv" class="btn btn-primary btn-block"><small class="font-weight-bold"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> HIV Report</small></button>
+                                    <button type="submit" name="action" value="hiv" class="btn btn-primary btn-block load"><small class="font-weight-bold"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> HIV Report</small></button>
                                 </div>
                             </div>
                         @endif
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> 
-                                <button type="submit" name="action" value="blood" class="btn btn-primary btn-block"><small class="font-weight-bold"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> Chem, Blood Bank  & Att Report</small></button>
+                                <button type="submit" name="action" value="blood" class="btn btn-primary btn-block load"><small class="font-weight-bold"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> Chem, Blood Bank  & Att Report</small></button>
                             </div>
                         </div>
                     </div>
                     
                 </form>
             </div>
+            <div class="d-flex justify-content-center">
+                <ul class="list-group list-group-flush" id="gif_load" style="display: none">
+                    <li class="list-group-item d-flex justify-content-center"><img src="{{ asset('public/img/loading.gif') }}" id="gif_load" height="150px" alt="Loading"></li>
+                    <li class="list-group-item d-flex justify-content-center"><h4 style="font-weight: bolder;" id="lab">Report Loading....</h4></li>
+                    <li class="list-group-item d-flex justify-content-center"><small style="font-weight: bolder;" id="lab">This will take about 5 minutes</small></li>
+                    
+                  </ul>
+            </div>
+            
         </div>   
     </div>
+
+    <script>
+        $('.load').click(function () {
+            if(document.getElementById('report_month').value == '' || document.getElementById('report_year').value == ''){
+                document.getElementById('gif_load').style.display = 'none';
+            }
+            else{
+                document.getElementById('gif_load').style.display = 'block';
+            }
+        });
+    </script>
     
 @endsection

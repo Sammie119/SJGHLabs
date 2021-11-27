@@ -11,7 +11,7 @@
                 <h2><b style="color: #191970;">Lab Results</b>
                     <form class="form-inline my-2 my-lg-0 float-right">
                         <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search">
-                        <a class="btn btn-primary mr-2" style="padding: 10px"><i class="fa fa-search"></i></a>
+                        {{-- <a class="btn btn-primary mr-2" style="padding: 10px"><i class="fa fa-search"></i></a> --}}
                         <a href="{{ route('enter-test') }}" class="btn btn-info float-right">Enter Test</a>
                     </form>
                 </h2>
@@ -51,12 +51,12 @@
                                     <tr>
                                         <td>{{ $result->lab_number }}</td>
                                         <td>{{ $result->opd_number }}</td>
-                                        <td>{{ $result->dropdown }}</td>
+                                        <td>{{ $result->department }}</td>
                                         <td>{{ $result->name }}</td>
                                         <td>{{ $result->gender }}</td>
                                         <td>{{ $result->age }}</td>
                                         <td>{{ $result->updated_at }}</td>
-                                        <td>{{ $result->user->username }}</td>
+                                        <td>{{ $result->updated_user }}</td>
                                         <td>
                                         <div class="btn-group">
                                             
@@ -80,7 +80,7 @@
         </div>        
     </div>
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         window.onload = function(){
             document.getElementById('search').focus();
         
@@ -107,8 +107,8 @@
             
         };
     
-    </script>
+    </script> --}}
 
-    {{-- @include('layouts.tableFilter') --}}
+    @include('layouts.tableFilter')
     
 @endsection

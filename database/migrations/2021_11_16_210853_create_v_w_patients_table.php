@@ -15,19 +15,21 @@ class CreateVWPatientsTable extends Migration
     public function up()
     {
         DB::unprepared("CREATE OR REPLACE VIEW v_w_patients as       
-            SELECT patient_id,
-            opd_number,
-            INITCAP(name) AS name,
-            date_of_birth,
-            date_part('year'::text, age(date_of_birth::timestamp with time zone)) AS age,
-            INITCAP(gender) AS gender,
-            created_by,
-            updated_by,
-            created_at,
-            updated_at
+             SELECT patients.patient_id,
+                patients.opd_number,
+                initcap(patients.name::text) AS name,
+                patients.date_of_birth,
+                date_part('year'::text, age(patients.date_of_birth::timestamp with time zone)) AS age,
+                initcap(patients.gender::text) AS gender,
+                patients.created_by,
+                get_username(patients.created_by::bigint) AS created_user,
+                patients.updated_by,
+                get_username(patients.updated_by::bigint) AS updated_user,
+                patients.created_at,
+                patients.updated_at
             FROM patients
-            WHERE deleted_at IS NULL
-            ORDER BY patient_id DESC;");
+            WHERE patients.deleted_at IS NULL
+            ORDER BY patients.patient_id DESC;");
     }
 
     /**

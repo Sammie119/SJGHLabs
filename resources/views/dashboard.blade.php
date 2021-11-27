@@ -27,7 +27,7 @@
         display: grid;
         grid-template-columns: repeat(4,1fr);
         grid-gap: 30px;
-        margin-left: 5%;
+        margin-left: 4%;
     }
 
     .cardBox .card {
@@ -107,11 +107,11 @@
                     <h4>{{ Session::get('success') }}</h4>
                 </div>
             @endif
-            <div class="text-center" style="font-weight: bolder; color: #191970; font-family: Times new roman; margin-top: 20px; line-height: 250%;">
+            {{-- <div class="text-center" style="font-weight: bolder; color: #191970; font-family: Times new roman; margin-top: 20px; line-height: 250%;">
                 <b style="font-size: 50px;"> ST. JOHN OF GOD HOSPITAL</b><br>
                 <b style="font-size: 30px;"> Duayaw Nkwanta, Ahafo Region</b> <br>
                 <b style="font-size: 30px;"> Laboratory Report Management System</b>
-            </div>
+            </div> --}}
         </div>
 
         {{-- Card --}}
@@ -161,19 +161,25 @@
                 </table>
             </div>
         </div>
-        <div class="row ml-8" style="width: 100%; margin-left: 15%;">
-            <div class="card graph mb-3 ml-4 col-5" style="border-radius: 20px">
-                <div class="card-body text-primary" id="pie-chart" style="height: 250px">
-                    
+        <div class="container-fluid" style="margin-left: 10%">
+            <div class="row" style="">
+                <div class="col-6">
+                    <div class="card graph mb-3 ml-4 col-12" style="border-radius: 20px">
+                        <div class="card-body text-primary" id="pie-chart" style="height: 350px">
+                            
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card graph mb-3 ml-4 col-5" style="border-radius: 20px">
-                <div class="card-body text-primary" id="chart-container" style="height: 250px">
-                    <?php
-						$results = [floatval($query['labsResults']->main), floatval($query['labsResults']->rch)];
-					?>
-                    
+                <div class="col-6">
+                    <div class="card graph mb-3 ml-4 col-12" style="border-radius: 20px">
+                        <div class="card-body text-primary" id="chart-container" style="height: 350px">
+                            <?php
+                                $results = [floatval($query['labsResults']->main), floatval($query['labsResults']->rch)];
+                            ?>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

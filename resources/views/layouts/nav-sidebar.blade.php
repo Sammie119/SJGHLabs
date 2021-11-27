@@ -322,7 +322,7 @@ body::-webkit-scrollbar-thumb:hover {
                         <div class="link"><i class="fa fa-archive"></i>Archive<i class="fa fa-chevron-down"></i></div>
                         <ul class="submenu">
                             <li><a href="{{ route('archive-labs') }}">Labs Results</a></li>
-                            <li><a href="{{ route('archive-blood-transfusion') }}">Blood Transfusions</a></li>
+                            {{-- <li><a href="{{ route('archive-blood-transfusion') }}">Blood Transfusions</a></li> --}}
                         </ul>
                     </li>
                 @endif
@@ -331,7 +331,7 @@ body::-webkit-scrollbar-thumb:hover {
                     <div class="link"><i class="fa fa-cog fa-spin"></i>Custom Settings<i class="fa fa-chevron-down"></i></div>
                     <ul class="submenu"> 
                         <li><a href="{{ route('custom-types') }}">Custom List</a></li>
-                        <li><a href="{{ route('category') }}">Add Category</a></li>
+                        {{-- <li><a href="{{ route('category') }}">Add Category</a></li> --}}
                         <li><a href="{{ route('dropdown') }}">Add Dropdown</a></li>    
                     </ul>
                 </li>

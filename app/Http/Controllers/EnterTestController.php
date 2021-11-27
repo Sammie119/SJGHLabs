@@ -48,14 +48,14 @@ class EnterTestController extends Controller
         $lab_no = 'R%';
       }
 
-      $results = VWHaematologyLab::where('lab_number', 'LIKE', $lab_no)->orderBy('lab_info_id', 'DESC')->where(DB::raw("date_part('day', now()::timestamp - updated_at::timestamp)"), '<', 30)->with('user')->get();
+      $results = VWHaematologyLab::where('lab_number', 'LIKE', $lab_no)->orderBy('lab_info_id', 'DESC')->with('user')->limit(1000)->get();
       
       return view('results', compact('results'));
     }
 
     public function archiveLabsResults()
     {
-      $results = VWHaematologyLab::orderBy('lab_info_id', 'DESC')->where(DB::raw("date_part('day', now()::timestamp - updated_at::timestamp)"), '>=', 30)->with('user')->get();
+      $results = VWHaematologyLab::orderBy('lab_info_id', 'DESC')->with('user')->limit(1000)->get();
       return view('archive-labs', compact('results'));
     }
 
