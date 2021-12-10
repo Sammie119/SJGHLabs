@@ -164,7 +164,7 @@
                               <div class="form-group"> 
                                 <label for="depart">Department</label> 
                                 <select name="department" id="depart" class="form-control" required >
-                                  <option value="{{ $haema->department_id }}">{{ $haema->dropdown }}</option>
+                                  <option value="{{ $haema->department_id }}">{{ $haema->department }}</option>
                                   @foreach ($query['department'] as $depart)
                                     <option value="{{ $depart['dropdown_id'] }}">{{ $depart['dropdown'] }}</option>
                                   @endforeach

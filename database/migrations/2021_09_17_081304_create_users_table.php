@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('department');
             $table->string('user_level');
             $table->string('password');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

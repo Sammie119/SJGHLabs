@@ -44,12 +44,12 @@
                                     <tr>
                                         <td>{{ $result->lab_number }}</td>
                                         <td>{{ $result->opd_number }}</td>
-                                        <td>{{ $result->dropdown }}</td>
+                                        <td>{{ $result->department }}</td>
                                         <td>{{ $result->name }}</td>
                                         <td>{{ $result->gender }}</td>
                                         <td>{{ $result->age }}</td>
                                         <td>{{ $result->updated_at }}</td>
-                                        <td>{{ $result->user->username }}</td>
+                                        <td>{{ $result->updated_user }}</td>
                                         <td>
                                         <div class="btn-group">
                                             <a href="#" class="btn btn-primary" onclick="window.open('print-results/{{ $result->lab_info_id }}','', 'left=0,top=0,width=1000,height=600,toolbar=0,scrollbars=0,status=0')"><i class="fa fa-print"></i></a>

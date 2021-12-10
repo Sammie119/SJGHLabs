@@ -1302,7 +1302,7 @@ $time_mins = [0, 0, 0, 0];
 			</tr>
 			<tr>
 				<td>DEPARTMENT:</td>
-				<td>{{ $haema->dropdown }}</td>
+				<td>{{ $haema->department }}</td>
 			</tr>
 			<tr>
 				<td>DATE:</td>
