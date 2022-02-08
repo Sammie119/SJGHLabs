@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LabResultsPeritonealFluid extends Model
+class HaematologyLab extends Model
 {
     use HasFactory;
 
-    protected $table = 'lab_results_peritoneal_fluids';
+    protected $table = 'labs_haematology_episodes';
     
-    protected $primaryKey = 'peritoneal_id';
+    protected $primaryKey = 'haema_id';
 
-    protected $guarded = 'peritoneal_id';
+    protected $guarded = 'haema_id';
 
     public $timestamps = false;
 }

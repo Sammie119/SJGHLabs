@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LabResultsGeneralLab extends Model
+class ChemistriesLab extends Model
 {
     use HasFactory;
 
-    protected $table = 'lab_results_general_labs';
+    protected $table = 'labs_chemistries_episodes';
     
-    protected $primaryKey = 'general_id';
+    protected $primaryKey = 'chem_id';
 
-    protected $guarded = 'general_id';
+    protected $guarded = 'chem_id';
 
     public $timestamps = false;
 }

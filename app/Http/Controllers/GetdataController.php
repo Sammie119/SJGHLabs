@@ -121,7 +121,7 @@ class GetdataController extends Controller
 
     public function getAntibiotics(Request $request)
     {
-        $anti = VWDropdown::where('category_name', 'Antibiotics')->where('dropdown', 'LIKE', '%'.$request->antibiotic.'%')->get();
+        $anti = VWDropdown::where('category_name', 'Antibiotics')->where('dropdown', 'ILIKE', '%'.$request->antibiotic.'%')->get();
 
         foreach ($anti as $antibiotic) {
             echo "<option value='".$antibiotic->dropdown."'>";
@@ -299,10 +299,10 @@ class GetdataController extends Controller
     public function getPatientSearch(Request $request)
     {
         if(is_numeric($request['search'])){
-            $patients = VWPatients::where('opd_number', 'LIKE', '%'.$request['search'].'%')->orWhere('age', $request['search'])->get();
+            $patients = VWPatients::where('opd_number', 'ILIKE', '%'.$request['search'].'%')->orWhere('age', $request['search'])->get();
         }
         else{
-            $patients = VWPatients::where('opd_number', 'LIKE', '%'.$request['search'].'%')->orWhere('name', 'LIKE', '%'.$request['search'].'%')->orWhere('gender', 'LIKE', '%'.$request['search'].'%')->get();
+            $patients = VWPatients::where('opd_number', 'ILIKE', '%'.$request['search'].'%')->orWhere('name', 'ILIKE', '%'.$request['search'].'%')->orWhere('gender', 'ILIKE', '%'.$request['search'].'%')->get();
         }
         
         if($patients){
@@ -342,11 +342,11 @@ class GetdataController extends Controller
     public function getLabResultsSearch(Request $request)
     {
        
-        $results = VWHaematologyLab::where('lab_number', 'LIKE', '%'.$request['search'].'%')
-                                    ->orWhere('opd_number', 'LIKE', '%'.$request['search'].'%')
-                                    ->orWhere('name', 'LIKE', '%'.$request['search'].'%')
-                                    ->orWhere('gender', 'LIKE', '%'.$request['search'].'%')
-                                    ->orWhere('dropdown', 'LIKE', '%'.$request['search'].'%')
+        $results = VWHaematologyLab::where('lab_number', 'ILIKE', '%'.$request['search'].'%')
+                                    ->orWhere('opd_number', 'ILIKE', '%'.$request['search'].'%')
+                                    ->orWhere('name', 'ILIKE', '%'.$request['search'].'%')
+                                    ->orWhere('gender', 'ILIKE', '%'.$request['search'].'%')
+                                    ->orWhere('department', 'ILIKE', '%'.$request['search'].'%')
                                     ->get();
         
         if($results){
@@ -361,7 +361,7 @@ class GetdataController extends Controller
                 <tr>
                     <td>'.$result->lab_number.'</td>
                     <td>'.$result->opd_number.'</td>
-                    <td>'.$result->dropdown.'</td>
+                    <td>'.$result->department.'</td>
                     <td>'.$result->name.'</td>
                     <td>'.$result->gender.'</td>
                     <td>'.$result->age.'</td>

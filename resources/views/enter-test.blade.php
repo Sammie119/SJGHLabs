@@ -498,6 +498,14 @@
                           </div>
                         </div>
                       </div>
+                      <div class="row justify-content-center">
+                        <div class="col-md-8">
+                          <div class="form-group"> 
+                            <label for="mpv">Comment</label>
+                            <textarea class="form-control rounded-0" name="fbc_comment" id="fbc_comment" form="test_form" rows="3"></textarea>
+                          </div>
+                        </div>
+                      </div>
                   </div>
             {{-- FBC --}}
                 
@@ -758,13 +766,20 @@
                           <div class="form-group"> <label for="ora">SD Bioline</label> 
                               <select name="sd_bioline" id="ora" class="form-control" >
                                   <option></option>
-                                  @foreach ($query['response'] as $response)
-                                    <option>{{ $response['dropdown'] }}</option>
+                                  @foreach ($query['art_screen'] as $art_screen)
+                                    <option>{{ $art_screen['dropdown'] }}</option>
                                   @endforeach
                               </select> </div>
                       </div>
                       <div class="col-md-4">
-                          
+                        <div class="form-group"> <label for="ora">HIV Final Result</label> 
+                            <select name="hiv_final" id="hiv_final" class="form-control" >
+                                <option></option>
+                                @foreach ($query['response'] as $response)
+                                  <option>{{ $response['dropdown'] }}</option>
+                                @endforeach
+                                <option>Inconclusive</option>
+                            </select> </div>
                       </div>
                   </div>
                 </div>

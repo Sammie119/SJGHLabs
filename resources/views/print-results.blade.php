@@ -1562,6 +1562,10 @@ $time_mins = [0, 0, 0, 0];
 					<td>{{ $limt11 }}</td>
 					<td><?php echo $mpv1;?></td>
 				</tr>
+				<tr>
+					<td>Comment</td>
+					<td colspan="4">{{ $haema->fbc_comment }}</td>
+				</tr>
 			</table>	
 		@endif
 		
@@ -1720,6 +1724,15 @@ $time_mins = [0, 0, 0, 0];
 					<tr>
 						<td>SD Bioline:</td>
 						<td>{{ $haema->sd_bioline }}</td>
+					</tr>
+				@endif
+				@if ($haema->hiv_final != '')
+					<tr>
+						<td colspan="2"><b><i>HIV Final Report</i></b></td>
+					</tr>
+					<tr>
+						<td>Final Result:</td>
+						<td>{{ ($haema->hiv_final != 'Inconclusive') ? 'HIV ' : '' }}{{ $haema->hiv_final }}{{ ($haema->hiv_final == 'Inconclusive') ? ', repeat test in 14 days' : '' }}</td>
 					</tr>
 				@endif
 			</table>

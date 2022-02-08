@@ -22,7 +22,7 @@ class ReportController extends Controller
             'year' => $request->report_year
         ];
         
-        $year_month = $request->report_year.$report_month;
+        $year_month = $request->report_year.(integer)$report_month;
 
 
         switch ($request->input('action')) {
@@ -44,7 +44,7 @@ class ReportController extends Controller
             case 'hiv':
                 $dt = "HIV";
 
-                $query = VWHaematologyLab::where('sd_bioline', 'Positive')
+                $query = VWHaematologyLab::where('hiv_final', 'Positive')->orWhere('sd_bioline', 'Positive')
                         ->where(DB::raw("CONCAT(EXTRACT(YEAR FROM updated_at ),EXTRACT(MONTH FROM updated_at ))"), "$year_month")->get();
     
                 break;
