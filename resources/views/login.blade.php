@@ -480,7 +480,7 @@
                 </div>
             @endif
 
-            <form class="bb-form validate-form" name="login-form" action="login" method="post"> 
+            <form class="bb-form validate-form" name="login-form" action="login" method="POST" autocomplete="off"> 
                 @csrf
                 <span class="bb-form-title p-b-26" style="font-weight: bolder;"> Welcome </span> <span class="bb-form-title p-b-48" style="font-size: 50px;"> <i class="fa fa-user"></i> </span>
 

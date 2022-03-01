@@ -11,7 +11,7 @@
                 <h3><b style="color: #191970;">Lab Results @isset($results)
                     for {{ $results[0]['name'] }} ({{ $results[0]['opd_number'] }})
                 @endisset</b>
-                    <form class="form-inline my-2 my-lg-0 float-right" method="POST" action="{{ route('doc-view-labs') }}">
+                    <form class="form-inline my-2 my-lg-0 float-right" method="POST" autocomplete="off" action="{{ route('doc-view-labs') }}">
                         <input class="form-control mr-sm-2" id="opd_no" type="text" name="opd_no" placeholder="Enter OPD Number" required>
                         @csrf
                         <button type="submit" class="btn btn-info float-right">Generate</button>

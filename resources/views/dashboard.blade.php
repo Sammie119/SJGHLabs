@@ -23,11 +23,11 @@
     .cardBox {
         position: relative;
         width: 100%;
-        padding: 20px;
+        padding: 0px 20px 20px 20px;
         display: grid;
         grid-template-columns: repeat(4,1fr);
         grid-gap: 30px;
-        margin-left: 4%;
+        margin-left: 1.5%;
     }
 
     .cardBox .card {

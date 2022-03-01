@@ -13,7 +13,7 @@
                 </h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('new-patient') }}" method="POST" onsubmit="return validateForm()">
+                <form action="{{ route('new-patient') }}" method="POST" autocomplete="off" onsubmit="return validateForm()">
                     @csrf
                     @if($errors->any())
                         <div class="alert alert-danger" role="alert">
@@ -24,7 +24,7 @@
                             </ul>
                         </div>
                     @endif
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
+                    <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">OPD Number</label> 
                                 <input type="text" name="opd_no" value="{{ old('opd_no') }}" id="opd_no" maxlength="10" class="form-control" style="height: 35px;" required>
@@ -35,13 +35,13 @@
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
+                        <div class="col-md-12 col-lg-10 col-12">
                             <div class="form-group"> <label for="name">Name</label> 
-                                <input type="text" name="name" value="{{ old('name') }}" id="name" class="form-control" style="width: 66.5%;" required>
+                                <input type="text" name="name" value="{{ old('name') }}" id="name" class="form-control" style="width: 100%;" required>
                             </div>    
                         </div>
                     </div>
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
+                    <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">Date of Birth</label> 
                                 <input type="date" name="dob" value="{{ old('dob') }}" id="dob" max="<?php echo date('Y-m-d');?>" onchange="Javascript:myAgeValidation()" required style="height: 35px;">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%; margin-top: 10px;">
+                    <div class="row justify-content-center">
                         <div class="col-md-12 col-lg-10 col-12">
                             <div class="row justify-content-end mb-5">
                                 <div class="col-lg-4 col-auto "><button type="reset" class="btn btn-primary btn-block"><small class="font-weight-bold"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> Clear</small></button> </div>

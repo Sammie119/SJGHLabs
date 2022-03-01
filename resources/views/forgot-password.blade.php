@@ -470,7 +470,7 @@
                 </div>
             @endisset --}}
 
-            <form class="bb-form validate-form" name="login-form" action="forgot_password" method="post"> 
+            <form class="bb-form validate-form" name="login-form" action="forgot_password" method="POST" autocomplete="off"> 
                 @csrf
                 <span class="bb-form-title p-b-26" style="font-weight: bolder;"> Forgot Password </span> 
 

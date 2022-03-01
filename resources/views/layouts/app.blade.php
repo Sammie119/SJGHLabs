@@ -53,6 +53,7 @@
 
 <link href={{ asset("public/css/bootstrap.min.css' rel='stylesheet")}}>
 <script>window.jQuery || document.write('<script src={{ asset("public/js/jquery-3.6.0.min.js")}}><\/script>')</script>
+<body>
     @include('layouts.nav-sidebar')
 
     @yield('content')

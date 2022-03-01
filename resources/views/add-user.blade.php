@@ -13,7 +13,7 @@
                 </h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('register') }}" method="POST" onsubmit="return validateForm()">
+                <form action="{{ route('register') }}" method="POST" autocomplete="off" onsubmit="return validateForm()">
                     @csrf
                     @if($errors->any())
                         <div class="alert alert-danger" role="alert">
@@ -34,32 +34,16 @@
                         </div>
                     @endif --}}
                     <div class="row justify-content-center">
-                        <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
+                        <div class="col-md-12 col-lg-10 col-12">
                             <div class="form-group"> <label for="name">Name</label> 
-                                <input type="text" name="name" id="name" class="form-control" style="width: 66.5%;" required>
+                                <input type="text" name="name" id="name" class="form-control" style="width: 100%;" required>
                             </div>    
                         </div>
                     </div>
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
-                        <div class="col-lg-5 col-md-6 col-sm-12">
-                            <div class="form-group"> <label for="pus_cell">User Level</label> 
-                                <select name="level" id="level" class="form-control" style="height: 35px;" required>
-                                    <option></option>
-                                    <option>Admin</option>
-                                    <option>User</option>
-                                    <option>Doctor</option>
-                                    <option>Nurse</option>
-                                </select></div>
-                        </div>
-                        <div class="col-lg-5 col-md-6 col-sm-12">
-                            <div class="form-group"> <label for="red_cell">Mobile Number</label> 
-                                <input type="text" class = "form-control" id="tel" name="mobile" required></div>
-                        </div>
-                    </div>
                     <div class="row justify-content-center">
-                        <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
+                        <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="department">Department</label> 
-                                <select class = "form-control" id="department" name="department" style="width: 66.5%; height: 35px;" required>
+                                <select class = "form-control" id="department" name="department" height: 35px;" required>
                                     <option></option>
                                     <option value="Main Lab">Main Lab</option>
                                     <option value="RCH Mini-Lab">RCH Lab</option>
@@ -69,14 +53,29 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
-                            <div class="form-group"> <label for="lab_no">Username</label> 
-                                <input type="text" class = "form-control" name="username" style="width: 66.5%;" required></div>
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <div class="form-group"> <label for="pus_cell">User Level</label> 
+                                <select name="level" id="level" class="form-control" style="height: 35px;" required>
+                                    <option></option>
+                                    <option>Admin</option>
+                                    <option>User</option>
+                                    <option>Doctor</option>
+                                    <option>Nurse</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <div class="form-group"> <label for="red_cell">Mobile Number</label> 
+                                <input type="text" class = "form-control" id="tel" name="mobile" required></div>
+                        </div>
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <div class="form-group"> <label for="lab_no">Username</label> 
+                                <input type="text" class = "form-control" name="username" required></div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">Password</label> 
                                 <input type="password" class = "form-control" id="new_pass" name="new_pass" required style="height: 35px;"></div>
@@ -86,7 +85,7 @@
                                 <input type="password" class = "form-control" id="con_pass" required style="height: 35px;"></div>
                         </div>
                     </div>
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%; margin-top: 10px;">
+                    <div class="row justify-content-center">
                         <div class="col-md-12 col-lg-10 col-12">
                             <div class="row justify-content-end mb-5">
                                 <div class="col-lg-4 col-auto "><button type="reset" class="btn btn-primary btn-block"><small class="font-weight-bold"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> Clear</small></button> </div>

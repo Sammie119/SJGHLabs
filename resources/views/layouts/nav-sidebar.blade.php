@@ -91,7 +91,8 @@ body {
 
 .wrapper .main_content {
     width: 100%;
-    margin-left: 15%
+    margin-left: 15%;
+    /* margin-right: 3% */
 }
 
 .wrapper .main_content .header {

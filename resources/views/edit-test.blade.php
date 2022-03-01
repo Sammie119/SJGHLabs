@@ -102,7 +102,7 @@
                             </ul>
                         </div>
                     @endif
-            <form action="{{ route('update-labs') }}" method="POST" id="test_form">
+            <form action="{{ route('update-labs') }}" method="POST" autocomplete="off" id="test_form">
                 @csrf
                 <input type="hidden" name="id" value="{{ $haema->lab_info_id }}">
               <div class="card-body">

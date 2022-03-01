@@ -18,7 +18,7 @@
                 </div>
             @endif
             <div class="card-body">
-                <form action="{{ route('update-checkout-blood') }}" method="POST" onsubmit="return validateForm()">
+                <form action="{{ route('update-checkout-blood') }}" method="POST" autocomplete="off" onsubmit="return validateForm()">
                     @csrf
                     @if($errors->any())
                         <div class="alert alert-danger" role="alert">

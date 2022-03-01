@@ -13,7 +13,7 @@
                 </h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('register-donor') }}" method="POST" onsubmit="return validateForm()">
+                <form action="{{ route('register-donor') }}" method="POST" autocomplete="off" onsubmit="return validateForm()">
                     @csrf
                     @if($errors->any())
                         <div class="alert alert-danger" role="alert">
@@ -30,13 +30,13 @@
                         </div>
                     @endif
                     <div class="row justify-content-center">
-                        <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
+                        <div class="col-md-12 col-lg-10 col-12">
                             <div class="form-group"> <label for="name">Donor's Name</label> 
-                                <input type="text" name="name" id="name" class="form-control" style="width: 66.5%;" required>
+                                <input type="text" name="name" id="name" class="form-control" style="width: 100%;" required>
                             </div>    
                         </div>
                     </div>
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
+                    <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">Date of Birth</label> 
                                 <input type="date" name="dob" id="dob" max="<?php echo date('Y-m-d');?>" onchange="Javascript:myAgeValidation()" required style="height: 35px;">
@@ -52,7 +52,7 @@
                                 </select></div>
                         </div>
                     </div>
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
+                    <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">Blood Group</label> 
                                 <select name="blood" id="bld" class="form-control" style="height: 35px;" required>
@@ -78,7 +78,7 @@
                                 </select></div>
                         </div>
                     </div>
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
+                    <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">Profession</label> 
                                 <select name="profession" id="profess" class="form-control" style="height: 35px;" required>
@@ -95,13 +95,13 @@
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
+                        <div class="col-md-12 col-lg-10 col-12">
                             <div class="form-group"> <label for="name">Address</label> 
-                                <input type="text" id="address" name="address" class="form-control" style="width: 66.5%;" required>
+                                <input type="text" id="address" name="address" class="form-control" style="width: 100%;" required>
                             </div>    
                         </div>
                     </div>
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%; margin-top: 10px;">
+                    <div class="row justify-content-center">
                         <div class="col-md-12 col-lg-10 col-12">
                             <div class="row justify-content-end mb-5">
                                 <div class="col-lg-4 col-auto "><button type="reset" class="btn btn-primary btn-block"><small class="font-weight-bold"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> Clear</small></button> </div>

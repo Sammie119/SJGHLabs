@@ -11,7 +11,7 @@
                 <h2><b style="color: #191970;">Report</b></h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('print-report') }}" method="POST">
+                <form action="{{ route('print-report') }}" method="POST" autocomplete="off">
                     @csrf
                     @if($errors->any())
                         <div class="alert alert-danger" role="alert">

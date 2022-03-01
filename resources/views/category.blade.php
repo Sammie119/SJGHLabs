@@ -13,7 +13,7 @@
                 </h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('add-category') }}" method="POST" onsubmit="return validateForm()">
+                <form action="{{ route('add-category') }}" method="POST" autocomplete="off" onsubmit="return validateForm()">
                     @csrf
                     @if($errors->any())
                         <div class="alert alert-danger" role="alert">

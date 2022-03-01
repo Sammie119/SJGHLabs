@@ -18,7 +18,7 @@
                 </div>
             @endif
             <div class="card-body">
-                <form action="{{ route('stock-blood-bank') }}" method="POST" onsubmit="return validateForm()">
+                <form action="{{ route('stock-blood-bank') }}" method="POST" autocomplete="off" onsubmit="return validateForm()">
                     @csrf
                     @if($errors->any())
                         <div class="alert alert-danger" role="alert">
@@ -30,25 +30,25 @@
                         </div>
                     @endif
                     <div class="row justify-content-center">
-                        <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
+                        <div class="col-md-12 col-lg-10 col-12">
                             <div class="form-group"> <label for="lab_no">Blood Number</label> 
-                                <input type="text" name="blood_number" id="bld" class = "form-control" maxlength="9" required style="width: 66.5%;"></div>
+                                <input type="text" name="blood_number" id="bld" class = "form-control" maxlength="9" required style="width: 100%;"></div>
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
+                        <div class="col-md-12 col-lg-10 col-12">
                             <div class="form-group"> <label for="lab_no">Name of Donor</label> 
-                                <input type="text" id="name" name="name" class="form-control" readonly style="width: 66.5%;"></div>
+                                <input type="text" id="name" name="name" class="form-control" readonly style="width: 100%;"></div>
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
+                        <div class="col-md-12 col-lg-10 col-12">
                             <div class="form-group"> <label for="lab_no">Name of Patient</label> 
-                                <input type="text" id="patient_name" name="patient_name" class="form-control" required style="width: 66.5%;"></div>
+                                <input type="text" id="patient_name" name="patient_name" class="form-control" required style="width: 100%;"></div>
                         </div>
                     </div>
 
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
+                    <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">Blood Group</label> 
                                 <input type="text" id="blood_group" name="blood_group" class="form-control" readonly></div>
@@ -67,7 +67,7 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%; margin-top: 10px;">
+                    <div class="row justify-content-center">
                         <div class="col-md-12 col-lg-10 col-12">
                             <div class="row justify-content-end mb-5">
                                 <div class="col-lg-4 col-auto "><button type="reset" class="btn btn-primary btn-block"><small class="font-weight-bold"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> Clear</small></button> </div>

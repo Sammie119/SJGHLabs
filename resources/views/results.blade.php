@@ -80,35 +80,6 @@
         </div>        
     </div>
 
-    {{-- <script type="text/javascript">
-        window.onload = function(){
-            document.getElementById('search').focus();
-        
-        $('#search').bind('change',function(){   
-            var search = $(this).val();
-            var pathArray = window.location.pathname.split('/');
-            var url = pathArray[1];
-
-            $.ajax({
-                type:'POST',
-                url:"/"+url+"/getResults",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    search
-                    },
-                success:function(data) {
-                    $("#employee_table").empty();
-                    $("#employee_table").html(data);
-                }
-            });
-        });
-            
-        };
-    
-    </script> --}}
-
     @include('layouts.tableFilter')
     
 @endsection
