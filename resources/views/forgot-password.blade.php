@@ -5,7 +5,7 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <title>SJGH-Laboratory Report Management System</title>
 
-<link rel="shortcut icon" href={{ asset('public/img/logo_icon.ico') }}>
+<link rel="shortcut icon" href={{ asset('public/img/smmie_logo.ico') }}>
 <link href={{ asset('public/css/bootstrap.min.css') }} rel='stylesheet'>
 
 <link rel="stylesheet" href={{ asset('public/font-awesome/css/font-awesome.min.css') }}>

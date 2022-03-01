@@ -15,7 +15,7 @@
 
     <title>@yield('title')</title>
 
-    <link rel="shortcut icon" href={{ asset("public/img/logo_icon.ico") }}>
+    <link rel="shortcut icon" href={{ asset("public/img/smmie_logo.ico") }}>
 
     <!-- Bootstrap Core CSS -->
     <link href={{ asset("public/css/bootstrap.min.css")}} rel='stylesheet'>
