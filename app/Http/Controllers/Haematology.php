@@ -970,7 +970,7 @@ class Haematology extends Controller
                 'hcv' => $hcv[0],
                 'hcv_pos' => $hcv_pos[0],
                 'hbsag' => $hbsag[0],
-                'hbsag_pos' => $hbsag[0],
+                'hbsag_pos' => $hbsag_pos[0],
                 'fbs' => $fbs[0],
                 'blood' => $blood[0],
                 'g6pd_nor' => $g6pd_nor[0],

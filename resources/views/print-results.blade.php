@@ -2145,7 +2145,7 @@ $time_mins = [0, 0, 0, 0];
 					<td>0 - 50</td>
 				</tr>
 				<tr>
-					<td>TOTAL BILIRUBIM</td>
+					<td>TOTAL BILIRUBIN</td>
 					<td>T BIL</td>
 					<td>{{ $chem->liver_total }}</td>
 					<td><?php echo $liver8;?></td>
@@ -2153,7 +2153,7 @@ $time_mins = [0, 0, 0, 0];
 					<td>1.7 - 21</td>
 				</tr>
 				<tr>
-					<td>DIRECT BILIRUBIM</td>
+					<td>DIRECT BILIRUBIN</td>
 					<td>D BIL</td>
 					<td>{{ $chem->liver_direct }}</td>
 					<td><?php echo $liver9;?></td>
@@ -2161,7 +2161,7 @@ $time_mins = [0, 0, 0, 0];
 					<td>1.7 - 6.8</td>
 				</tr>
 				<tr>
-					<td>INDIRECT BILIRUBIM</td>
+					<td>INDIRECT BILIRUBIN</td>
 					<td>I BIL</td>
 					<td>{{ $chem->liver_indirect }}</td>
 					<td><?php echo $liver10;?></td>
