@@ -22,8 +22,20 @@
                             </ul>
                         </div>
                     @endif
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
-                        <div class="col-lg-5 col-md-6 col-sm-12">
+                    <div class="row justify-content-center" style="width: 77.7%; margin-left: 15%;">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group"> <label for="pus_cell">Report</label> 
+                                <select name="report" id="report" class="form-control" style="height: 35px;" required>
+                                    <option></option>
+                                    <option value="haematology">Haematology</option>
+                                    <option value="micro">Microbiology</option>
+                                    <option value="hiv">HIV</option>
+                                    <option value="blood">Chemistries</option>
+                                    <option value="attendance">Attendance and Donor's Labs</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">Reporting Month</label> 
                                 <select name="report_month" id="report_month" class="form-control" style="height: 35px;" required>
                                     <option></option>
@@ -42,7 +54,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-5 col-md-6 col-sm-12">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
                             <div class="form-group"> <label for="pus_cell">Reporting Year</label> 
                                 <select name="report_year" id="report_year" class="form-control" style="height: 35px;" required>
                                     <option></option>
@@ -55,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
+                    {{-- <div class="row justify-content-center" style="width: 70%; margin-left: 15%;">
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             <div class="form-group"> 
                                 <button type="submit" name="action" value="haematology" class="btn btn-primary btn-block load"><small class="font-weight-bold"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> Haematology Report</small></button>
@@ -81,13 +93,21 @@
                                 <button type="submit" name="action" value="blood" class="btn btn-primary btn-block load"><small class="font-weight-bold"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> Chem, Blood Bank  & Att Report</small></button>
                             </div>
                         </div>
+                    </div> --}}
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-md-12 col-lg-10 col-12">
+                            <div class="row justify-content-end mb-5">
+                                {{-- <div class="col-lg-4 col-auto "><button type="reset" class="btn btn-primary btn-block"><small class="font-weight-bold"><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> Clear</small></button> </div> --}}
+                                <div class="col-lg-4 col-auto "><button type="submit" class="btn btn-primary btn-block load"><small class="font-weight-bold"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> Generate</small></button> </div>
+                            </div>
+                        </div>
                     </div>
                     
                 </form>
             </div>
             <div class="d-flex justify-content-center">
                 <ul class="list-group list-group-flush" id="gif_load" style="display: none">
-                    <li class="list-group-item d-flex justify-content-center"><img src="{{ asset('public/img/loading.gif') }}" id="gif_load" height="150px" alt="Loading"></li>
+                    <li class="list-group-item d-flex justify-content-center"><img src="{{ asset('public/img/loading.gif') }}" id="gif_load" height="100px" alt="Loading"></li>
                     <li class="list-group-item d-flex justify-content-center"><h4 style="font-weight: bolder;" id="lab">Report Loading....</h4></li>
                     <li class="list-group-item d-flex justify-content-center"><small style="font-weight: bolder;" id="lab">This will take about 5 minutes</small></li>
                     

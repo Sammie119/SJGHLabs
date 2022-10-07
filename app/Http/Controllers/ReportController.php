@@ -25,7 +25,7 @@ class ReportController extends Controller
         $year_month = $request->report_year.(integer)$report_month;
 
 
-        switch ($request->input('action')) {
+        switch ($request->report) {
             case 'haematology':
                 $dt = "Haematology";
 
@@ -55,6 +55,9 @@ class ReportController extends Controller
                 $query = ChemBloodAtt::blood($year_month);
 
                 break;
+
+            default:
+                return "No report Selected";
         }
 
         return view('print-report', compact('year_month', 'dt', 'report_dt', 'query'));

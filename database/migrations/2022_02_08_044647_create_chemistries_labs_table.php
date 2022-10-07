@@ -58,6 +58,18 @@ class CreateChemistriesLabsTable extends Migration
             $table->decimal('serum_direct', 6,2)->nullable();
             $table->decimal('serum_indirect', 6,2)->nullable();
             $table->text('serum_comment')->nullable();
+            // DM Profile
+            $table->string('dm_fbs_rbs_2', 20)->nullable();
+            $table->string('dm_fbs_rbs', 20)->nullable();
+            $table->string('dm_urine_glucose', 20)->nullable();
+            $table->string('dm_urine_factor', 20)->nullable();
+            // ANC Urine
+            $table->string('anc_uri_glucose', 20)->nullable();
+            $table->string('anc_glo_factor', 20)->nullable();
+            $table->string('anc_uri_profile', 20)->nullable();
+            $table->string('anc_pro_factor', 20)->nullable();
+
+
         });
     }
 

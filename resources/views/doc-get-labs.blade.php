@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-header">
                 <h3><b style="color: #191970;">Lab Results @isset($results)
-                    for {{ $results[0]['name'] }} ({{ $results[0]['opd_number'] }})
+                    for {{ $results[0]->name }} ({{ $results[0]->opd_number }})
                 @endisset</b>
                     <form class="form-inline my-2 my-lg-0 float-right" method="POST" autocomplete="off" action="{{ route('doc-view-labs') }}">
                         <input class="form-control mr-sm-2" id="opd_no" type="text" name="opd_no" placeholder="Enter OPD Number" required>
@@ -61,7 +61,7 @@
                                 <tr>
                                     <th>Lab #</th>
                                     <th>OPD #</th>
-                                    <th>Department</th>
+                                    <th>Depart.</th>
                                     <th>Patient's Name</th>
                                     <th>Gender</th>
                                     <th>Age</th>
@@ -76,7 +76,7 @@
                                         <tr>
                                             <td>{{ $result->lab_number }}</td>
                                             <td>{{ $result->opd_number }}</td>
-                                            <td>{{ $result->dropdown }}</td>
+                                            <td>{{ $result->dropdown->dropdown }}</td>
                                             <td>{{ $result->name }}</td>
                                             <td>{{ $result->gender }}</td>
                                             <td>{{ $result->age }}</td>

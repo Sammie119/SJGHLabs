@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Models\Dropdowns;
+use App\Models\Investigations;
 use App\Models\VWDropdown;
 
 class CustomTypeController extends Controller
@@ -116,5 +117,24 @@ class CustomTypeController extends Controller
 
             return Redirect::back();
         }
+    }
+
+    public function getLabPrices()
+    {
+        $labs = Investigations::orderBy('invest_id')->get();
+        return view('lab-pricing', ['labs' => $labs]);
+    }
+
+    public function saveChangedPrices(Request $request)
+    {
+        // dd($request->all());
+        foreach ($request->alias as $key => $alias) {
+            $lab = Investigations::where('alias', $alias)->first();
+            $lab->insured_amount = $request->insured[$key];
+            $lab->noninsured_amount = $request->noninsured[$key];
+            $lab->update();
+        }
+
+        return back()->with('success', 'Prices Updated Successfully!!!');
     }
 }

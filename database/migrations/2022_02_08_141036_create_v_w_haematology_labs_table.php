@@ -41,6 +41,7 @@ class CreateVWHaematologyLabsTable extends Migration
                     widal_o,
                     widal_h,
                     rdt_pf,
+                    covid,
                     comment,
                     wbc,
                     lym,

@@ -2,47 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Patient;
+use Illuminate\Http\Request;
 use App\Models\ChemistriesLab;
 use App\Models\HaematologyLab;
-use App\Models\LabResultsArtLab;
-use App\Models\LabResultsBacteriology;
-use App\Models\LabResultsCerebroFluid;
-use App\Models\LabResultsCoomsLab;
-use App\Models\LabResultsElectrolytes;
-use App\Models\LabResultsFbcLab;
-use App\Models\LabResultsGeneralLab;
-use App\Models\LabResultsGlycatedHemo;
-use App\Models\LabResultsHbProfile;
-use App\Models\LabResultsHighVaginal;
-use App\Models\LabResultsHpylori;
+use App\Models\Investigations;
 use App\Models\LabResultsInfo;
-use App\Models\LabResultsLipidProfile;
-use App\Models\LabResultsLiverFun;
-use App\Models\LabResultsOgttLab;
-use App\Models\LabResultsPeriFilm;
-use App\Models\LabResultsPeritonealFluid;
-use App\Models\LabResultsPleuralFluid;
-use App\Models\LabResultsPsaLab;
-use App\Models\LabResultsRenalFun;
-use App\Models\LabResultsSemenLab;
-use App\Models\LabResultsSerumLab;
-use App\Models\LabResultsStool;
-use App\Models\LabResultsUricAcid;
-use App\Models\LabResultsUrinalysis;
+use App\Models\MedicalRequest;
 use App\Models\MicroBiologyLab;
-use App\Models\Patient;
 use App\Models\VWChemistriesLab;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\VWDropdown;
 use App\Models\VWHaematologyLab;
 use App\Models\VWMicroBiologyLab;
 use Illuminate\Support\Facades\Session;
-use PhpParser\Builder\Function_;
-use PhpParser\Node\Expr\FuncCall;
 
 class EnterTestController extends Controller
 {
+  public function docRequestLabs()
+    {
+        $labs = MedicalRequest::orderBy('req_id')->where('status', 0)->limit(1000)->get();
+        return view('registration', ['labs' => $labs, 'title' => 'Lab Registration']);
+    }
+
+    public function approveLabsRequest(Request $request)
+    {
+      $patient = Patient::where('opd_number', $request->opd_number)->count();
+      if($patient === 0){
+        return back()->with('error', 'OPD Number does not Exist. Please Register Patient!!!');
+      } else {
+        $labs = MedicalRequest::find($request->id);
+
+        $labs->opd_number = $request->opd_number;
+        $labs->ins_status = $request->ins_status;
+        $labs->lab_requests = $request->lab_requests;
+        $labs->lab_alias = $this->getAliasFromLabRequests($request->lab_requests);
+        $labs->amounts = $this->getAmountFromLabARequest($request->lab_requests, $request->ins_status);
+        $labs->total_amount = array_sum($labs->amounts);
+        $labs->status = 1;
+        $labs->updated_by = Session::get('user')['user_id'];
+
+        $labs->update();
+
+        return back()->with('success', 'Labs Request Approved Successfully!!!');
+      }
+                
+    }
+
+    public function approvePayment(Request $request)
+    {
+      // dd($request->all());
+      $count = MedicalRequest::where('receipt_no', $request->receipt_no)->count();
+      if($count <= 0) {
+        $labs = MedicalRequest::find($request->id);
+        $labs->status = 2;
+        $labs->receipt_no = $request->receipt_no;
+
+        $labs->update();
+
+        return back()->with('success', 'Labs Payment Approved Successfully!!!');
+      }
+
+      return back()->with('error', 'Receipt Number Already Exist!!!');
+      
+    }
+    
     public function index()
     {
       if(Session::get('user')['department'] == 'Main Lab'){
@@ -62,72 +84,19 @@ class EnterTestController extends Controller
       return view('archive-labs', compact('results'));
     }
 
-    public function docGetLabResults()
+    public function checkLabsPayment()
     {
-      return view('doc-get-labs');
+      $labs = MedicalRequest::orderBy('req_id')->where([['status', '>', 0], ['report', '=', 0]])->limit(1000)->get();
+      return view('registration', ['labs' => $labs, 'title' => 'Check Payemts']);  
     }
 
-    static public function docViewResults(Request $request)
-    {
-      $patient = Patient::where('opd_number', $request->opd_no)->first();
-      $labs = VWHaematologyLab::where('opd_number', $request->opd_no)->first();
-      if(!$patient){
-        $error = "OPD Number does not Exist!!";
-        return view('doc-get-labs', compact('error'));
-      }
-      elseif(!$labs){
-        $error = "No Labs Record Found";
-        return view('doc-get-labs', compact('error'));
-      }
-      else{
-        $results = VWHaematologyLab::where('opd_number', $request->opd_no)
-                  ->orderBy('lab_info_id', 'DESC')->with('user')->get();
-        
-        $opd_no = $request->opd_no;
-        $query = DB::select("SELECT (SELECT CONCAT(blood, ' (',blood_rh,')') FROM v_w_haematology_labs 
-        WHERE blood IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS blood_group, 
-        (SELECT g6pd FROM v_w_haematology_labs WHERE g6pd IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS g6pd, 
-        (SELECT sickling FROM v_w_haematology_labs WHERE sickling IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS sickling, 
-        (SELECT sickling_hb FROM v_w_haematology_labs WHERE sickling_hb IS NOT NULL AND opd_number = '$opd_no' LIMIT 1) AS sickling_hb
-        ");
-        if(empty($query[0]->blood_group)){
-            $blood_group =  'NULL';
-        }else{
-            $blood_group = $query[0]->blood_group;
-        }
-
-        if(empty($query[0]->g6pd)){
-            $g6pd =  'NULL';
-        }else{
-            $g6pd = $query[0]->g6pd;
-        }
-
-        if(empty($query[0]->sickling)){
-            $sickling =  'NULL';
-        }else{
-            $sickling = $query[0]->sickling;
-        }
-
-        if(empty($query[0]->sickling_hb)){
-            $sickling_hb =  'NULL';
-        }else{
-            $sickling_hb = $query[0]->sickling_hb;
-        }
-
-        $static_info = [
-          'blood_group' => $blood_group,
-          'g6pd' => $g6pd,
-          'sickling' => $sickling,
-          'sickling_hb' => $sickling_hb
-        ];
-
-        return view('doc-get-labs', compact('results', 'static_info'));
-      }
-    }
-
-    public function create()
-    {        
-      return view('enter-test');
+    public function create($id)
+    { 
+      $year = date('Y');
+      $data = MedicalRequest::find($id);
+      $lab_no = LabResultsInfo::whereRaw("to_char(DATE(created_at), 'YYYY') = '$year'")->count() + 1;
+  
+      return view('enter-test', ['data' => $data, 'lab_no' => $lab_no]);
     }
 
     public function getResults($id)
@@ -141,6 +110,7 @@ class EnterTestController extends Controller
 
     public function store(Request $request)
     {
+      // dd($request->all());
         $request->validate([
             'lab_no' => 'required|max:10',
             'department' => 'required|numeric',
@@ -160,9 +130,9 @@ class EnterTestController extends Controller
     //Lab Results Info.......................................    
 
         if(Session::get('user')['department'] == 'Main Lab'){
-            $lab_no = 'M'.$request->lab_no;
+            $lab_no = $request->lab_no; //'M'.$request->lab_no;
           }else{
-            $lab_no = 'R'.$request->lab_no;
+            $lab_no = $request->lab_no; //'R'.$request->lab_no;
           }
 
         $patient_id = Patient::where('opd_number', $request->opd_no)->first();
@@ -197,6 +167,7 @@ class EnterTestController extends Controller
           $haematology->widal_o = $request['widal_o'];
           $haematology->widal_h = $request['widal_h'];
           $haematology->rdt_pf = $request['rdt_pf'];
+          $haematology->covid = $request['covid'];
           $haematology->comment = $request['comment'];
 
         //FBC Lab Results...........................................
@@ -397,6 +368,18 @@ class EnterTestController extends Controller
           $chemistry->serum_direct = $request['serum_direct'];
           $chemistry->serum_indirect = $request['serum_indirect'];
           $chemistry->serum_comment = $request['serum_comment'];
+
+        // DM Profile .................................................................
+          $chemistry->dm_fbs_rbs_2 = $request['dm_fbs_rbs_2'];
+          $chemistry->dm_fbs_rbs = $request['dm_fbs_rbs'];
+          $chemistry->dm_urine_glucose = $request['dm_urine_glucose'];
+          $chemistry->dm_urine_factor = $request['dm_urine_factor'];
+          
+        // ANC Urine .................................................................
+          $chemistry->anc_uri_glucose = $request['anc_uri_glucose'];
+          $chemistry->anc_glo_factor = $request['anc_glo_factor'];
+          $chemistry->anc_uri_profile = $request['anc_uri_profile'];
+          $chemistry->anc_pro_factor = $request['anc_pro_factor'];
           $chemistry->save();
 
         //High Vaginal Swab Lab Results...............................................
@@ -501,11 +484,16 @@ class EnterTestController extends Controller
 
           $micro->save();
 
+          $req = MedicalRequest::find($request->id);
+          $req->report = 1;
+          $req->lab_info_id = $lab_info->lab_info_id;
+          $req->update();
+
         Session::flash('success', 'Lab Results Saved Successfully!!');
 
         return "<script>
           window.open('print-results/$lab_info->lab_info_id','','left=0,top=0,width=1000,height=600,toolbar=0,scrollbars=0,status=0');
-          window.location = 'enter-test';
+          window.location = 'payment';
           </script>";
 
 
@@ -518,7 +506,15 @@ class EnterTestController extends Controller
       $haema = VWHaematologyLab::where('lab_info_id', $id)->with('dropdown')->first();
       $micro = VWMicroBiologyLab::where('lab_info_id', $id)->first();
       $chem = VWChemistriesLab::where('lab_info_id', $id)->first();
-      return view('edit-test', compact('haema', 'micro', 'chem'));
+
+      $data = MedicalRequest::where('lab_info_id', $id)->first();
+      
+      if($data){
+        return view('edit-test', compact('haema', 'micro', 'chem', 'data'));
+      }
+
+      return back()->with('error', 'You Cannot Edit with Report!!!!');
+      
     }
 
     public function update(Request $request)
@@ -575,6 +571,7 @@ class EnterTestController extends Controller
         $haematology->widal_o = $request['widal_o'];
         $haematology->widal_h = $request['widal_h'];
         $haematology->rdt_pf = $request['rdt_pf'];
+        $haematology->covid = $request['covid'];
         $haematology->comment = $request['comment'];
 
       //FBC Lab Results...........................................

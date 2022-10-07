@@ -9,6 +9,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BloodTransfussionsController;
+use App\Http\Controllers\DoctorsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,15 +44,26 @@ Route::middleware(['protectedPages'])->group(function () {
 
     //Enter Test Routes
     Route::get('results', [EnterTestController::class, 'index'])->name('results');
-    Route::get('enter-test', [EnterTestController::class, 'create'])->name('enter-test');
+    Route::get('enter-test/{id}', [EnterTestController::class, 'create']);
     Route::post('store-labs', [EnterTestController::class, 'store'])->name('store-labs');
     Route::get('print-results/{id}', [EnterTestController::class, 'getResults']);
     Route::get('edit-test/{id}', [EnterTestController::class, 'edit']);
     Route::post('update-labs', [EnterTestController::class, 'update'])->name('update-labs');
     Route::get('delete-labs/{id}', [EnterTestController::class, 'destroy']);
-    Route::get('doc-get-labs', [EnterTestController::class, 'docGetLabResults'])->name('doc-get-labs');
-    Route::post('doc-view-labs', [EnterTestController::class, 'docViewResults'])->name('doc-view-labs');
     Route::get('archive-labs', [EnterTestController::class, 'archiveLabsResults'])->name('archive-labs');
+    Route::get('registration', [EnterTestController::class, 'docRequestLabs'])->name('registration');
+    Route::get('payment', [EnterTestController::class, 'checkLabsPayment'])->name('payment');
+    Route::post('approve-request', [EnterTestController::class, 'approveLabsRequest']);
+    Route::post('approve-payment', [EnterTestController::class, 'approvePayment']);
+
+
+
+    // Doctor View and Request Labs
+    Route::get('doc-get-labs', [DoctorsController::class, 'docGetLabResults'])->name('doc-get-labs');
+    Route::post('doc-view-labs', [DoctorsController::class, 'docViewResults'])->name('doc-view-labs');
+    Route::get('doc-request-labs', [DoctorsController::class, 'docRequestLabs'])->name('doc-request-labs');
+    Route::get('doc-lab-request/{request}/{id}', [DoctorsController::class, 'docRequestForms']);
+    Route::post('medical-request', [DoctorsController::class, 'medicalLabsRequest']);
 
     //Custom Type Routes
     Route::get('custom-types', [CustomTypeController::class, 'index'])->name('custom-types');
@@ -62,6 +74,8 @@ Route::middleware(['protectedPages'])->group(function () {
     Route::get('edit-dropdown/{id}', [CustomTypeController::class, 'editDropdown']);
     Route::post('update-dropdown', [CustomTypeController::class, 'updateDropdown'])->name('update-dropdown');
     Route::get('delete-dropdown/{id}', [CustomTypeController::class, 'destroyDropdown']);
+    Route::get('lab-pricing', [CustomTypeController::class, 'getLabPrices'])->name('lab-pricing');
+    Route::post('change-price', [CustomTypeController::class, 'saveChangedPrices']);
 
     //Patients Routes
     Route::get('patients-list', [PatientsController::class, 'index'])->name('patients-list');

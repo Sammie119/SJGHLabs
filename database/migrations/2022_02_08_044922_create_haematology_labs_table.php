@@ -34,6 +34,7 @@ class CreateHaematologyLabsTable extends Migration
             $table->string('widal_o', 20)->nullable();
             $table->string('widal_h', 20)->nullable();
             $table->string('rdt_pf', 20)->nullable();
+            $table->string('covid', 20)->nullable();
             $table->text('comment')->nullable();
 
             // fbc

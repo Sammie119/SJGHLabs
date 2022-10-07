@@ -12,7 +12,7 @@
                     <form class="form-inline my-2 my-lg-0 float-right">
                         <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search">
                         {{-- <a class="btn btn-primary mr-2" style="padding: 10px"><i class="fa fa-search"></i></a> --}}
-                        <a href="{{ route('enter-test') }}" class="btn btn-info float-right">Enter Test</a>
+                        {{-- <a href="{{ route('enter-test') }}" class="btn btn-info float-right">Enter Test</a> --}}
                     </form>
                 </h2>
             </div>
@@ -20,6 +20,11 @@
                 @if (Session::has('success'))
                     <div class="alert alert-success" role="alert">
                         <h4>{{ Session::get('success') }}</h4>
+                    </div>
+                @endif
+                @if (Session::has('error'))
+                    <div class="alert alert-danger" role="alert">
+                        <h4>{{ Session::get('error') }}</h4>
                     </div>
                 @endif
                 <div class="row">
@@ -66,7 +71,7 @@
                                                 <a class="btn btn-success" href="edit-test/{{ $result->lab_info_id }}" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
                                             @elseif ((Session::get('user')['user_level'] === 'Admin'))
                                                 <a class="btn btn-success" href="edit-test/{{ $result->lab_info_id }}" title="Edit"><i class="fa fa-pencil-square-o"></i></a>
-                                                <a class="btn btn-danger" onclick="return confirm('This {{ $result->lab_number }} Lab Number will be deleted permanently!!!')" href="delete-labs/{{ $result->lab_info_id }}" title="Delete"><i class="fa fa-trash-o"></i></a>
+                                                {{-- <a class="btn btn-danger" onclick="return confirm('This {{ $result->lab_number }} Lab Number will be deleted permanently!!!')" href="delete-labs/{{ $result->lab_info_id }}" title="Delete"><i class="fa fa-trash-o"></i></a> --}}
                                             @endif
                                         </div>
                                         </td>

@@ -1343,7 +1343,7 @@ $time_mins = [0, 0, 0, 0];
 						@if ($haema->sel_fbs_rbs == 'FBS')
 							(3.5 - 6.8 mmol/L)
 						@else
-							(3.6 - 7.8 mmol/L)
+							(3.6 - 11.1 mmol/L)
 						@endif
 					</td>
 				</tr>
@@ -1429,6 +1429,13 @@ $time_mins = [0, 0, 0, 0];
 				<tr>
 					<td width="330">Malaria RDT (Pf):</td>
 					<td>{{ $haema->rdt_pf }}</td>
+				</tr>
+			@endif
+
+			@if ($haema->covid != '')
+				<tr>
+					<td width="330">SARS-CoV-2 Antigen Test:</td>
+					<td>{{ $haema->covid }}</td>
 				</tr>
 			@endif
 
@@ -2865,6 +2872,61 @@ $time_mins = [0, 0, 0, 0];
 		@endif
 
 		{{-- End H-pylori Qualitative Test --}}
+		
+		{{-- DM Profile --}}
+		
+		@if ($chem->dm_fbs_rbs != '' || $chem->dm_urine_glucose != '')
+			<table class="tb_fbc">
+				<tr><th colspan="2" style="text-align: center; font-size: 20px;">DM Profile</th></tr>
+			
+				<tr>
+					<td>{{ $chem->dm_fbs_rbs_2 }}</td>
+					<td>{{ $chem->dm_fbs_rbs }} mmol/l</td>
+				</tr>
+				<tr>
+					<td>Urine Glucose:</td>
+					<td>
+						@if ($chem->dm_urine_glucose == "Positive")
+							{{ $chem->dm_urine_glucose }} ({{ $chem->dm_urine_factor }})
+						@else
+							{{ $chem->dm_urine_glucose }}
+						@endif
+					</td>
+				</tr>
+			</table>
+		@endif
+		{{-- DM Profile --}}
+
+		{{-- ANC Urine --}}
+		
+		@if ($chem->dm_fbs_rbs != '' || $chem->dm_urine_glucose != '')
+			<table class="tb_fbc">
+				<tr><th colspan="2" style="text-align: center; font-size: 20px;">ANC Urine</th></tr>
+			
+				<tr>
+					<td>Glucose:</td>
+					<td>
+						@if ($chem->anc_uri_glucose == "Positive")
+							{{ $chem->anc_uri_glucose }} ({{ $chem->anc_glo_factor }})
+						@else
+							{{ $chem->anc_uri_glucose }}
+						@endif
+					</td>
+				</tr>
+				<tr>
+					<td>Protein:</td>
+					<td>
+						@if ($chem->anc_uri_profile == "Positive")
+							{{ $chem->anc_uri_profile }} ({{ $chem->anc_pro_factor }})
+						@else
+							{{ $chem->anc_uri_profile }}
+						@endif
+					</td>
+				</tr>
+			</table>
+		@endif
+		{{-- ANC Urine --}}
+
 
 	</div>
 

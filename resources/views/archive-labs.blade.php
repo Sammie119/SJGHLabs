@@ -12,7 +12,7 @@
                     <form class="form-inline my-2 my-lg-0 float-right">
                         <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search">
                         <a class="btn btn-primary mr-2" style="padding: 10px"><i class="fa fa-search"></i></a>
-                        <a href="{{ route('enter-test') }}" class="btn btn-info float-right">Enter Test</a>
+                        {{-- <a href="{{ route('enter-test') }}" class="btn btn-info float-right">Enter Test</a> --}}
                     </form>
                 </h2>
             </div>

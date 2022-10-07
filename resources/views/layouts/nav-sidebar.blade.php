@@ -291,7 +291,9 @@ body::-webkit-scrollbar-thumb:hover {
     @if((Session::get('user')['user_level'] === 'Admin') || (Session::get('user')['user_level'] === 'User'))
         <ul style="margin-bottom: 0px"> 
             <li><a href="{{ route('dashboard') }}" style="text-decoration: none;"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-            <li><a href="{{ route('enter-test') }}" style="text-decoration: none;"><i class="fa fa-tasks"></i>Enter Report</a></li>
+            <li><a href="{{ route('registration') }}" style="text-decoration: none;"><i class="fa fa-book"></i>Registration</a></li>
+            <li><a href="{{ route('payment') }}" style="text-decoration: none;"><i class="fa fa-money"></i>Check Payments</a></li>
+            {{-- <li><a href="{{ route('enter-test') }}" style="text-decoration: none;"><i class="fa fa-tasks"></i>Enter Report</a></li> --}}
             <li><a href="{{ route('results') }}" style="text-decoration: none;"><i class="fa fa-database"></i>Results</a></li>
         </ul>
 
@@ -332,8 +334,11 @@ body::-webkit-scrollbar-thumb:hover {
                     <div class="link"><i class="fa fa-cog fa-spin"></i>Custom Settings<i class="fa fa-chevron-down"></i></div>
                     <ul class="submenu"> 
                         <li><a href="{{ route('custom-types') }}">Custom List</a></li>
-                        {{-- <li><a href="{{ route('category') }}">Add Category</a></li> --}}
-                        <li><a href="{{ route('dropdown') }}">Add Dropdown</a></li>    
+                        @if (Session::get('user')['user_id'] === 1)
+                            <li><a href="{{ route('category') }}">Add Category</a></li>
+                        @endif
+                        <li><a href="{{ route('dropdown') }}">Add Dropdown</a></li> 
+                        <li><a href="{{ route('lab-pricing') }}">Labs Pricing</a></li>    
                     </ul>
                 </li>
             @endif
@@ -360,6 +365,7 @@ body::-webkit-scrollbar-thumb:hover {
         </ul>
         
         <ul style="margin-bottom: 0px">
+            <li><a href="{{ route('doc-request-labs') }}" style="text-decoration: none;"><i class="fa fa-stethoscope"></i>Lab Request</a></li>
             <li><a href="{{ route('doc-get-labs') }}" style="text-decoration: none;"><i class="fa fa-database"></i>Lab Results</a></li>
         </ul>
     @endif
