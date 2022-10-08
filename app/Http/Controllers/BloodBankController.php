@@ -146,9 +146,9 @@ class BloodBankController extends Controller
     //Lab Results Info.......................................    
 
         if(Session::get('user')['department'] == 'Main Lab'){
-            $lab_no = 'M'.$request->lab_no;
+            $lab_no = $request->lab_no;
           }else{
-            $lab_no = 'R'.$request->lab_no;
+            $lab_no = $request->lab_no;
           }
 
         $donor = DB::table('vw_blood_donors')->where('donor_id', $request['id'])->first();

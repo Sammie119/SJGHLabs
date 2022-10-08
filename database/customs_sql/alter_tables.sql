@@ -21,8 +21,24 @@ After exporting, data from results_per_semen, edit in text editor to clear all N
 -- In mySql
 
 Add additional column to results_graph table, column name = 'pID' int(2); then run this query,
+    ALTER TABLE `result_graph` ADD `pID` TINYINT NOT NULL AFTER `time_mins`;
     update result_graph set `pID` = 1 WHERE `time_mins` = 0;
     update result_graph set `pID` = 2 WHERE `time_mins` = 60;
     update result_graph set `pID` = 3 WHERE `time_mins` = 90;
     update result_graph set `pID` = 4 WHERE `time_mins` = 120;
+
+
+-- In postgres
+add donorID (integer) to blood_donors
+
+add user_id (integer) and donor_id (integer) to blood_bank_labs 
+
+add resultID (integer) to labs_chemistries_episodes
+
+add resultID (integer) to labs_haematology_episodes
+
+add resultID (integer) to labs_micro_biology_episodes
+
+
+
 

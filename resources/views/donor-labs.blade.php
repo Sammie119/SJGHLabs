@@ -38,8 +38,12 @@
                     <input type="hidden" name="id" value="{{ $donor->donor_id }}">
                     <div class="row justify-content-center">
                         <div class="col-md-12 col-lg-10 col-12" style="margin-left: 27%;">
-                            <div class="form-group"> <label for="lab_no">Lab Number</label> 
-                                <input type="text" name="lab_no" id="lab_no" class = "form-control" maxlength="9" required style="width: 66.5%;"></div>
+                            <div class="form-group"> <label for="lab_no">Lab Number</label>
+                                @php
+                                    $year = date('Y');
+                                    $lab_no = App/Models/LabResultsInfo::whereRaw("to_char(DATE(created_at), 'YYYY') = '$year'")->count() + 1;
+                                @endphp 
+                                <input type="text" name="lab_no" id="lab_no" value="{{ (Session::get('user')['department'] == 'Main Lab') ? 'M'.$lab_no : 'R'.$lab_no }}" class = "form-control" maxlength="9" readonly style="width: 66.5%;"></div>
                         </div>
                     </div>
 
