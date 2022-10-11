@@ -55,7 +55,7 @@
                                         <td>{{ $lab->patient->age ?? 0 }}</td>
                                         <td>{{ $lab->updated_at->format('d/m/Y H:i a') }}</td>
                                         <td>{{ number_format($lab->total_amount, 2) }}</td>
-                                        <td>{{ $lab->user->username }}</td>
+                                        <td>{{ getUsername($lab->updated_by) }}</td>
                                         <td>
                                         <div class="btn-group">
                                             @if ($title === 'Check Payemts')

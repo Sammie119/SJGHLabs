@@ -84,13 +84,14 @@ class GetdataController extends Controller
     
     public function getPatientName(Request $request)
     {
-        $patient = VWPatients::select('name', 'age')->where('opd_number', $request['opd_no'])->first();
+        $patient = VWPatients::select('name', 'age', 'gender')->where('opd_number', $request['opd_no'])->first();
         
         if($patient){
             // $age = Carbon::parse($patient->date_of_birth)->diff(Carbon::now())->y;
             $results = [
                 'name' => $patient->name,
-                'age' => $patient->age
+                'age' => $patient->age,
+                'gender' => $patient->gender
             ];
         }
         else {
@@ -285,6 +286,7 @@ class GetdataController extends Controller
         $datagraph = VWHaematologyLab::select(DB::raw('gender, count(opd_number) AS y'))->groupBy('gender')->get();
 
         $labsResults = DB::select("SELECT (SELECT count(lab_info_id) FROM lab_results_infos WHERE lab_number LIKE 'M%' AND deleted_at IS NULL) AS main,
+        (SELECT count(lab_info_id) FROM lab_results_infos WHERE lab_number LIKE 'B%' AND deleted_at IS NULL) AS blood,
         (SELECT count(lab_info_id) FROM lab_results_infos WHERE lab_number LIKE 'R%' AND deleted_at IS NULL) AS rch");
         return [
             'patient' => $patient,
@@ -361,12 +363,12 @@ class GetdataController extends Controller
                 <tr>
                     <td>'.$result->lab_number.'</td>
                     <td>'.$result->opd_number.'</td>
-                    <td>'.$result->department.'</td>
+                    <td>'.getDepartment($result->department_id).'</td>
                     <td>'.$result->name.'</td>
                     <td>'.$result->gender.'</td>
                     <td>'.$result->age.'</td>
                     <td>'.$result->updated_at.'</td>
-                    <td>'.$result->user->username.'</td>
+                    <td>'.getUsername($result->updated_by).'</td>
                     <td>
                     <div class="btn-group">
                         <a href="#" class="btn btn-primary" onclick="window.open(\'print-results/'.$result->lab_info_id.'\',\'\', \'left=0,top=0,width=1000,height=600,toolbar=0,scrollbars=0,status=0\')"><i class="fa fa-print"></i></a>';

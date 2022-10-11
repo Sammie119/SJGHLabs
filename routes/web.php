@@ -64,6 +64,7 @@ Route::middleware(['protectedPages'])->group(function () {
     Route::get('doc-request-labs', [DoctorsController::class, 'docRequestLabs'])->name('doc-request-labs');
     Route::get('doc-lab-request/{request}/{id}', [DoctorsController::class, 'docRequestForms']);
     Route::post('medical-request', [DoctorsController::class, 'medicalLabsRequest']);
+    Route::get('delete-request/{id}', [DoctorsController::class, 'deleteRequest']);
 
     //Custom Type Routes
     Route::get('custom-types', [CustomTypeController::class, 'index'])->name('custom-types');

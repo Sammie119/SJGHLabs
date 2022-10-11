@@ -175,7 +175,7 @@
                     <div class="card graph mb-3 ml-4 col-12" style="border-radius: 20px">
                         <div class="card-body text-primary" id="chart-container" style="height: 350px">
                             <?php
-                                $results = [floatval($query['labsResults']->main), floatval($query['labsResults']->rch)];
+                                $results = [floatval($query['labsResults']->main + $query['labsResults']->blood), floatval($query['labsResults']->rch)];
                             ?>
                             
                         </div>
@@ -187,7 +187,7 @@
     </div>
     
     <div class="text-center">
-        <footer>Created and Designed by: <i><b>SAMMAV I.T</b> Consult (0248376160 / 0556226864)</i> &nbsp &copy; <?php echo date('Y');?></footer>
+        <footer>Created and Designed by: <i><b>SAMMAV I.T</b> Services (0248376160 / 0556226864)</i> &nbsp &copy; <?php echo date('Y');?></footer>
     </div>
 
     {{-- Javascript graph --}}

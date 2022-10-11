@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Session;
 
 class DoctorsController extends Controller
 {
+    protected function getDateOfBirth($age)
+    {
+        list($year,$month,$day) = explode("-", date("Y-01-01"));
+        $range = $year - $age;
+        return date('Y-m-d', strtotime("{$range}-{$month}-{$day}"));   
+    }
+
     public function docGetLabResults()
     {
       return view('doc-get-labs');
@@ -100,6 +107,20 @@ class DoctorsController extends Controller
             }
         } else {
             $labs = new MedicalRequest;
+
+            $patient = Patient::where('opd_number', $request->opd_number)->count();
+
+            if($patient === 0){
+                $patient = new Patient;
+        
+                $patient->opd_number = $request->opd_number;
+                $patient->name = $request->name;
+                $patient->date_of_birth = $this->getDateOfBirth($request->age);
+                $patient->gender = $request->gender;
+                $patient->created_by = Session::get('user')['user_id'];
+                $patient->updated_by = Session::get('user')['user_id'];
+                $patient->save();
+            }
         }
 
         $labs->opd_number = $request->opd_number;
@@ -108,7 +129,7 @@ class DoctorsController extends Controller
         $labs->lab_alias = $this->getAliasFromLabRequests($request->lab_requests);
         $labs->amounts = $this->getAmountFromLabARequest($request->lab_requests, $request->ins_status);
         $labs->total_amount = array_sum($labs->amounts);
-        $labs->department = Session::get('user')['department'];
+        $labs->department = $request->department;
         
         if($request->has('id')){
             $labs->updated_by = Session::get('user')['user_id'];
@@ -157,6 +178,21 @@ class DoctorsController extends Controller
                 break;
         }
     
+    }
+
+    public function deleteRequest($id)
+    {
+        $req = MedicalRequest::where([['req_id', '=', $id], ['status', '=', 2], ['report', '=', 1]])->count();
+
+        $labs = MedicalRequest::find($id);
+
+        if($req >= 1){
+            return back()->with('error', 'Lab Results is ready, so you cannot delete request!!!');
+        } else {
+            $labs->delete();
+
+            return back()->with('success', 'Labs Requested Deleted Successfully!!!');
+        }
     }
 
 }

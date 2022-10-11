@@ -55,7 +55,7 @@
                                         <td>{{ $result->volume }}</td>
                                         <td>{{ $result->blood_product }}</td>
                                         <td>{{ $result->transfusion_date }}</td>
-                                        <td>{{ $result->user->username }}</td>
+                                        <td>{{ getUsername($result->updated_by) }}</td>
                                         <td>
                                         <div class="btn-group">
                                             <a class="btn btn-success" href="edit-checkout-blood/{{ $result->bloodtrans_id }}" title="Edit"><i class="fa fa-pencil-square-o"></i></a>

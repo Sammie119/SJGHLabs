@@ -39,6 +39,7 @@
                                     <th>Patient's Name</th>
                                     <th>Gender</th>
                                     <th>Age</th>
+                                    <th>Amount</th>
                                     <th>Date</th>
                                     <th>Staff</th>
                                     <th>Action</th>
@@ -53,12 +54,13 @@
                                         <td>{{ $lab->patient->name ?? 'Unknown' }}</td>
                                         <td>{{ $lab->patient->gender ?? 'Unknown' }}</td>
                                         <td>{{ $lab->patient->age ?? 0 }}</td>
-                                        <td>{{ $lab->updated_at }}</td>
-                                        <td>{{ $lab->user->username }}</td>
+                                        <td>{{ number_format($lab->total_amount, 2) }}</td>
+                                        <td>{{ $lab->updated_at->format("d-m-Y h:s a") }}</td>
+                                        <td>{{ getUsername($lab->updated_by) }}</td>
                                         <td>
                                         <div class="btn-group">
                                             <a class="btn btn-primary" href="javascript:void(0)" onclick="getEdit({{ $lab->req_id }})" title="Edit"><i class="fa fa-edit"></i></a> 
-                                            <a class="btn btn-danger" href="#" title="Delete"><i class="fa fa-trash"></i></a> 
+                                            <a class="btn btn-danger" onclick="return confirm('This record will be deleted permanently!!!')" href="delete-request/{{ $lab->req_id }}" title="Delete"><i class="fa fa-trash"></i></a> 
                                         </div>
                                         </td>
                                     </tr>
@@ -99,7 +101,7 @@
 
     <script>
         window.onload = function(){
-            document.getElementById('opd_no').focus();
+            // document.getElementById('opd_number').focus();
             
         };
       

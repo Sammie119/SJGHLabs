@@ -77,6 +77,12 @@
                 success:function(data) {
                 $("#name").val(data.name);
                 $("#age").val(data.age);
+                if(data.gender){
+                    $("#gender").html(`<option>${data.gender}</option>`);
+                } else {
+                    $("#gender").html(`<option value="" selected disabled>--Gender--</option><option>Male</option><option>Female</option>`);
+                }
+                
                 }
             });
         });
@@ -99,6 +105,11 @@
                 success:function(data) {
                 $("#name").val(data.name);
                 $("#age").val(data.age);
+                if(data.gender){
+                    $("#gender").html(`<option>${data.gender}</option>`);
+                } else {
+                    $("#gender").html(`<option value="" selected disabled>--Gender--</option><option>Male</option><option>Female</option>`);
+                }
                 }
             });
         });

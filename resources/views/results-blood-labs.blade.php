@@ -65,7 +65,7 @@
                                         <td>{{ $result->bp }}</td>
                                         <td>{{ $result->blood_number }}</td>
                                         <td>{{ $result->status }}</td>
-                                        <td>{{ $result->user->username }}</td>
+                                        <td>{{ getUsername($result->updated_by) }}</td>
                                         <td>
                                         <div class="btn-group">                                            
                                             @if ((Session::get('user')['user_level'] === 'User') && $days <= 1)

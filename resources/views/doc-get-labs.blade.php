@@ -76,12 +76,12 @@
                                         <tr>
                                             <td>{{ $result->lab_number }}</td>
                                             <td>{{ $result->opd_number }}</td>
-                                            <td>{{ $result->dropdown->dropdown }}</td>
+                                            <td>{{ getDepartment($result->department_id) }}</td>
                                             <td>{{ $result->name }}</td>
                                             <td>{{ $result->gender }}</td>
                                             <td>{{ $result->age }}</td>
                                             <td>{{ $result->updated_at }}</td>
-                                            <td>{{ $result->user->username }}</td>
+                                            <td>{{ getUsername($result->updated_by) }}</td>
                                             <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-primary" href="javascript:void(0)" onclick="getPrint({{ $result->lab_info_id }})" title="Print"><i class="fa fa-print"></i></a> 

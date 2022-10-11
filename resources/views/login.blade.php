@@ -506,7 +506,7 @@
                     </div>
                 </div>
                 <div class="text-center p-t-115" style="padding: 2%; margin: 0%;"> <span class="txt1"><a href="{{ route('forgot-password') }}">Forgot Password</a></span></div>
-                <div class="text-center p-t-115" style="padding: 2%; margin: 0%;"> <span class="txt1"><i><b>SAMMAV I.T</b> Consult (0248376160 / 0556226864)</i></span></div>
+                <div class="text-center p-t-115" style="padding: 2%; margin: 0%;"> <span class="txt1"><i><b>SAMMAV I.T</b> Services (0248376160 / 0556226864)</i></span></div>
             </form>
         </div>
     </div>
