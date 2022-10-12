@@ -6,28 +6,58 @@
     @endisset
     <div class="form-group">
         <div class="row">
-            <div class="col-2">
+            <div class="col-3">
                 <label for="recipient-name" class="control-label">OPD Number:</label>
-                <input type="text" name="opd_number" placeholder="OPD Number" value="{{ (isset($data)) ? $data->opd_number : '' }}" class="form-control form-control-border bg-white" id="opd_number" <?php if(isset($data)) echo 'readonly'; ?> required>
+                <input type="text" name="opd_number" placeholder="OPD Number" value="{{ (isset($data)) ? $data->opd_number : '' }}" class="form-control form-control-border bg-white" id="opd_number" readonly>
             </div>
-            <div class="col-5">
+            <div class="col-7">
                 <label for="recipient-name" class="control-label">Patient's Full Name:</label>
-                <input type="text" placeholder="Unknown" value="{{ (isset($data)) ? $data->patient->name ?? 'Unknown' : '' }}" class="form-control form-control-border bg-white" id="name" readonly>
+                <input type="text" placeholder="Unknown" value="{{ (isset($data)) ? $data->patient->name ?? 'Unknown' : '' }}" class="form-control form-control-border bg-white" name="name" id="name" readonly>
             </div>
             <div class="col-2">
               <label for="recipient-name" class="control-label">Patient's Age:</label>
-              <input type="text" placeholder="0" value="{{ (isset($data)) ? $data->patient->age ?? '' : '' }}" class="form-control form-control-border bg-white" id="age" readonly>
+              <input type="text" placeholder="0" value="{{ (isset($data)) ? $data->patient->age ?? '' : '' }}" class="form-control form-control-border bg-white" id="age" name="age" readonly>
           </div>
-            <div class="col-3"> 
-              <label for="recipient-name" class="control-label">Insurance Status:</label>
-              <select class="form-control form-control-border bg-white" name="ins_status" style="height: 35px;" required>
-                  <option value="" selected disabled>--Ins. Status--</option>
-                  <option @if (isset($data) && $data->ins_status === 'insured') selected @endif value="insured">Insured</option>
-                  <option @if (isset($data) && $data->ins_status === 'noninsured') selected @endif value="noninsured">Non-insured</option>
-              </select>
-            </div>
         </div>
     </div>
+
+    <div class="form-group">
+      <div class="row">
+          <div class="col-3">
+              <label for="recipient-name" class="control-label">Patient's Gender:</label>
+              <select class="form-control form-control-border bg-white" name="gender" id="gender" style="height: 35px;" required>
+                  <option>{{ $data->patient->gender }}</option>
+                  
+              </select>
+          </div>
+          <div class="col-5">
+            <label for="recipient-name" class="control-label">Department:</label>
+            <select class="form-control form-control-border bg-white" name="department" style="height: 35px;" required>             
+                <option >{{ $data->department }}</option>
+          </select>
+        </div>
+          <div class="col-4"> 
+            <label for="recipient-name" class="control-label">Insurance Status:</label>
+            <select class="form-control form-control-border bg-white" name="ins_status" style="height: 35px;" required>
+                <option>{{ $data->ins_status }}</option>
+            </select>
+          </div>
+      </div>
+   </div>
+
+
+    <hr>
+
+    <div class="row mt-2">
+        <div class="col-6">
+            <label for="recipient-name" class="control-label">Clinical Summary</label>
+        </div>
+        <div class="col-md-12">
+            <textarea name="clinical_summary" id="" rows="2" readonly>@if (isset($data)) {{ $data->clinical_summary }} @endif</textarea>
+        </div>
+    </div>
+
+    <hr>
 
     {{-- <ul class="nav nav-tabs"> --}}
       <div class="form-group">
@@ -92,7 +122,15 @@
               </div>
           </div>
       @endif
-      
+
+      <div class="row mt-2 add-input">
+        <div class="col-md-6">
+            <label style="float: right" for="recipient-name" class="control-label">Receipt Number:</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" placeholder="0" style="width: 100%" name="receipt_no" class="form-control form-control-border bg-white" required>
+        </div>
+      </div>      
   </div>
     
   <button type="submit" class="btn btn-primary float-right mt-4">Approve</button>

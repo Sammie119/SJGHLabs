@@ -90,13 +90,16 @@ class DoctorsController extends Controller
 
     public function medicalLabsRequest(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'opd_number' => 'required',
             'ins_status' => 'required',
+            'lab_requests' => 'required'
         ],
         [
             'opd_number.required' => 'OPD Number is required',
             'ins_status.required' => 'Insurance Status field is required',
+            'lab_requests.required' => 'No Labs added to Request',
         ]);
         
         if($request->has('id')){
@@ -125,6 +128,7 @@ class DoctorsController extends Controller
 
         $labs->opd_number = $request->opd_number;
         $labs->ins_status = $request->ins_status;
+        $labs->clinical_summary = $request->clinical_summary;
         $labs->lab_requests = $request->lab_requests;
         $labs->lab_alias = $this->getAliasFromLabRequests($request->lab_requests);
         $labs->amounts = $this->getAmountFromLabARequest($request->lab_requests, $request->ins_status);

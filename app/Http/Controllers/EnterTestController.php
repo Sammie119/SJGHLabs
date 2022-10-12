@@ -19,31 +19,50 @@ class EnterTestController extends Controller
 {
   public function docRequestLabs()
     {
-        $labs = MedicalRequest::orderBy('req_id')->where('status', 0)->limit(1000)->get();
+        $labs = MedicalRequest::where('report', 0)->orderBy('req_id')->limit(1000)->get();
+        
         return view('registration', ['labs' => $labs, 'title' => 'Lab Registration']);
     }
 
     public function approveLabsRequest(Request $request)
     {
-      $patient = Patient::where('opd_number', $request->opd_number)->count();
-      if($patient === 0){
-        return back()->with('error', 'OPD Number does not Exist. Please Register Patient!!!');
-      } else {
-        $labs = MedicalRequest::find($request->id);
+      $request->validate([
+          'receipt_no' => 'required',
+      ],
+      [
+          'receipt_no.required' => 'Receipt Number is required',
+      ]);
 
+      $labs = MedicalRequest::find($request->id);
+
+      $count = MedicalRequest::where('receipt_no', $request->receipt_no)->count();
+      if($count <= 0) {
+
+        $year = date('Y');
+
+        if($year == 2022){
+          $lab_number = MedicalRequest::orderByDesc('lab_number')->where('lab_number', '!=', null)->first()->lab_number + 1;
+        } else {
+          $lab_number = MedicalRequest::whereRaw("to_char(DATE(created_at), 'YYYY') = '$year' AND lab_number IS NOT NULL")->count() + 1;
+        }
+                
         $labs->opd_number = $request->opd_number;
         $labs->ins_status = $request->ins_status;
         $labs->lab_requests = $request->lab_requests;
         $labs->lab_alias = $this->getAliasFromLabRequests($request->lab_requests);
         $labs->amounts = $this->getAmountFromLabARequest($request->lab_requests, $request->ins_status);
         $labs->total_amount = array_sum($labs->amounts);
-        $labs->status = 1;
+        $labs->status = 2;
+        $labs->receipt_no = $request->receipt_no;
         $labs->updated_by = Session::get('user')['user_id'];
+        $labs->lab_number = $lab_number;
 
         $labs->update();
 
         return back()->with('success', 'Labs Request Approved Successfully!!!');
       }
+
+      return back()->with('error', 'Receipt Number Already Exist!!!');
                 
     }
 
@@ -64,6 +83,12 @@ class EnterTestController extends Controller
       return back()->with('error', 'Receipt Number Already Exist!!!');
       
     }
+
+    // public function checkLabsPayment()
+    // {
+    //   $labs = MedicalRequest::orderBy('req_id')->where([['status', '>', 0], ['report', '=', 0]])->limit(1000)->get();
+    //   return view('registration', ['labs' => $labs, 'title' => 'Check Payemts']);  
+    // }
     
     public function index()
     {
@@ -84,19 +109,13 @@ class EnterTestController extends Controller
       return view('archive-labs', compact('results'));
     }
 
-    public function checkLabsPayment()
-    {
-      $labs = MedicalRequest::orderBy('req_id')->where([['status', '>', 0], ['report', '=', 0]])->limit(1000)->get();
-      return view('registration', ['labs' => $labs, 'title' => 'Check Payemts']);  
-    }
-
     public function create($id)
     { 
-      $year = date('Y');
+      // $year = date('Y');
       $data = MedicalRequest::find($id);
-      $lab_no = LabResultsInfo::whereRaw("to_char(DATE(created_at), 'YYYY') = '$year'")->count() + 1;
+      // $lab_no = LabResultsInfo::whereRaw("to_char(DATE(created_at), 'YYYY') = '$year'")->count() + 1;
   
-      return view('enter-test', ['data' => $data, 'lab_no' => $lab_no]);
+      return view('enter-test', ['data' => $data, 'lab_no' => $data->lab_number]);
     }
 
     public function getResults($id)
@@ -493,7 +512,7 @@ class EnterTestController extends Controller
 
         return "<script>
           window.open('print-results/$lab_info->lab_info_id','','left=0,top=0,width=1000,height=600,toolbar=0,scrollbars=0,status=0');
-          window.location = 'payment';
+          window.location = 'registration';
           </script>";
 
 

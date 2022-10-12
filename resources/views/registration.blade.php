@@ -26,6 +26,15 @@
                     <h4>{{ Session::get('error') }}</h4>
                 </div>
             @endif
+            @if($errors->any())
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li><h4>{{ $error }}</h4></li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="card-body">
                 <div class="row">                    
                     <div class="col-lg-12">
@@ -33,6 +42,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Lab #</th>
                                     <th>OPD #</th>
                                     <th>Depart.</th>
                                     <th>Patient's Name</th>
@@ -48,6 +58,7 @@
                                 @forelse ($labs as $key => $lab)
                                     <tr>
                                         <td>{{ ++$key }}</td>
+                                        <td>{{ $lab->lab_number }}</td>
                                         <td>{{ $lab->opd_number }}</td>
                                         <td>{{ $lab->department }}</td>
                                         <td>{{ $lab->patient->name ?? 'Unknown' }}</td>
@@ -58,22 +69,26 @@
                                         <td>{{ getUsername($lab->updated_by) }}</td>
                                         <td>
                                         <div class="btn-group">
-                                            @if ($title === 'Check Payemts')
-                                                @if ($lab->status === 1)
-                                                    <a class="btn btn-primary" href="javascript:void(0)" onclick="getPayment({{ $lab->req_id }})" title="Edit"><i class="fa fa-edit"></i></a> 
-                                                @else
-                                                    <a class="btn btn-secondary" href="enter-test/{{ $lab->req_id }}" title="Enter Results"><i class="fa fa-sign-in"></i></a>   
-                                                @endif
-                                                
-                                                @if (Session::get('user')['user_level'] === 'Admin' && $lab->status === 1)
+                                            @if ($lab->status >= 1)
+                                                <a class="btn btn-secondary" href="enter-test/{{ $lab->req_id }}" title="Enter Results"><i class="fa fa-sign-in"></i></a>   
+
+                                                {{-- @if (Session::get('user')['user_level'] === 'Admin')
                                                     @if ($lab->report === 1)
                                                         <a class="btn btn-info" href="results" title="Results"><i class="fa fa-file"></i></a>  
                                                     @else
                                                         <a class="btn btn-secondary" href="enter-test/{{ $lab->req_id }}" title="Enter Results"><i class="fa fa-sign-in"></i></a> 
                                                     @endif 
-                                                @endif
+                                                @endif --}}
                                             @else
                                                 <a class="btn btn-primary" href="javascript:void(0)" onclick="getEdit({{ $lab->req_id }})" title="Edit"><i class="fa fa-pencil"></i></a> 
+                                                
+                                                {{-- @if (Session::get('user')['user_level'] === 'Admin')
+                                                    @if ($lab->report === 1)
+                                                        <a class="btn btn-info" href="results" title="Results"><i class="fa fa-file"></i></a>  
+                                                    @else
+                                                        <a class="btn btn-secondary" href="enter-test/{{ $lab->req_id }}" title="Enter Results"><i class="fa fa-sign-in"></i></a> 
+                                                    @endif 
+                                                @endif --}}
                                             @endif
                                             
                                         </div>

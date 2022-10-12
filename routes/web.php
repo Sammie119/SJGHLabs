@@ -52,9 +52,9 @@ Route::middleware(['protectedPages'])->group(function () {
     Route::get('delete-labs/{id}', [EnterTestController::class, 'destroy']);
     Route::get('archive-labs', [EnterTestController::class, 'archiveLabsResults'])->name('archive-labs');
     Route::get('registration', [EnterTestController::class, 'docRequestLabs'])->name('registration');
-    Route::get('payment', [EnterTestController::class, 'checkLabsPayment'])->name('payment');
+    // Route::get('payment', [EnterTestController::class, 'checkLabsPayment'])->name('payment');
     Route::post('approve-request', [EnterTestController::class, 'approveLabsRequest']);
-    Route::post('approve-payment', [EnterTestController::class, 'approvePayment']);
+    // Route::post('approve-payment', [EnterTestController::class, 'approvePayment']);
 
 
 

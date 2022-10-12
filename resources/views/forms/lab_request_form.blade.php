@@ -56,6 +56,18 @@
         </div>
      </div>
 
+     <hr>
+
+     <div class="row mt-2">
+        <div class="col-6">
+            <label for="recipient-name" class="control-label">Clinical Summary</label>
+        </div>
+        <div class="col-md-12">
+            <textarea name="clinical_summary" id="" rows="2" required>@if (isset($data)) {{ $data->clinical_summary }} @endif</textarea>
+        </div>
+    </div>
+
+    <hr>
       {{-- <ul class="nav nav-tabs"> --}}
         <div class="form-group">
           <div class="row">

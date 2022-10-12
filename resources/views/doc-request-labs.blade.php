@@ -27,6 +27,17 @@
                     <h4>{{ Session::get('error') }}</h4>
                 </div>
             @endif
+
+            @if($errors->any())
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li><h4>{{ $error }}</h4></li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="card-body">
                 <div class="row">                    
                     <div class="col-lg-12">

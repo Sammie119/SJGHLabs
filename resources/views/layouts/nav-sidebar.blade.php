@@ -292,7 +292,7 @@ body::-webkit-scrollbar-thumb:hover {
         <ul style="margin-bottom: 0px"> 
             <li><a href="{{ route('dashboard') }}" style="text-decoration: none;"><i class="fa fa-dashboard"></i>Dashboard</a></li>
             <li><a href="{{ route('registration') }}" style="text-decoration: none;"><i class="fa fa-book"></i>Registration</a></li>
-            <li><a href="{{ route('payment') }}" style="text-decoration: none;"><i class="fa fa-money"></i>Check Payments</a></li>
+            {{-- <li><a href="{{ route('payment') }}" style="text-decoration: none;"><i class="fa fa-money"></i>Check Payments</a></li> --}}
             {{-- <li><a href="{{ route('enter-test') }}" style="text-decoration: none;"><i class="fa fa-tasks"></i>Enter Report</a></li> --}}
             <li><a href="{{ route('results') }}" style="text-decoration: none;"><i class="fa fa-database"></i>Results</a></li>
         </ul>
