@@ -1,44 +1,84 @@
-update users set password = '$2y$10$D5Q/.iogSbgIDxEP8vvnHec/3vj/tGGrqSICKK2sNsMZNmu9srYua'
 
-12345678
+CREATE TABLE public.hiv_report
+(
+    id bigint NOT NULL,
+    first_resp character varying(50),
+    ora_quick character varying(50),
+    sd_bioline character varying(50),
+    hiv_final character varying(50),
+    "resultID" bigint,
+    PRIMARY KEY (id)
+);
 
-update lab_results_infos set lab_number = CONCAT('M',lab_number) 
-where lab_number NOT LIKE 'M%' 
-AND lab_number NOT LIKE 'R%'
+ALTER TABLE IF EXISTS public.hiv_report
+    OWNER to postgres;
 
--- In postgre
+-- SEQUENCE: public.hiv_report_hiv_report_id_seq
 
--- update lab_results_peri_films set per_rbc = null where per_rbc = 'NULL';
+-- DROP SEQUENCE IF EXISTS public.hiv_report_hiv_report_id_seq;
 
--- update lab_results_peri_films set per_wbc = null where per_wbc = 'NULL';
-
--- update lab_results_peri_films set per_plt = null where per_plt = 'NULL';
-
--- update lab_results_peri_films set per_imp = null where per_imp = 'NULL';
-
-After exporting, data from results_per_semen, edit in text editor to clear all NULL values
-
--- In mySql
-
-Add additional column to results_graph table, column name = 'pID' int(2); then run this query,
-    ALTER TABLE `result_graph` ADD `pID` TINYINT NOT NULL AFTER `time_mins`;
-    update result_graph set `pID` = 1 WHERE `time_mins` = 0;
-    update result_graph set `pID` = 2 WHERE `time_mins` = 60;
-    update result_graph set `pID` = 3 WHERE `time_mins` = 90;
-    update result_graph set `pID` = 4 WHERE `time_mins` = 120;
+CREATE SEQUENCE public.hiv_report_hiv_report_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1
+    OWNED BY hiv_report.id;
 
 
--- In postgres
-add donorID (integer) to blood_donors
+-- add after creating
+nextval('hiv_report_hiv_report_id_seq'::regclass)
 
-add user_id (integer) and donor_id (integer) to blood_bank_labs 
+-- run script........
+UPDATE
+    labs_haematology_episodes
+SET
+    first_resp=hiv_report.first_resp, ora_quick=hiv_report.ora_quick, sd_bioline=hiv_report.sd_bioline, hiv_final=hiv_report.hiv_final
+FROM hiv_report
+WHERE labs_haematology_episodes.haema_id = hiv_report.id;
 
-add resultID (integer) to labs_chemistries_episodes
 
-add resultID (integer) to labs_haematology_episodes
+CREATE TABLE public.lab_blood
+(
+    id bigint NOT NULL,
+    donor_id integer,
+    cal_date timestamp(0) without time zone,
+    PRIMARY KEY (id)
+);
 
-add resultID (integer) to labs_micro_biology_episodes
+ALTER TABLE IF EXISTS public.lab_blood
+    OWNER to postgres;
+
+-- SEQUENCE: public.lab_blood_lab_blood_id_seq
+
+-- DROP SEQUENCE IF EXISTS public.lab_blood_lab_blood_id_seq;
+
+CREATE SEQUENCE public.lab_blood_lab_blood_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1
+    OWNED BY lab_blood.id;
 
 
+-- add after creating
+nextval('lab_blood_lab_blood_id_seq'::regclass)
+
+
+-- run script........
+UPDATE
+    lab_results_infos
+SET
+    created_at=cal_date, updated_at=cal_date
+FROM lab_blood
+WHERE cast(substring(lab_results_infos.lab_number, 2, length(lab_results_infos.lab_number)) as integer) = lab_blood.donor_id
+AND lab_results_infos.department_id = 0;
+
+
+
+-- drop
+hiv_report
+lab_blood
 
 

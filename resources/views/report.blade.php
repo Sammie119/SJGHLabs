@@ -30,7 +30,7 @@
                                     <option value="haematology">Haematology</option>
                                     <option value="micro">Microbiology</option>
                                     <option value="hiv">HIV</option>
-                                    <option value="blood">Chemistries</option>
+                                    <option value="chemistries">Chemistries</option>
                                     <option value="attendance">Attendance and Donor's Labs</option>
                                 </select>
                             </div>
