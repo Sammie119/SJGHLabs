@@ -546,29 +546,29 @@ $("input[type='text'].mov-1").bind('input', function() {
                 }
             }
 
-            if((document.myform.wbc.value == "") && (document.getElementById('macro').value == "") && (document.myform.appear.value == "") && (document.myform.hb_sag.value == "") && (document.myform.per_rbc.value == "") && (document.myform.semen_date.value == "") && (document.myform.oral_glucose.value == "") && (document.myform.liver_protein.value == "") && (document.myform.renal_urea.value == "") && (document.myform.lipid_total.value == "") && (document.myform.electro_potas.value == "") && (document.myform.serum_total.value == "") && (document.myform.vaginal_epith.value == "") && (document.myform.pleural_appear.value == "") && (document.myform.peritoneal_appear.value == "") && (document.myform.csf_appear.value == "") && (document.myform.bacter_specimen.value == "") && (document.myform.first_resp.value == "") && (document.myform.ora_quick.value == "") && (document.myform.indirect.value == "") && (document.myform.direct.value == "") && (document.myform.pylori_qual.value == "") && (document.myform.uric_acid.value == "") && (document.myform.glycated_hba1c.value == "")){
-               if ((document.myform.anti_tpha.value == "")&&(document.myform.hbs_ag.value == "")) {
+            // if((document.myform.wbc.value == "") && (document.getElementById('macro').value == "") && (document.myform.appear.value == "") && (document.myform.hb_sag.value == "") && (document.myform.per_rbc.value == "") && (document.myform.semen_date.value == "") && (document.myform.oral_glucose.value == "") && (document.myform.liver_protein.value == "") && (document.myform.renal_urea.value == "") && (document.myform.lipid_total.value == "") && (document.myform.electro_potas.value == "") && (document.myform.serum_total.value == "") && (document.myform.vaginal_epith.value == "") && (document.myform.pleural_appear.value == "") && (document.myform.peritoneal_appear.value == "") && (document.myform.csf_appear.value == "") && (document.myform.bacter_specimen.value == "") && (document.myform.first_resp.value == "") && (document.myform.ora_quick.value == "") && (document.myform.indirect.value == "") && (document.myform.direct.value == "") && (document.myform.pylori_qual.value == "") && (document.myform.uric_acid.value == "") && (document.myform.glycated_hba1c.value == "")){
+            //    if ((document.myform.anti_tpha.value == "")&&(document.myform.hbs_ag.value == "")) {
 
-                    if ((document.myform.hcv.value == "")&&(document.myform.fbs_rbs.value == "")) {
+            //         if ((document.myform.hcv.value == "")&&(document.myform.fbs_rbs.value == "")) {
 
-                        if ((document.myform.blood.value == "")&&(document.myform.g6pd.value == "")) {
+            //             if ((document.myform.blood.value == "")&&(document.myform.g6pd.value == "")) {
                             
-                            if ((document.myform.urine_hcg.value == "")&&(document.myform.bf.value == "")) {
+            //                 if ((document.myform.urine_hcg.value == "")&&(document.myform.bf.value == "")) {
                             
-                                if ((document.myform.esr.value == "")&&(document.myform.sickling.value == "")) {
+            //                     if ((document.myform.esr.value == "")&&(document.myform.sickling.value == "")) {
                             
-                                    if ((document.myform.widal_o.value == "")&&(document.myform.comment.value == "")) {
-                                        if(document.myform.rdt_pf.value == ""){
-                                            alert('No Test is Entered, Please Enter a test Result!!!!!');
-                                            return false;
-                                        }
-                                    }
-                                }  
-                            }
-                        }
-                    }
-                }
-            }
+            //                         if ((document.myform.widal_o.value == "")&&(document.myform.comment.value == "")) {
+            //                             if(document.myform.rdt_pf.value == ""){
+            //                                 alert('No Test is Entered, Please Enter a test Result!!!!!');
+            //                                 return false;
+            //                             }
+            //                         }
+            //                     }  
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
 
             return confirm('This Result(s) will be Saved into a Database?');
              
