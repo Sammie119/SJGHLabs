@@ -528,7 +528,10 @@ class EnterTestController extends Controller
       $micro = VWMicroBiologyLab::where('lab_info_id', $id)->first();
       $chem = VWChemistriesLab::where('lab_info_id', $id)->first();
 
-      $data = MedicalRequest::where('lab_info_id', $id)->first();
+      // $data = MedicalRequest::where('lab_info_id', 1)->first();
+      $data = MedicalRequest::where('req_id', 1)->first();
+
+      // dd($data);
       
       if($data){
         return view('edit-test', compact('haema', 'micro', 'chem', 'data'));

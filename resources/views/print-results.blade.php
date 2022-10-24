@@ -2950,7 +2950,7 @@ $time_mins = [0, 0, 0, 0];
 			</script>
 		</div>
 		<div class="receipt" id="sig"><b>SIGN:</b> {{ $haema->user->name }} </div>
-		<i id="info" style="padding-top: 10px;">For Information Contact: 0244018313/0243986764</i>
+		<i id="info" style="padding-top: 10px;">For Information Contact: 0244018313</i>
 	</div>
 
 	<div id="myheader_opd">OPD Number: {{ $haema->opd_number }}</div>
