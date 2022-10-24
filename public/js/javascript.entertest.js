@@ -622,48 +622,48 @@ $("input[type='text'].mov-1").bind('input', function() {
 
 
 //Get patient name..........................................
-        // $('#opd_no').bind('change',function(){ 
-        //     var opd_no = $(this).val();
-        //     var pathArray = window.location.pathname.split('/');
-        //     var url = pathArray[1];
+        $('#opd_no').bind('change',function(){ 
+            var opd_no = $(this).val();
+            var pathArray = window.location.pathname.split('/');
+            var url = pathArray[1];
 
-        //     $.ajax({
-        //         type:'POST',
-        //         url:"/"+url+"/getname",
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         data: {
-        //             opd_no
-        //             },
-        //         success:function(data) {
-        //         $("#name").val(data.name);
-        //         $("#age").val(data.age);
-        //         }
-        //     });
-        // });
+            $.ajax({
+                type:'POST',
+                url:"/"+url+"/getname",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    opd_no
+                    },
+                success:function(data) {
+                $("#name").val(data.name);
+                $("#age").val(data.age);
+                }
+            });
+        });
 
 
-        // $('#opd_no').bind('keyup',function(){   
-        //     var opd_no = $(this).val();
-        //     var pathArray = window.location.pathname.split('/');
-        //     var url = pathArray[1];
+        $('#opd_no').bind('keyup',function(){   
+            var opd_no = $(this).val();
+            var pathArray = window.location.pathname.split('/');
+            var url = pathArray[1];
 
-        //     $.ajax({
-        //         type:'POST',
-        //         url:"/"+url+"/getname",
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         data: {
-        //             opd_no
-        //             },
-        //         success:function(data) {
-        //         $("#name").val(data.name);
-        //         $("#age").val(data.age);
-        //         }
-        //     });
-        // });
+            $.ajax({
+                type:'POST',
+                url:"/"+url+"/getname",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    opd_no
+                    },
+                success:function(data) {
+                $("#name").val(data.name);
+                $("#age").val(data.age);
+                }
+            });
+        });
 
 
 //Check if the patient is registered already not.........................
@@ -1061,48 +1061,48 @@ $("input[type='text'].mov-1").bind('input', function() {
     });
 
 //Getting the Lab number checked to avoid repeatition................
-        // $('#lab_no').bind('change',function(){   
-        //     var lab_no = $(this).val();
-        //     var pathArray = window.location.pathname.split('/');
-        //     var url = pathArray[1];
+        $('#lab_no').bind('change',function(){   
+            var lab_no = $(this).val();
+            var pathArray = window.location.pathname.split('/');
+            var url = pathArray[1];
             
-        //     $.ajax({
-        //         type:'POST',
-        //         url:"/"+url+"/getlab-number-check",
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         data: {
-        //             lab_no
-        //             },
-        //         success:function(data) {
-        //             $("#lab_no").empty();
-        //             $("#lab_no").html(data);
-        //         }
-        //     });
-        // });
+            $.ajax({
+                type:'POST',
+                url:"/"+url+"/getlab-number-check",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    lab_no
+                    },
+                success:function(data) {
+                    $("#lab_no").empty();
+                    $("#lab_no").html(data);
+                }
+            });
+        });
 
 //Getting the Display Other Info................
-        // $('#opd_no').bind('change',function(){   
-        //     var opd_no = $(this).val();
-        //     var pathArray = window.location.pathname.split('/');
-        //     var url = pathArray[1];
+        $('#opd_no').bind('change',function(){   
+            var opd_no = $(this).val();
+            var pathArray = window.location.pathname.split('/');
+            var url = pathArray[1];
         
-        //     $.ajax({
-        //         type:'POST',
-        //         url:"/"+url+"/get-patient-info",
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         data: {
-        //             opd_no
-        //             },
-        //         success:function(data) {
-        //             $("#disInfo").empty();
-        //             $("#disInfo").html(data);
-        //         }
-        //     });
-        // }); 
+            $.ajax({
+                type:'POST',
+                url:"/"+url+"/get-patient-info",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    opd_no
+                    },
+                success:function(data) {
+                    $("#disInfo").empty();
+                    $("#disInfo").html(data);
+                }
+            });
+        }); 
 
         $(document).ready(function(){   
             var opd_no = $('#opd_no').val();

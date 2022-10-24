@@ -35,7 +35,7 @@
         @endforeach
     @endif                
 </table>
- {{--<br>
+ <br>
 <br>
 
 <table>
@@ -75,4 +75,4 @@
         @endforeach
     @endif
 
-</table> --}}
+</table>

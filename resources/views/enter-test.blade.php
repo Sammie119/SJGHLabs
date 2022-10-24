@@ -42,7 +42,8 @@
             @endif
             <form action="{{ route('store-labs') }}" method="POST" autocomplete="off" id="test_form" name="myform" onsubmit = "return validateForm()">
                 @csrf
-              <input type="hidden" name="id" value="{{ $data->req_id }}">
+              {{-- <input type="hidden" name="id" value="{{ $data->req_id }}"> --}}
+              <input type="hidden" name="id" value="{{ 1 }}">
               <div class="card-body">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
@@ -140,7 +141,8 @@
                     <div class="col-md-6">
                         <div class="form-group"> 
                         <label for="lab_no">Lab Number</label> 
-                        <input type="text" name="lab_no" id="lab_no" value="{{ (Session::get('user')['department'] == 'Main Lab') ? 'M'.$lab_no : 'R'.$lab_no }}" class = "form-control" maxlength="10" readonly>
+                        {{-- <input type="text" name="lab_no" id="lab_no" value="{{ (Session::get('user')['department'] == 'Main Lab') ? 'M'.$lab_no : 'R'.$lab_no }}" class = "form-control" maxlength="10" readonly> --}}
+                        <input type="text" name="lab_no" id="lab_no" class = "form-control" maxlength="10" required>
                         </div>
                     </div>
                 </div>
@@ -149,8 +151,11 @@
                         <div class="form-group"> 
                         <label for="depart">Department</label> 
                         <select name="department" id="depart" class="form-control" required >
+                            <option value="" disabled selected></option>
                             @foreach ($query['department'] as $depart)
-                            <option @if ($data->department === $depart['dropdown']) selected @endif value="{{ $depart['dropdown_id'] }}">{{ $depart['dropdown'] }}</option>
+                            {{-- <option @if ($data->department === $depart['dropdown']) selected @endif value="{{ $depart['dropdown_id'] }}">{{ $depart['dropdown'] }}</option> --}}
+                            <option value="{{ $depart['dropdown_id'] }}">{{ $depart['dropdown'] }}</option>
+
                             @endforeach
                         </select>
                         </div>
@@ -158,15 +163,18 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-6">
-                        <div class="form-group"> <label for="opd_no">OPD Number</label> <input type="text" name="opd_no" id="opd_no" value="{{ $data->opd_number }}" class = "form-control" maxlength="10" readonly ></div>
+                        {{-- <div class="form-group"> <label for="opd_no">OPD Number</label> <input type="text" name="opd_no" id="opd_no" value="{{ $data->opd_number }}" class = "form-control" maxlength="10" readonly ></div> --}}
+                        <div class="form-group"> <label for="opd_no">OPD Number</label> <input type="text" name="opd_no" id="opd_no" class = "form-control" maxlength="10" required ></div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-5">
-                        <div><label for="name">Patient's Name</label><input type="text" class="form-control" value="{{ $data->patient->name }}" id="name" name="name" readonly> </div>
+                        {{-- <div><label for="name">Patient's Name</label><input type="text" class="form-control" value="{{ $data->patient->name }}" id="name" name="name" readonly> </div> --}}
+                        <div><label for="name">Patient's Name</label><input type="text" class="form-control" id="name" name="name" readonly> </div>
                     </div>
                     <div class="col-md-1">
-                    <div> <label for="age">Age</label> <input type="text" class="form-control" id="age" value="{{ $data->patient->age }}" name="age" readonly > </div>
+                    {{-- <div> <label for="age">Age</label> <input type="text" class="form-control" id="age" value="{{ $data->patient->age }}" name="age" readonly > </div> --}}
+                    <div> <label for="age">Age</label> <input type="text" class="form-control" id="age" name="age" readonly > </div>
                 </div>
                 </div>
                 <div class="row justify-content-center">

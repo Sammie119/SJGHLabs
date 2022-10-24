@@ -44,7 +44,8 @@ Route::middleware(['protectedPages'])->group(function () {
 
     //Enter Test Routes
     Route::get('results', [EnterTestController::class, 'index'])->name('results');
-    Route::get('enter-test/{id}', [EnterTestController::class, 'create']);
+    // Route::get('enter-test/{id}', [EnterTestController::class, 'create']);
+    Route::get('enter-test', [EnterTestController::class, 'create'])->name('enter-test');
     Route::post('store-labs', [EnterTestController::class, 'store'])->name('store-labs');
     Route::get('print-results/{id}', [EnterTestController::class, 'getResults']);
     Route::get('edit-test/{id}', [EnterTestController::class, 'edit']);

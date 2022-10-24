@@ -53,10 +53,10 @@ class ReportController extends Controller
                                     ->where('sd_bioline', 'Positive')->get(),
                     'hiv_final_pos' => VWHaematologyLab::whereRaw("CONCAT(EXTRACT(YEAR FROM updated_at ),EXTRACT(MONTH FROM updated_at )) = '$year_month'")
                                     ->where('hiv_final', 'Positive')->get(),
-                    // 'sd_bioline_neg' => VWHaematologyLab::whereRaw("CONCAT(EXTRACT(YEAR FROM updated_at ),EXTRACT(MONTH FROM updated_at )) = '$year_month'")
-                    //                 ->where('sd_bioline', 'Negative')->get(),
-                    // 'hiv_final_neg' => VWHaematologyLab::whereRaw("CONCAT(EXTRACT(YEAR FROM updated_at ),EXTRACT(MONTH FROM updated_at )) = '$year_month'")
-                    //                 ->where('hiv_final', 'Negative')->get()
+                    'sd_bioline_neg' => VWHaematologyLab::whereRaw("CONCAT(EXTRACT(YEAR FROM updated_at ),EXTRACT(MONTH FROM updated_at )) = '$year_month'")
+                                    ->where('sd_bioline', 'Negative')->get(),
+                    'hiv_final_neg' => VWHaematologyLab::whereRaw("CONCAT(EXTRACT(YEAR FROM updated_at ),EXTRACT(MONTH FROM updated_at )) = '$year_month'")
+                                    ->where('hiv_final', 'Negative')->get()
                 ];
     
                 // dd($query);

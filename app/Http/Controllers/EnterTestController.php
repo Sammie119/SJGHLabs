@@ -98,7 +98,8 @@ class EnterTestController extends Controller
         $lab_no = 'R%';
       }
 
-      $results = VWHaematologyLab::where('lab_number', 'LIKE', $lab_no)->orderBy('lab_info_id', 'DESC')->with('user')->limit(1000)->get();
+      $results = VWHaematologyLab:://where('lab_number', 'LIKE', $lab_no)->
+      orderBy('lab_info_id', 'DESC')->with('user')->limit(1000)->get();
       
       return view('results', compact('results'));
     }
@@ -109,13 +110,14 @@ class EnterTestController extends Controller
       return view('archive-labs', compact('results'));
     }
 
-    public function create($id)
+    public function create($id = 1)
     { 
       // $year = date('Y');
       $data = MedicalRequest::find($id);
       // $lab_no = LabResultsInfo::whereRaw("to_char(DATE(created_at), 'YYYY') = '$year'")->count() + 1;
-  
+
       return view('enter-test', ['data' => $data, 'lab_no' => $data->lab_number]);
+
     }
 
     public function getResults($id)
@@ -149,9 +151,9 @@ class EnterTestController extends Controller
     //Lab Results Info.......................................    
 
         if(Session::get('user')['department'] == 'Main Lab'){
-            $lab_no = $request->lab_no; //'M'.$request->lab_no;
+            $lab_no = 'M'.$request->lab_no; //$request->lab_no;
           }else{
-            $lab_no = $request->lab_no; //'R'.$request->lab_no;
+            $lab_no = 'R'.$request->lab_no; //$request->lab_no;
           }
 
         $patient_id = Patient::where('opd_number', $request->opd_no)->first();
@@ -512,7 +514,7 @@ class EnterTestController extends Controller
 
         return "<script>
           window.open('print-results/$lab_info->lab_info_id','','left=0,top=0,width=1000,height=600,toolbar=0,scrollbars=0,status=0');
-          window.location = 'registration';
+          window.location = 'enter-test';
           </script>";
 
 
