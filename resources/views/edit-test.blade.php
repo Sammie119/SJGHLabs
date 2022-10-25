@@ -159,15 +159,15 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-6">
-                        <div class="form-group"> <label for="opd_no">OPD Number</label> <input type="text" name="opd_no" id="opd_no" value="{{ $data->opd_number }}" class = "form-control" maxlength="10" readonly ></div>
+                        <div class="form-group"> <label for="opd_no">OPD Number</label> <input type="text" name="opd_no" id="opd_no" value="{{ $haema->opd_number }}" class = "form-control" maxlength="10" readonly ></div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-5">
-                        <div><label for="name">Patient's Name</label><input type="text" class="form-control" value="{{ $data->patient->name }}" id="name" name="name" readonly> </div>
+                        <div><label for="name">Patient's Name</label><input type="text" class="form-control" value="{{ $haema->name }}" id="name" name="name" readonly> </div>
                     </div>
                     <div class="col-md-1">
-                    <div> <label for="age">Age</label> <input type="text" class="form-control" id="age" value="{{ $data->patient->age }}" name="age" readonly > </div>
+                    <div> <label for="age">Age</label> <input type="text" class="form-control" id="age" value="{{ $haema->age }}" name="age" readonly > </div>
                 </div>
                 </div>
                 <div class="row justify-content-center">
