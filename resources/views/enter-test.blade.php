@@ -2,6 +2,16 @@
     use App\Http\Controllers\GetdataController;
 
     $query = GetdataController::selectOptions();
+
+    $receipt_nos = App\Models\MedicalRequest::select('receipt_no')->where('receipt_no', '!=', null)->get();
+
+    $receipt_array = [];
+
+    foreach ($receipt_nos as $receipt_no) {
+        $receipt_array[] = $receipt_no->receipt_no;
+    }
+
+    // dd($receipt_array)
 ?>
 
 @extends('layouts.app')
@@ -168,14 +178,19 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="form-group"> <label for="opd_no">Receipt Number</label> <input type="text" name="receipt_no" id="receipt_no" class = "form-control" maxlength="14" ></div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
                     <div class="col-md-5">
                         {{-- <div><label for="name">Patient's Name</label><input type="text" class="form-control" value="{{ $data->patient->name }}" id="name" name="name" readonly> </div> --}}
                         <div><label for="name">Patient's Name</label><input type="text" class="form-control" id="name" name="name" readonly> </div>
                     </div>
                     <div class="col-md-1">
-                    {{-- <div> <label for="age">Age</label> <input type="text" class="form-control" id="age" value="{{ $data->patient->age }}" name="age" readonly > </div> --}}
-                    <div> <label for="age">Age</label> <input type="text" class="form-control" id="age" name="age" readonly > </div>
-                </div>
+                        {{-- <div> <label for="age">Age</label> <input type="text" class="form-control" id="age" value="{{ $data->patient->age }}" name="age" readonly > </div> --}}
+                        <div> <label for="age">Age</label> <input type="text" class="form-control" id="age" name="age" readonly > </div>
+                    </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-6">
@@ -1487,6 +1502,15 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <div class="form-group"> <label for="lipid_hdl">VLDL-Cholesterol(VLDL-C)(mmol/l)</label> 
+                            <input type="text" id="lipid_vldl" name="lipid_vldl" maxlength="6" class="form-control"> </div>
+                    </div>
+                    <div class="col-md-4">
+                        
+                    </div>
+                </div>
+                <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="form-group"> <label for="lipid_comment">COMMENTS</label> 
                             <textarea class="form-control rounded-0" name="lipid_comment" id="lipid_comment" form="test_form" rows="3"></textarea></div>
@@ -2343,4 +2367,23 @@
 
     
 <script src="{{ asset('public/js/javascript.entertest.js') }}"></script>
+
+<script>
+    $('#receipt_no').bind('change',function(){ 
+        const receipt = $(this).val();
+        const receipt_array = <?=json_encode($receipt_array) ?>;
+
+        if(receipt.length < 14){
+            alert('Receipt Number Should not be less than 14 Characters!!!!');
+            $('#receipt_no').val('');
+            $('#receipt_no').focus();
+
+        }else if(receipt_array.includes(receipt)){
+            alert('Receipt Number Already Exist!!!!');
+            $('#receipt_no').val('');
+            $('#receipt_no').focus();
+        }
+        // console.info(receipt_array);
+    });
+</script>
 @endsection

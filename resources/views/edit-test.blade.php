@@ -2,6 +2,9 @@
     use App\Http\Controllers\GetdataController;
 
     $query = GetdataController::selectOptions();
+
+    $receipt_no = App\Models\MedicalRequest::select('receipt_no')->where('lab_number', substr($haema->lab_number, 1))->first()->receipt_no ?? 0;
+    // dd($receipt_no);
 ?>
 
 @extends('layouts.app')
@@ -167,8 +170,13 @@
                         <div><label for="name">Patient's Name</label><input type="text" class="form-control" value="{{ $haema->name }}" id="name" name="name" readonly> </div>
                     </div>
                     <div class="col-md-1">
-                    <div> <label for="age">Age</label> <input type="text" class="form-control" id="age" value="{{ $haema->age }}" name="age" readonly > </div>
+                        <div> <label for="age">Age</label> <input type="text" class="form-control" id="age" value="{{ $haema->age }}" name="age" readonly > </div>
+                    </div>
                 </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 mt-2">
+                        <div class="form-group"> <label for="opd_no">Receipt Number</label> <input type="text" value="{{ $receipt_no }}" name="receipt_no" id="receipt_no" class = "form-control" maxlength="14" readonly ></div>
+                    </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-6">
@@ -1549,6 +1557,15 @@
                     <div class="col-md-4">
                         <div class="form-group"> <label for="lipid_ldl">LDL-Cholesterol (LDL-C)(mmol/l)</label> 
                             <input type="text" id="lipid_ldl" value="{{ $chem->lipid_ldl }}" name="lipid_ldl" maxlength="6" class="form-control"> </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <div class="form-group"> <label for="lipid_hdl">VLDL-Cholesterol(VLDL-C)(mmol/l)</label> 
+                            <input type="text" id="lipid_vldl" name="lipid_vldl" value="{{ $chem->lipid_vldl }}" maxlength="6" class="form-control"> </div>
+                    </div>
+                    <div class="col-md-4">
+                        
                     </div>
                 </div>
                 <div class="row justify-content-center">

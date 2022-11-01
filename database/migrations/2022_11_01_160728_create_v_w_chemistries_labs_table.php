@@ -14,6 +14,8 @@ class CreateVWChemistriesLabsTable extends Migration
      */
     public function up()
     {
+        DB::unprepared('DROP VIEW v_w_chemistries_labs');
+        
         DB::unprepared('CREATE OR REPLACE VIEW v_w_chemistries_labs as 
              SELECT lab_results_infos.lab_info_id,
                     lab_results_infos.patient_id,
@@ -42,6 +44,7 @@ class CreateVWChemistriesLabsTable extends Migration
                     lipid_trigly,
                     lipid_hdl,
                     lipid_ldl,
+                    lipid_vldl,
                     lipid_comment,
                     electro_potas,
                     electro_sodium,
@@ -90,6 +93,6 @@ class CreateVWChemistriesLabsTable extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP VIEW IF EXISTS v_w_chemostries_labs');
+        DB::unprepared('DROP VIEW IF EXISTS v_w_chemistries_labs');
     }
 }

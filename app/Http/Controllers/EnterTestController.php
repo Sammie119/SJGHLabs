@@ -359,7 +359,8 @@ class EnterTestController extends Controller
           $chemistry->lipid_total = $request['lipid_total'];
           $chemistry->lipid_trigly = $request['lipid_trigly'];
           $chemistry->lipid_hdl = $request['lipid_hdl'];
-          $chemistry->lipid_ldl = $request['lipid_ldl'];
+          $chemistry->lipid_ldl = $request['lipid_ldl'];  
+          $chemistry->lipid_vldl = $request['lipid_vldl'];
           $chemistry->lipid_comment = $request['lipid_comment'];
 
         //Electrolytes Lab Results...........................................
@@ -509,6 +510,9 @@ class EnterTestController extends Controller
           $req->report = 1;
           $req->lab_info_id = $lab_info->lab_info_id;
           $req->update();
+
+          // Saving receipt Number
+          $this->saveLabReceipt($lab_info->lab_info_id, $request->opd_no, $request->receipt_no, $request->lab_no);
 
         Session::flash('success', 'Lab Results Saved Successfully!!');
 
@@ -766,6 +770,7 @@ class EnterTestController extends Controller
           $chemistry->lipid_trigly = $request['lipid_trigly'];
           $chemistry->lipid_hdl = $request['lipid_hdl'];
           $chemistry->lipid_ldl = $request['lipid_ldl'];
+          $chemistry->lipid_vldl = $request['lipid_vldl'];
           $chemistry->lipid_comment = $request['lipid_comment'];
 
         //Electrolytes Lab Results...........................................

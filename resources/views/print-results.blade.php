@@ -1156,6 +1156,16 @@ if($haema->mch < 27.0){
 		$lipid4 = '';
 	}
 
+	if($chem->lipid_vldl < 0.4){
+		$lipid5 = '<i class="fa fa-arrow-down"></i>';
+	}
+	elseif ($chem->lipid_vldl > 1.1) {
+		$lipid5 = '<i class="fa fa-arrow-up"></i>';
+	}
+	else {
+		$lipid5 = '';
+	}
+
 	if($chem->uric_acid < 0.12){
 		$uric = '<i class="fa fa-arrow-down"></i>';
 	}
@@ -2274,6 +2284,14 @@ $time_mins = [0, 0, 0, 0];
 					<td><?php echo $lipid4;?></td>
 					<td>mmol/l</td>
 					<td>0 - 3.1</td>
+				</tr>
+				<tr>
+					<td>VLDL-CHOLESTEROL</td>
+					<td>VLDL-C</td>
+					<td>{{ $chem->lipid_vldl }}</td>
+					<td><?php echo $lipid5;?></td>
+					<td>mmol/l</td>
+					<td>0.4 - 1.1</td>
 				</tr>
 				<tr>
 					<td>COMMENT</td>
