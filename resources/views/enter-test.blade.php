@@ -179,7 +179,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-6">
-                        <div class="form-group"> <label for="opd_no">Receipt Number</label> <input type="text" name="receipt_no" id="receipt_no" class = "form-control" maxlength="14" ></div>
+                        <div class="form-group"> <label for="opd_no">Receipt Number</label> <input type="text" name="receipt_no" id="receipt_no" class = "form-control" maxlength="13" ></div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -2373,8 +2373,8 @@
         const receipt = $(this).val();
         const receipt_array = <?=json_encode($receipt_array) ?>;
 
-        if(receipt.length < 14){
-            alert('Receipt Number Should not be less than 14 Characters!!!!');
+        if(receipt.length < 13){
+            alert('Receipt Number Should not be less than 13 Characters!!!!');
             $('#receipt_no').val('');
             $('#receipt_no').focus();
 
